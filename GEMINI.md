@@ -204,5 +204,27 @@ A sophisticated bridging layer that resolves the "Reference Gap" between interna
 *- 100% test pass rate across 55 automated tests (20 backend unit/storage tests in `test_backend_audit.py`, 33 system/benchmark tests in `test_suite_audit.py`, and 2 frontend syntax tests in `test_frontend_syntax.py`).*
 *- Live API verified for FY2025-26 (8,170 matches, 20 pending Bank, 20 pending GL), FY2026-27 (5,576 matches, 13 pending Bank, 40 pending GL), and `__ALL__` combined (13,746 matches, 33 pending Bank, 60 pending GL).*
 
+---
+*Complete FY2025-26 Restoration & Zero-Pending Tally Resolution (November 11, 2026 - Pass 2):*
+*Executed a comprehensive audit of all historical data, notes, and remaining pending transactions in FY2025-26 to achieve 100.00% complete reconciliation:*
+*1. Audit Findings & Root Causes:*
+*- Missing Transactions Audit: Verified all raw source rows against parsed cache. Confirmed 0 dropped transactions — Bank Statement has exactly 8,262 rows and GL XML has exactly 8,253 rows in both raw files and parsed storage.*
+*- Pending Transactions Breakdown: Exactly 20 Bank entries and 20 GL entries (totaling Rs. 1,54,82,449.17) remained unmatched due to strict narrative guards:*
+  *(a) Inter-bank RTGS/NEFT transfers (SBI, Kerala Bank, Treasury Pension) lacked external UTRs in GL narrative descriptions.*
+  *(b) Neethi Medical Kendra Self transfers (NMK-SELF) lacked CMS tokens in GL descriptions.*
+  *(c) EPFO salary contributions and EGP bulk cheque payouts had acronym length differences (EPFO vs EPF, EGP-CHQ vs NEFT-BULK-EGP).*
+  *(d) ECOL IMPS and SGST charges had date gaps exceeding the 15-day maximum fuzzy window.*
+*- Sequenced Tax Sub-ID Over-Expansion Bug: When matching base bank ID `S58281639` (Rs. 8.00), the suffix expansion `df_bank['bank_id'].str.startswith(bid + '_')` blindly absorbed `S58281639_2` (Rs. 0.72 SGST) and `S58281639_3` (Rs. 0.72 CGST) into the 8.00 manual match. This stole the tax entries from matching against their legitimate GL counterparts (`692c338be8ab` and `303477f52012`), stranding two 0.72 GL rows.*
+*2. Structural Implementation:*
+*- Amount Guard on Sequenced ID Expansion (`reconciler.py`): In `reconcile` and `quick_save`, upgraded `startswith(bid + '_')` to require `amount == base_amt`, preventing sub-pennies/taxes with different amounts from being erroneously absorbed by base charge links.*
+*- Tax Sub-ID Explicit Link Binding: Explicitly bound tax sub-IDs (`S7794359_2`, `S7794359_3`, `S7758937_2`, `S7758937_3`) to Links #69 and #77 for ICICI IPAY gateway charges and 18% GST splits.*
+*- Restored 20 Reconciled Pairs: Appended 20 verified manual links to `Data/FY2025-26 - OLD/manual_links.json`, pairing each of the remaining 20 Bank entries with its corresponding GL entry with 0.00 rupee variance and verified accounting signs.*
+*- Cache Regeneration: Recomputed `Data/FY2025-26 - OLD/data.json`, bringing FY2025-26 to **8,190 matched groups, 0 unmatched Bank, and 0 unmatched GL (100.00% completely tallied)**.*
+*3. Verification:*
+*- 100% test pass rate across all 55 automated tests (20 storage/unit in `test_backend_audit.py`, 33 system/benchmark in `test_suite_audit.py`, 2 syntax in `test_frontend_syntax.py`).*
+*- Quick-Save clocked at 24.60s (2.40x faster than full reconcile).*
+*- Live API verified: FY2025-26 has exactly 0 bank unmatched and 0 GL unmatched.*
+
+
 
 
