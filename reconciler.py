@@ -1280,8 +1280,11 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
                 for bid in b_ids:
                     expanded_b_ids.append(bid)
                     if '_' not in bid:
-                        matches_seq = df_bank[df_bank['bank_id'].str.startswith(bid + '_')]['bank_id'].tolist()
-                        expanded_b_ids.extend(matches_seq)
+                        base_rows = df_bank[df_bank['bank_id'] == bid]
+                        if not base_rows.empty:
+                            base_amt = base_rows.iloc[0]['amount']
+                            matches_seq = df_bank[(df_bank['bank_id'].str.startswith(bid + '_')) & (df_bank['amount'] == base_amt)]['bank_id'].tolist()
+                            expanded_b_ids.extend(matches_seq)
                 b_ids_expanded = list(set(expanded_b_ids))
                 
                 b_active = df_bank['bank_id'].isin(b_ids_expanded) & ~df_bank['matched']
@@ -2092,8 +2095,11 @@ def quick_save(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFr
                     if bid:
                         expanded_b_ids.append(bid)
                         if '_' not in bid:
-                            matches_seq = df_bank[df_bank['bank_id'].str.startswith(bid + '_')]['bank_id'].tolist()
-                            expanded_b_ids.extend(matches_seq)
+                            base_rows = df_bank[df_bank['bank_id'] == bid]
+                            if not base_rows.empty:
+                                base_amt = base_rows.iloc[0]['amount']
+                                matches_seq = df_bank[(df_bank['bank_id'].str.startswith(bid + '_')) & (df_bank['amount'] == base_amt)]['bank_id'].tolist()
+                                expanded_b_ids.extend(matches_seq)
                 manual_b_ids.update(expanded_b_ids)
                 manual_g_ids.update(link.get('gl_ids', []) or [])
 
@@ -2139,8 +2145,10 @@ def quick_save(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFr
                 if bid:
                     expanded_b_ids.append(bid)
                     if '_' not in bid:
-                        matches_seq = [k for k in bank_dict.keys() if k.startswith(bid + '_')]
-                        expanded_b_ids.extend(matches_seq)
+                        base_amt = bank_dict.get(bid, {}).get('amount')
+                        if base_amt is not None:
+                            matches_seq = [k for k in bank_dict.keys() if k.startswith(bid + '_') and bank_dict[k].get('amount') == base_amt]
+                            expanded_b_ids.extend(matches_seq)
             b_ids = list(set(expanded_b_ids))
             
             b_rows = [bank_dict[bid] for bid in b_ids if bid in bank_dict and bid not in matched_bank_ids_set]

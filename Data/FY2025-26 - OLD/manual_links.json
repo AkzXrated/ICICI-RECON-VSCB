@@ -706,7 +706,9 @@
   {
     "type": "GROUP_MATCH",
     "bank_ids": [
-      "S7794359"
+      "S7794359",
+      "S7794359_2",
+      "S7794359_3"
     ],
     "gl_ids": [
       "2f7abc36b0f1",
@@ -788,7 +790,9 @@
   {
     "type": "GROUP_MATCH",
     "bank_ids": [
-      "S7758937"
+      "S7758937",
+      "S7758937_2",
+      "S7758937_3"
     ],
     "gl_ids": [
       "2ca94cc57332",
@@ -2357,5 +2361,285 @@
       "2d083ee9b46c"
     ],
     "timestamp": "2026-06-01T11:13:47.896962"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S58281639"
+    ],
+    "gl_ids": [
+      "3ab902ae97fa"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S80034362_2"
+    ],
+    "gl_ids": [
+      "c195e4c972d0"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S69985728"
+    ],
+    "gl_ids": [
+      "b161f7cfe0a8"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S84219644"
+    ],
+    "gl_ids": [
+      "997776d3956b"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S76361078"
+    ],
+    "gl_ids": [
+      "e739dd61118d"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S84220144"
+    ],
+    "gl_ids": [
+      "282481542014"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S95194116"
+    ],
+    "gl_ids": [
+      "48f23da55e7f"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S95932907"
+    ],
+    "gl_ids": [
+      "d9b10cd8ebc8"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S74164381"
+    ],
+    "gl_ids": [
+      "b7ee3ff25edf"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S88975131"
+    ],
+    "gl_ids": [
+      "629226cd4dd3"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S87718249"
+    ],
+    "gl_ids": [
+      "c002f6617672"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S85288469"
+    ],
+    "gl_ids": [
+      "60002222624a"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S90276947"
+    ],
+    "gl_ids": [
+      "274aae86737d"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S26963364"
+    ],
+    "gl_ids": [
+      "e746a5afa5c1"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S83761401"
+    ],
+    "gl_ids": [
+      "d7129c36faca"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S37546559"
+    ],
+    "gl_ids": [
+      "b7dac5da70e2"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S17722662"
+    ],
+    "gl_ids": [
+      "13ca75d94aa9"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S71519033"
+    ],
+    "gl_ids": [
+      "e81d5a785091"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S18793804"
+    ],
+    "gl_ids": [
+      "e8932933992e"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S69259114"
+    ],
+    "gl_ids": [
+      "7556bbd65236"
+    ],
+    "timestamp": "2026-11-11T12:40:44.061076",
+    "audit": {
+      "confidence": "RESTORED_MATCH",
+      "reason": "FY2025-26 Full Reconciliation Restoration"
+    }
   }
 ]
