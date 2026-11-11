@@ -1,0 +1,424 @@
+{
+  "S59762134": {
+    "text": "Credited as membership form - Misc.",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "S92505369": {
+    "text": "Credited to TML Loan on 01.06.2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "S92535833": {
+    "text": "Credited to TML Loan on 01.06.2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "S25804597": {
+    "text": "Askar Ahammed - No idea",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "S25881695": {
+    "text": "Askar Ahammed - No idea",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "S25924960": {
+    "text": "Askar Ahammed - No idea",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568325",
+    "updated_at": "2026-09-07T11:18:15.568325",
+    "tags": []
+  },
+  "e45356f44923": {
+    "text": "SBI/ICICI error - Delete and re-do on SBI - 0610 -13-07-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568931",
+    "updated_at": "2026-09-07T11:18:15.568931",
+    "tags": []
+  },
+  "20920cce986c": {
+    "text": "Wrong entry - move to SBI - rollback and change",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T11:18:15.568931",
+    "updated_at": "2026-09-07T11:18:15.568931",
+    "tags": []
+  },
+  "S35523526": {
+    "text": "",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T12:25:23.203233",
+    "updated_at": "2026-09-07T12:25:23.203233",
+    "tags": [
+      "Misc Credit"
+    ]
+  },
+  "S54681779": {
+    "text": "",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T12:25:23.203233",
+    "updated_at": "2026-09-07T12:25:23.203233",
+    "tags": [
+      "Misc Credit"
+    ]
+  },
+  "S47971987": {
+    "text": "",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T12:25:23.203233",
+    "updated_at": "2026-09-07T12:25:23.203233",
+    "tags": [
+      "Misc Credit"
+    ]
+  },
+  "S83743919": {
+    "text": "",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T12:25:23.203233",
+    "updated_at": "2026-09-07T12:25:23.203233",
+    "tags": [
+      "Misc Credit"
+    ]
+  },
+  "S38603879": {
+    "text": "",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-09-07T12:25:23.203233",
+    "updated_at": "2026-09-07T12:25:23.203233",
+    "tags": [
+      "Misc Credit"
+    ]
+  },
+  "S9788321": {
+    "text": "Missing screenshot - Last time kth sa, informed Sunoj and credited.",
+    "type": "WARNING",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-07T12:59:47.301182",
+    "updated_at": "2026-09-07T12:59:47.301182",
+    "tags": [
+      "0711"
+    ]
+  },
+  "S81526494": {
+    "text": "whatsapp message missed - credited to loan after rollback - same day",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-07T13:41:16.061271",
+    "updated_at": "2026-09-07T13:41:16.061271",
+    "tags": [
+      "LOAN"
+    ]
+  },
+  "S92234644": {
+    "text": "Cleared",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-09T17:06:00.885404",
+    "updated_at": "2026-09-09T17:06:00.885404",
+    "tags": [
+      "Bill"
+    ]
+  },
+  "S66615191": {
+    "text": "DONE - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "low",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T16:38:10.644842",
+    "updated_at": "2026-09-11T16:38:24.901455",
+    "tags": [
+      "BIL"
+    ]
+  },
+  "S69079222": {
+    "text": "Done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T16:40:12.576419",
+    "updated_at": "2026-09-11T16:40:12.576419",
+    "tags": [
+      "BILL"
+    ]
+  },
+  "S17216984": {
+    "text": "Done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:11:59.602775",
+    "updated_at": "2026-09-11T17:12:52.347111",
+    "tags": [
+      "BILL"
+    ]
+  },
+  "S28875075": {
+    "text": "Done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:13:03.468610",
+    "updated_at": "2026-09-11T17:13:03.468610",
+    "tags": []
+  },
+  "S99468129": {
+    "text": "Done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:15:14.222947",
+    "updated_at": "2026-09-11T17:15:14.222947",
+    "tags": []
+  },
+  "S99696558": {
+    "text": "Done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:16:20.673592",
+    "updated_at": "2026-09-11T17:16:20.673592",
+    "tags": []
+  },
+  "S2048722": {
+    "text": "done - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:26:24.723477",
+    "updated_at": "2026-09-11T17:26:24.723477",
+    "tags": []
+  },
+  "S2056718": {
+    "text": "DONE - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:27:25.911998",
+    "updated_at": "2026-09-11T17:29:13.482763",
+    "tags": [
+      "BILL"
+    ]
+  },
+  "S99454220": {
+    "text": "DONE - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:29:10.881742",
+    "updated_at": "2026-09-11T17:29:10.881742",
+    "tags": []
+  },
+  "S2052801": {
+    "text": "DONE -11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:30:14.564420",
+    "updated_at": "2026-09-11T17:30:19.465804",
+    "tags": []
+  },
+  "S92227919": {
+    "text": "DONE - 11-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-11T17:31:21.034041",
+    "updated_at": "2026-09-11T17:31:21.034041",
+    "tags": []
+  },
+  "S36552785": {
+    "text": "SB-11611",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "low",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-19T09:50:21.470640",
+    "updated_at": "2026-09-19T09:50:21.470640",
+    "tags": []
+  },
+  "S84016993": {
+    "text": "Neethi Expenses - completed on 23-09-2026",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-23T10:39:40.048531",
+    "updated_at": "2026-09-23T10:39:40.048531",
+    "tags": []
+  },
+  "S66905154": {
+    "text": "SB-7619 Sajitha credited - contacted customer",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-09-23T12:30:28.605460",
+    "updated_at": "2026-09-23T12:30:28.605460",
+    "tags": [
+      "SB"
+    ]
+  },
+  "S36323331": {
+    "text": "DONE",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-10-16T13:36:45.531022",
+    "updated_at": "2026-10-16T13:36:45.531022",
+    "tags": []
+  },
+  "S36328447": {
+    "text": "DONE...",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-10-16T13:40:56.169479",
+    "updated_at": "2026-10-16T13:40:56.169479",
+    "tags": []
+  },
+  "S36517493": {
+    "text": "DONE...",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-10-16T13:41:29.500021",
+    "updated_at": "2026-10-16T13:41:29.500021",
+    "tags": []
+  },
+  "S36523752": {
+    "text": "DONE...",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-10-16T13:41:33.836594",
+    "updated_at": "2026-10-16T13:41:33.836594",
+    "tags": []
+  },
+  "S36531805": {
+    "text": "DONE...",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "resolved",
+    "author": "User",
+    "created_at": "2026-10-16T13:41:38.223557",
+    "updated_at": "2026-10-16T13:41:38.223557",
+    "tags": []
+  },
+  "3a93bd30dcf5": {
+    "text": "Wrong narration.",
+    "type": "NOTE",
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-11-04T11:06:28.543304",
+    "updated_at": "2026-11-04T11:06:28.543304",
+    "tags": []
+  }
+}

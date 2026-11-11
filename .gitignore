@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+venv/
+env/
+ENV/
+
+# Local Secrets & Session Keys
+.secret_key
+.env
+.env.local
+
+# Storage Layer Local Backups
+*.bak
+*.tmp
+
+# Workspace Artifacts
+.antigravitycli/

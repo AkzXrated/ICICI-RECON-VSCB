@@ -1,0 +1,2361 @@
+[
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S57111779",
+      "S95208283"
+    ],
+    "gl_ids": [
+      "4b4b7552c3a4",
+      "0e391c48cef6"
+    ],
+    "timestamp": "2026-05-20T12:48:29.288985"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S38364473",
+      "S38364474",
+      "S38364901",
+      "S38190695"
+    ],
+    "gl_ids": [
+      "2a4eb5e3b448"
+    ],
+    "timestamp": "2026-05-20T12:49:13.472591"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S51672174",
+      "S51732409"
+    ],
+    "gl_ids": [
+      "fca107e6ee21"
+    ],
+    "timestamp": "2026-05-20T12:49:51.170781"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S33591120"
+    ],
+    "gl_ids": [
+      "5f6ec04deacd"
+    ],
+    "timestamp": "2026-05-20T12:50:06.879528"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "772dad889d43",
+      "9adecb7b3dc3"
+    ],
+    "timestamp": "2026-05-20T13:40:07.083422"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S57587008",
+      "S57587174",
+      "S84373560",
+      "S85602880",
+      "S18791420",
+      "S30637173"
+    ],
+    "gl_ids": [
+      "469173e34bf6"
+    ],
+    "timestamp": "2026-05-21T17:21:13.921610"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S19369183"
+    ],
+    "gl_ids": [
+      "5c95fe435579"
+    ],
+    "timestamp": "2026-05-21T17:21:22.688510"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S16518634"
+    ],
+    "gl_ids": [
+      "cd2b74199b1f"
+    ],
+    "timestamp": "2026-05-21T17:22:51.705461"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S16260932"
+    ],
+    "gl_ids": [
+      "143576d1c1e6"
+    ],
+    "timestamp": "2026-05-21T17:25:14.781424"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "99d638145942",
+      "81e14eabc360"
+    ],
+    "timestamp": "2026-05-21T17:25:59.864302"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "eaaa3f4d1f25",
+      "249aaa8efd60"
+    ],
+    "timestamp": "2026-05-21T17:26:04.001317"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S86164553"
+    ],
+    "gl_ids": [
+      "de4bb749a282"
+    ],
+    "timestamp": "2026-05-21T17:26:39.521726"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S35076605",
+      "S35070136"
+    ],
+    "gl_ids": [
+      "9df0804b82e4"
+    ],
+    "timestamp": "2026-05-21T17:28:44.279271"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S38197883",
+      "S38207296",
+      "S38189806"
+    ],
+    "gl_ids": [
+      "9058bdc6a168"
+    ],
+    "timestamp": "2026-05-21T17:28:51.475241"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S1369866"
+    ],
+    "gl_ids": [
+      "2df4705eecad"
+    ],
+    "timestamp": "2026-05-21T17:30:16.920516"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S36467445"
+    ],
+    "gl_ids": [
+      "470316098167"
+    ],
+    "timestamp": "2026-05-22T10:15:41.631020"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S88922957",
+      "S88911428"
+    ],
+    "gl_ids": [
+      "9fcef848844d"
+    ],
+    "timestamp": "2026-05-22T10:15:49.767413"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "134207a1415b",
+      "b0ba9c13bdaa"
+    ],
+    "timestamp": "2026-05-22T10:15:56.802327"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S85750137"
+    ],
+    "gl_ids": [
+      "167fcf4ecebc"
+    ],
+    "timestamp": "2026-05-22T10:16:52.197701"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S75988551"
+    ],
+    "gl_ids": [
+      "c13f7d3b357e"
+    ],
+    "timestamp": "2026-05-22T11:38:23.119985"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S54044732"
+    ],
+    "gl_ids": [
+      "1d913b4b40d8"
+    ],
+    "timestamp": "2026-05-22T11:52:53.073117"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S26886634"
+    ],
+    "gl_ids": [
+      "a58a8c90e6c4"
+    ],
+    "timestamp": "2026-05-22T11:53:49.547796"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47672728"
+    ],
+    "gl_ids": [
+      "a96048f7d251"
+    ],
+    "timestamp": "2026-05-22T11:55:54.272008"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S37669692"
+    ],
+    "gl_ids": [
+      "08ecb3432bf9"
+    ],
+    "timestamp": "2026-05-22T11:58:52.565948"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S36468731"
+    ],
+    "gl_ids": [
+      "cd41795a270f"
+    ],
+    "timestamp": "2026-05-22T11:59:43.337035"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S66017626"
+    ],
+    "gl_ids": [
+      "666d73384dc7"
+    ],
+    "timestamp": "2026-05-22T12:01:42.419161"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S96051220"
+    ],
+    "gl_ids": [
+      "627b7ce06cd2"
+    ],
+    "timestamp": "2026-05-22T12:01:59.904752"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S39151098",
+      "S90371116"
+    ],
+    "gl_ids": [
+      "3b90d89a217c",
+      "b348d7ce3210"
+    ],
+    "timestamp": "2026-05-22T12:03:43.682144"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S72489908"
+    ],
+    "gl_ids": [
+      "146fc6cb5fd9"
+    ],
+    "timestamp": "2026-05-22T12:23:07.704520"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S21240007",
+      "S21228550"
+    ],
+    "gl_ids": [
+      "52423c4c1e52"
+    ],
+    "timestamp": "2026-05-22T12:25:55.804451"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S63049229"
+    ],
+    "gl_ids": [
+      "098fcf01d596"
+    ],
+    "timestamp": "2026-05-22T12:26:01.381661"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S57168205"
+    ],
+    "gl_ids": [
+      "d5cb3b061a7b"
+    ],
+    "timestamp": "2026-05-22T12:27:21.159358"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S6886865"
+    ],
+    "gl_ids": [
+      "8ad41773a0a6"
+    ],
+    "timestamp": "2026-05-22T13:01:05.182125"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S94516050"
+    ],
+    "gl_ids": [
+      "44ff551df167"
+    ],
+    "timestamp": "2026-05-22T13:01:59.987207"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S41435035"
+    ],
+    "gl_ids": [
+      "2bc3d5b1e1ae"
+    ],
+    "timestamp": "2026-05-22T13:02:45.799520"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S79775325"
+    ],
+    "gl_ids": [
+      "002b55cc3f86"
+    ],
+    "timestamp": "2026-05-22T13:03:29.712884"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S79826316"
+    ],
+    "gl_ids": [
+      "8f0c045b4350"
+    ],
+    "timestamp": "2026-05-22T13:04:07.131276"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S81763927"
+    ],
+    "gl_ids": [
+      "73a944bac086"
+    ],
+    "timestamp": "2026-05-22T13:19:51.857954"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S72027410"
+    ],
+    "gl_ids": [
+      "6a4cdd92a1eb"
+    ],
+    "timestamp": "2026-05-22T13:50:11.951385"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S25325214"
+    ],
+    "gl_ids": [
+      "7c1a62794c1e"
+    ],
+    "timestamp": "2026-05-22T13:50:19.079799"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S13221435"
+    ],
+    "gl_ids": [
+      "232b0cdbd0aa"
+    ],
+    "timestamp": "2026-05-22T13:50:23.927022"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S70231598"
+    ],
+    "gl_ids": [
+      "a53d3d4c2990"
+    ],
+    "timestamp": "2026-05-22T13:50:31.298048"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S31678911"
+    ],
+    "gl_ids": [
+      "ad2f4a633e0f"
+    ],
+    "timestamp": "2026-05-22T13:50:35.887325"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S37175898"
+    ],
+    "gl_ids": [
+      "67ea2ffd1c6d"
+    ],
+    "timestamp": "2026-05-22T13:50:55.823224"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S11951975"
+    ],
+    "gl_ids": [
+      "ca8e2986437a"
+    ],
+    "timestamp": "2026-05-22T13:52:36.973003"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S12497013"
+    ],
+    "gl_ids": [
+      "495a528231a8"
+    ],
+    "timestamp": "2026-05-22T13:53:16.699761"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S86622398"
+    ],
+    "gl_ids": [
+      "81504ec1aeb1"
+    ],
+    "timestamp": "2026-05-22T13:53:44.347041"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S31678356"
+    ],
+    "gl_ids": [
+      "cf9683e4c61a"
+    ],
+    "timestamp": "2026-05-22T13:53:57.103508"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S27948008"
+    ],
+    "gl_ids": [
+      "200ea203c606"
+    ],
+    "timestamp": "2026-05-22T13:54:48.963655"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60306609"
+    ],
+    "gl_ids": [
+      "20575b3cd186"
+    ],
+    "timestamp": "2026-05-22T13:55:25.452387"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S31679129"
+    ],
+    "gl_ids": [
+      "5720ee1d3192"
+    ],
+    "timestamp": "2026-05-22T13:55:40.194637"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S85930329"
+    ],
+    "gl_ids": [
+      "14d8d7310563"
+    ],
+    "timestamp": "2026-05-22T13:56:35.314727"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S38613274",
+      "S42741903"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-22T15:17:43.365517"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S17411343"
+    ],
+    "gl_ids": [
+      "2ce909e565ae"
+    ],
+    "timestamp": "2026-05-22T15:17:52.458017"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S39563955"
+    ],
+    "gl_ids": [
+      "0c05098d175a"
+    ],
+    "timestamp": "2026-05-22T15:17:57.276089"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S36773497"
+    ],
+    "gl_ids": [
+      "778c0240be2d"
+    ],
+    "timestamp": "2026-05-22T15:18:02.772216"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S34096324"
+    ],
+    "gl_ids": [
+      "c6f87328181c"
+    ],
+    "timestamp": "2026-05-22T15:18:14.844545"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S33875676"
+    ],
+    "gl_ids": [
+      "a65bc047f73e"
+    ],
+    "timestamp": "2026-05-22T15:18:24.502702"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S12680335"
+    ],
+    "gl_ids": [
+      "6968f0adcb4d"
+    ],
+    "timestamp": "2026-05-22T15:19:45.680165"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S30051363"
+    ],
+    "gl_ids": [
+      "95621e565af9"
+    ],
+    "timestamp": "2026-05-22T15:43:51.230314"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S18172380"
+    ],
+    "gl_ids": [
+      "0be80e800bdc"
+    ],
+    "timestamp": "2026-05-22T15:52:01.937126"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60088311"
+    ],
+    "gl_ids": [
+      "6cbee42524fb"
+    ],
+    "timestamp": "2026-05-22T15:53:30.209140"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S20484367"
+    ],
+    "gl_ids": [
+      "6ce57cf106c7"
+    ],
+    "timestamp": "2026-05-22T15:59:44.800947"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S39752538"
+    ],
+    "gl_ids": [
+      "540bc1739e18_2"
+    ],
+    "timestamp": "2026-05-22T16:01:42.767927"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S61645561"
+    ],
+    "gl_ids": [
+      "8ec78c9bfcea"
+    ],
+    "timestamp": "2026-05-22T16:03:04.933461"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S74574542"
+    ],
+    "gl_ids": [
+      "cca6c6d02753"
+    ],
+    "timestamp": "2026-05-22T16:03:14.711771"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S41450941",
+      "S34069253"
+    ],
+    "gl_ids": [
+      "a5ee3bb8347d",
+      "9cd720fb7c7a"
+    ],
+    "timestamp": "2026-05-22T16:03:43.392802"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S62460"
+    ],
+    "gl_ids": [
+      "361ee5193a11_2"
+    ],
+    "timestamp": "2026-05-22T16:04:08.865497"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S4294222",
+      "S92543819"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-22T16:05:22.989144"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S7794359"
+    ],
+    "gl_ids": [
+      "2f7abc36b0f1",
+      "f231308b5d9a",
+      "c487a4894513"
+    ],
+    "timestamp": "2026-05-23T13:59:35.996272"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S29269661"
+    ],
+    "gl_ids": [
+      "d7ae5a4fa5ad"
+    ],
+    "timestamp": "2026-05-23T13:59:43.821091"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S21899094"
+    ],
+    "gl_ids": [
+      "c1121b3abb73"
+    ],
+    "timestamp": "2026-05-23T13:59:51.145087"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S22897061"
+    ],
+    "gl_ids": [
+      "61ecae95d2ca"
+    ],
+    "timestamp": "2026-05-23T13:59:56.098055"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S67717364"
+    ],
+    "gl_ids": [
+      "dd52a99cb12d"
+    ],
+    "timestamp": "2026-05-23T14:00:02.237960"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S56779161"
+    ],
+    "gl_ids": [
+      "f1f7f6a48428"
+    ],
+    "timestamp": "2026-05-23T14:00:07.212989"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S30542366"
+    ],
+    "gl_ids": [
+      "4e0b0809029b"
+    ],
+    "timestamp": "2026-05-23T14:00:11.936833"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S29552950"
+    ],
+    "gl_ids": [
+      "b6c323414e3a"
+    ],
+    "timestamp": "2026-05-23T14:00:15.852732"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S7758937"
+    ],
+    "gl_ids": [
+      "2ca94cc57332",
+      "6ebecb1180c1",
+      "da4f9e95b91d"
+    ],
+    "timestamp": "2026-05-23T14:00:25.129726"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S21908052"
+    ],
+    "gl_ids": [
+      "d14f74c23b36"
+    ],
+    "timestamp": "2026-05-23T14:00:30.049525"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S39748175"
+    ],
+    "gl_ids": [
+      "f52de59c59c5"
+    ],
+    "timestamp": "2026-05-25T10:07:15.421055"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "c7cadae4a880",
+      "c429372d2fbd"
+    ],
+    "timestamp": "2026-05-25T10:07:36.912245"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S88612744"
+    ],
+    "gl_ids": [
+      "31748004978b"
+    ],
+    "timestamp": "2026-05-25T10:08:10.390886"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47690726",
+      "S47668266"
+    ],
+    "gl_ids": [
+      "170b7ef47e31"
+    ],
+    "timestamp": "2026-05-25T10:08:25.371666"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S98631850"
+    ],
+    "gl_ids": [
+      "ab8e6b69f1a7"
+    ],
+    "timestamp": "2026-05-25T10:08:32.745931"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "052de507900e",
+      "458fd3524b0f"
+    ],
+    "timestamp": "2026-05-25T10:08:54.153534"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S70401627"
+    ],
+    "gl_ids": [
+      "904424f27c24"
+    ],
+    "timestamp": "2026-05-25T10:09:44.552719"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S78371774"
+    ],
+    "gl_ids": [
+      "029d5770c29b"
+    ],
+    "timestamp": "2026-05-25T10:10:57.741535"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S99427558"
+    ],
+    "gl_ids": [
+      "843a05efd09f"
+    ],
+    "timestamp": "2026-05-25T10:12:28.052785"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S76937567"
+    ],
+    "gl_ids": [
+      "e9dfa7a8d507"
+    ],
+    "timestamp": "2026-05-25T10:12:36.941668"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S7695134"
+    ],
+    "gl_ids": [
+      "e56f49c906e1"
+    ],
+    "timestamp": "2026-05-25T10:13:53.952959"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S8305647"
+    ],
+    "gl_ids": [
+      "ca1ccc57b0c1_2"
+    ],
+    "timestamp": "2026-05-25T10:15:09.059866"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S42547832"
+    ],
+    "gl_ids": [
+      "4e4f79f4d4ee"
+    ],
+    "timestamp": "2026-05-25T10:15:38.104613"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S57469291"
+    ],
+    "gl_ids": [
+      "60af0186b7b2"
+    ],
+    "timestamp": "2026-05-25T10:16:42.422902"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S86629812"
+    ],
+    "gl_ids": [
+      "a56ad4b7a0a9"
+    ],
+    "timestamp": "2026-05-25T10:19:39.476832"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S9754859"
+    ],
+    "gl_ids": [
+      "43bc845098a0"
+    ],
+    "timestamp": "2026-05-25T10:19:49.620506"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S95406953"
+    ],
+    "gl_ids": [
+      "642ef15ef90f"
+    ],
+    "timestamp": "2026-05-25T10:20:26.560463"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S94537316"
+    ],
+    "gl_ids": [
+      "9f64fd741c7b"
+    ],
+    "timestamp": "2026-05-25T10:21:06.165435"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S62198723"
+    ],
+    "gl_ids": [
+      "270c314c6360"
+    ],
+    "timestamp": "2026-05-25T10:21:41.100903"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S66777255"
+    ],
+    "gl_ids": [
+      "ef52e535d4ba"
+    ],
+    "timestamp": "2026-05-25T10:25:12.012600"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S77633973"
+    ],
+    "gl_ids": [
+      "d383a4443e4c"
+    ],
+    "timestamp": "2026-05-25T11:24:44.220961"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S50987118"
+    ],
+    "gl_ids": [
+      "7fbf2fc3b226"
+    ],
+    "timestamp": "2026-05-25T11:24:48.240549"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S2583535"
+    ],
+    "gl_ids": [
+      "083d141a359e"
+    ],
+    "timestamp": "2026-05-25T11:24:52.793117"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S16741963"
+    ],
+    "gl_ids": [
+      "542b7489e839"
+    ],
+    "timestamp": "2026-05-25T11:24:57.731714"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S51520170"
+    ],
+    "gl_ids": [
+      "d9653c124be1"
+    ],
+    "timestamp": "2026-05-25T11:25:01.935365"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S77484741"
+    ],
+    "gl_ids": [
+      "d9cd5f2157ca"
+    ],
+    "timestamp": "2026-05-25T11:25:06.175582"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47261284"
+    ],
+    "gl_ids": [
+      "70818b2e1c8e"
+    ],
+    "timestamp": "2026-05-25T11:25:10.473682"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S91758341"
+    ],
+    "gl_ids": [
+      "edaea892b812"
+    ],
+    "timestamp": "2026-05-25T11:25:32.368561"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S91752634"
+    ],
+    "gl_ids": [
+      "8f69fe61abb1"
+    ],
+    "timestamp": "2026-05-25T11:25:39.773991"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S14238748"
+    ],
+    "gl_ids": [
+      "503acecf4fab"
+    ],
+    "timestamp": "2026-05-25T11:25:46.616588"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S36147166"
+    ],
+    "gl_ids": [
+      "6aeed6349a71"
+    ],
+    "timestamp": "2026-05-25T11:25:57.474643"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S15898353"
+    ],
+    "gl_ids": [
+      "c4597be40bd5",
+      "50e6272f43c4",
+      "f0cec400a559"
+    ],
+    "timestamp": "2026-05-25T11:26:27.639837"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S98981292",
+      "S99012423",
+      "S600890"
+    ],
+    "gl_ids": [
+      "0bfff4cfed56"
+    ],
+    "timestamp": "2026-05-25T11:27:21.092061"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S1451741"
+    ],
+    "gl_ids": [
+      "b45393c948c5"
+    ],
+    "timestamp": "2026-05-25T11:27:28.176355"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S68957676",
+      "S68961951",
+      "S68961610"
+    ],
+    "gl_ids": [
+      "db7c65975238"
+    ],
+    "timestamp": "2026-05-25T11:27:42.156724"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S69521351"
+    ],
+    "gl_ids": [
+      "68c573d5b660"
+    ],
+    "timestamp": "2026-05-25T11:27:48.159645"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "cff7536e77c1",
+      "25d8f48a7f48"
+    ],
+    "timestamp": "2026-05-25T11:27:53.630229"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S24095278"
+    ],
+    "gl_ids": [
+      "74b9371c143e"
+    ],
+    "timestamp": "2026-05-25T11:28:04.541366"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S33035519"
+    ],
+    "gl_ids": [
+      "3e334ac33c73"
+    ],
+    "timestamp": "2026-05-25T11:31:38.163682"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S7636415"
+    ],
+    "gl_ids": [
+      "705c4eef01ef_2"
+    ],
+    "timestamp": "2026-05-25T11:33:19.934411"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S36042532",
+      "S69507089"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-25T11:33:42.305472"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S58171055"
+    ],
+    "gl_ids": [
+      "312d322a22b2"
+    ],
+    "timestamp": "2026-05-25T11:34:35.872092"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S84334021",
+      "S11651333"
+    ],
+    "gl_ids": [
+      "5d78d3cd1a02",
+      "6f6b15514bb6"
+    ],
+    "timestamp": "2026-05-25T11:34:51.727454"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S23472532"
+    ],
+    "gl_ids": [
+      "cbb48b4d247f"
+    ],
+    "timestamp": "2026-05-25T11:35:58.263581"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S77161851"
+    ],
+    "gl_ids": [
+      "2af60ffcc36d"
+    ],
+    "timestamp": "2026-05-25T11:36:26.153963"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S20362831"
+    ],
+    "gl_ids": [
+      "af9c8eb23853"
+    ],
+    "timestamp": "2026-05-25T11:40:45.379738"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S12653707"
+    ],
+    "gl_ids": [
+      "cd30a2cb17c3"
+    ],
+    "timestamp": "2026-05-25T11:41:53.734201"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S81899893"
+    ],
+    "gl_ids": [
+      "4de7fc4627b8"
+    ],
+    "timestamp": "2026-05-25T11:43:02.834609"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "ebee1c2171bb",
+      "ecf215c80e47"
+    ],
+    "timestamp": "2026-05-25T11:44:30.080091"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S28295387",
+      "S28327052",
+      "S28327393",
+      "S50701458"
+    ],
+    "gl_ids": [
+      "f2c5ce54d035"
+    ],
+    "timestamp": "2026-05-25T12:04:32.356670"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S66554600"
+    ],
+    "gl_ids": [
+      "f246ac331576"
+    ],
+    "timestamp": "2026-05-25T12:04:37.876046"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60972968"
+    ],
+    "gl_ids": [
+      "a9baa85cf8bf"
+    ],
+    "timestamp": "2026-05-25T12:04:44.578615"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "b947499fe762",
+      "432f29f414fa"
+    ],
+    "timestamp": "2026-05-25T12:04:51.368249"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S56716145",
+      "S54947923"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-25T12:08:48.820710"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S69213026",
+      "S75361238",
+      "S75395453"
+    ],
+    "gl_ids": [
+      "e99224a34843"
+    ],
+    "timestamp": "2026-05-25T12:10:20.822234"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S68896074"
+    ],
+    "gl_ids": [
+      "d2256bc91913"
+    ],
+    "timestamp": "2026-05-25T12:10:26.884319"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S50998125",
+      "S71927123"
+    ],
+    "gl_ids": [
+      "0840a4b083d2"
+    ],
+    "timestamp": "2026-05-25T12:10:42.397383"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47079766"
+    ],
+    "gl_ids": [
+      "edb7811e0f12"
+    ],
+    "timestamp": "2026-05-25T12:10:49.101164"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S75945810"
+    ],
+    "gl_ids": [
+      "d02c9af4e2bd"
+    ],
+    "timestamp": "2026-05-25T12:10:53.964885"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S35190392"
+    ],
+    "gl_ids": [
+      "f4d07d275f60"
+    ],
+    "timestamp": "2026-05-25T12:18:12.613586"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S11430764"
+    ],
+    "gl_ids": [
+      "af9fd2664135"
+    ],
+    "timestamp": "2026-05-25T12:18:52.668663"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "c00c63981260",
+      "12724ce63109"
+    ],
+    "timestamp": "2026-05-25T12:18:57.759724"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S2371713"
+    ],
+    "gl_ids": [
+      "5f1ee8fb73b6"
+    ],
+    "timestamp": "2026-05-25T12:19:20.530674"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S26622695"
+    ],
+    "gl_ids": [
+      "2603db436e98"
+    ],
+    "timestamp": "2026-05-25T12:19:36.411887"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S75965947"
+    ],
+    "gl_ids": [
+      "b272e8898cdf"
+    ],
+    "timestamp": "2026-05-25T12:19:53.579809"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S23226391"
+    ],
+    "gl_ids": [
+      "64c2864394d0"
+    ],
+    "timestamp": "2026-05-25T12:25:26.709454"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S75897741"
+    ],
+    "gl_ids": [
+      "f2c767c72096"
+    ],
+    "timestamp": "2026-05-25T12:25:33.556750"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S42175357"
+    ],
+    "gl_ids": [
+      "ff1d56e315d9"
+    ],
+    "timestamp": "2026-05-25T12:25:40.946911"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S52128658",
+      "S78999134"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-25T12:25:54.107736"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S13645669"
+    ],
+    "gl_ids": [
+      "7006050a1c9f"
+    ],
+    "timestamp": "2026-05-25T12:26:01.285089"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S12339747"
+    ],
+    "gl_ids": [
+      "9d2186c6671c"
+    ],
+    "timestamp": "2026-05-25T12:26:06.751125"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S15784094"
+    ],
+    "gl_ids": [
+      "e544290dde3c"
+    ],
+    "timestamp": "2026-05-25T12:26:42.629539"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S90079778"
+    ],
+    "gl_ids": [
+      "950e1f5754c2"
+    ],
+    "timestamp": "2026-05-25T12:27:46.642808"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S81956708"
+    ],
+    "gl_ids": [
+      "b417f6851eac"
+    ],
+    "timestamp": "2026-05-25T12:43:17.592157"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S81476907",
+      "S81508534"
+    ],
+    "gl_ids": [
+      "3f12df4d1f1b",
+      "09a0285e3efd"
+    ],
+    "timestamp": "2026-05-25T12:44:34.881730"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S18737508"
+    ],
+    "gl_ids": [
+      "6148696fa3da"
+    ],
+    "timestamp": "2026-05-25T13:44:22.165571"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S56031204"
+    ],
+    "gl_ids": [
+      "f36d2e524738"
+    ],
+    "timestamp": "2026-05-25T13:45:26.195160"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S97049675"
+    ],
+    "gl_ids": [
+      "6e8eb4832f8b"
+    ],
+    "timestamp": "2026-05-25T13:50:25.604338"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S45285595"
+    ],
+    "gl_ids": [
+      "e1315d83587c"
+    ],
+    "timestamp": "2026-05-25T13:50:45.884592"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S6425845"
+    ],
+    "gl_ids": [
+      "ab58aa27fdac"
+    ],
+    "timestamp": "2026-05-25T13:51:04.153202"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S19188805"
+    ],
+    "gl_ids": [
+      "44742c0a4826"
+    ],
+    "timestamp": "2026-05-25T13:51:55.750460"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S29597818"
+    ],
+    "gl_ids": [
+      "70a7a5e82a45"
+    ],
+    "timestamp": "2026-05-25T13:54:02.127583"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S45639159"
+    ],
+    "gl_ids": [
+      "994d7053276f"
+    ],
+    "timestamp": "2026-05-25T13:55:38.508482"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S14239123"
+    ],
+    "gl_ids": [
+      "d23a032f586d"
+    ],
+    "timestamp": "2026-05-25T13:56:03.915872"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S4505327"
+    ],
+    "gl_ids": [
+      "208a51659746"
+    ],
+    "timestamp": "2026-05-25T13:56:12.969562"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S37441384"
+    ],
+    "gl_ids": [
+      "68a55c84af52"
+    ],
+    "timestamp": "2026-05-25T13:56:18.360548"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "e433509d234f",
+      "9c91dfc5d40c"
+    ],
+    "timestamp": "2026-05-25T13:56:24.237209"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S42526179"
+    ],
+    "gl_ids": [
+      "fc59e4bd7bf3"
+    ],
+    "timestamp": "2026-05-25T13:57:13.802356"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S37448798"
+    ],
+    "gl_ids": [
+      "ddd6a3dfd6b3"
+    ],
+    "timestamp": "2026-05-25T13:58:22.944444"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S6092077"
+    ],
+    "gl_ids": [
+      "2d07695dc8a6"
+    ],
+    "timestamp": "2026-05-25T13:58:44.964807"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S50247954"
+    ],
+    "gl_ids": [
+      "bad3ce8498be"
+    ],
+    "timestamp": "2026-05-25T16:43:36.561206"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S22991824"
+    ],
+    "gl_ids": [
+      "a4a16fec4822"
+    ],
+    "timestamp": "2026-05-25T16:43:48.505165"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S54734858",
+      "S54729776"
+    ],
+    "gl_ids": [
+      "c06dc50fe044"
+    ],
+    "timestamp": "2026-05-25T16:43:58.615228"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S9112799",
+      "S66308550"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-25T16:44:08.807212"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S25023209"
+    ],
+    "gl_ids": [
+      "48685a339f9f"
+    ],
+    "timestamp": "2026-05-25T16:44:45.436635"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "6596bac6e9da",
+      "b527b25a6186"
+    ],
+    "timestamp": "2026-05-25T16:45:01.066831"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S33607880"
+    ],
+    "gl_ids": [
+      "b4c2da02904c"
+    ],
+    "timestamp": "2026-05-25T16:56:15.435022"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S39744395"
+    ],
+    "gl_ids": [
+      "105d738c2d45"
+    ],
+    "timestamp": "2026-05-25T16:56:32.805713"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S72944586"
+    ],
+    "gl_ids": [
+      "3c47ee46ee1d"
+    ],
+    "timestamp": "2026-05-25T16:57:10.357915"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S92590934"
+    ],
+    "gl_ids": [
+      "b5b038a9ce22"
+    ],
+    "timestamp": "2026-05-25T16:59:41.971747"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60976526"
+    ],
+    "gl_ids": [
+      "fefbe292e2f4"
+    ],
+    "timestamp": "2026-05-26T11:10:35.702319"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S25624974",
+      "S25624974_2",
+      "S25624974_3"
+    ],
+    "gl_ids": [
+      "ff9171f93350",
+      "9bc9e11d6cc5",
+      "8e154b3f5bd4"
+    ],
+    "timestamp": "2026-05-26T11:22:24.874364"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60966995"
+    ],
+    "gl_ids": [
+      "69edfa1f1030"
+    ],
+    "timestamp": "2026-05-26T11:43:33.744321"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S80325260"
+    ],
+    "gl_ids": [
+      "f15f0da5b896"
+    ],
+    "timestamp": "2026-05-26T12:35:07.545162"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S22173476",
+      "S22173476_3",
+      "S22173476_2"
+    ],
+    "gl_ids": [
+      "2281e4f37874",
+      "325d9f14734d",
+      "68bebf24de5f"
+    ],
+    "timestamp": "2026-05-26T12:35:40.367859"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S50850733",
+      "S62572805",
+      "S50849962",
+      "S62572906",
+      "S50850009",
+      "S40238896"
+    ],
+    "gl_ids": [
+      "f16b051ef868",
+      "52375805b974",
+      "72a2500a7dcc",
+      "d062f5720999",
+      "5e16d81a75b2",
+      "8b2f180dc6fa"
+    ],
+    "timestamp": "2026-05-26T12:36:23.778776"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S62572857"
+    ],
+    "gl_ids": [
+      "82c448a2b14a"
+    ],
+    "timestamp": "2026-05-26T12:36:29.788651"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S85453833"
+    ],
+    "gl_ids": [
+      "260bbce9dfba"
+    ],
+    "timestamp": "2026-05-26T12:36:52.391043"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47497471"
+    ],
+    "gl_ids": [
+      "49ef926d5cc0"
+    ],
+    "timestamp": "2026-05-26T12:41:26.926593"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S47945354"
+    ],
+    "gl_ids": [
+      "9fdc96c85c21"
+    ],
+    "timestamp": "2026-05-26T12:43:38.473467"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S13015820"
+    ],
+    "gl_ids": [
+      "8f34afdd7a0d_2"
+    ],
+    "timestamp": "2026-05-26T15:33:03.436040"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S52893024",
+      "S17057850",
+      "S17045440"
+    ],
+    "gl_ids": [],
+    "timestamp": "2026-05-26T16:21:06.262245"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S44997967",
+      "S45040314"
+    ],
+    "gl_ids": [
+      "fd5ce78f5f32",
+      "93ed24776f35"
+    ],
+    "timestamp": "2026-05-26T16:21:43.454203"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S68529755"
+    ],
+    "gl_ids": [
+      "6a8fdec18140_2"
+    ],
+    "timestamp": "2026-05-26T16:23:23.801997"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S4428755"
+    ],
+    "gl_ids": [
+      "860d8ca469e6_2"
+    ],
+    "timestamp": "2026-05-26T16:25:09.560669"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S97364499"
+    ],
+    "gl_ids": [
+      "84948fc609bd"
+    ],
+    "timestamp": "2026-05-26T16:56:09.966857"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S59394374"
+    ],
+    "gl_ids": [
+      "d9a3a2f11ba4"
+    ],
+    "timestamp": "2026-05-26T17:26:41.476880"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S84730695"
+    ],
+    "gl_ids": [
+      "da123cafb6ca"
+    ],
+    "timestamp": "2026-05-26T17:26:49.350426"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S23623055"
+    ],
+    "gl_ids": [
+      "bc502a5348a6"
+    ],
+    "timestamp": "2026-05-26T17:26:55.439718"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S5768904"
+    ],
+    "gl_ids": [
+      "89e5738d1cce"
+    ],
+    "timestamp": "2026-05-26T17:27:01.742710"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "d44027b22b4a_2",
+      "af7792cd26b1"
+    ],
+    "timestamp": "2026-05-26T17:27:26.716864"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S69075600"
+    ],
+    "gl_ids": [
+      "eda567956021"
+    ],
+    "timestamp": "2026-05-26T17:29:17.281300"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S17019135"
+    ],
+    "gl_ids": [
+      "2f9a65951044"
+    ],
+    "timestamp": "2026-05-26T17:29:21.872360"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S77362562"
+    ],
+    "gl_ids": [
+      "1ec3e38b94b2"
+    ],
+    "timestamp": "2026-05-29T11:44:24.155130"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S44577840"
+    ],
+    "gl_ids": [
+      "7e6fb9461492"
+    ],
+    "timestamp": "2026-05-29T12:04:38.048068"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S1499106"
+    ],
+    "gl_ids": [
+      "a55b511ff5b2"
+    ],
+    "timestamp": "2026-05-29T12:14:29.343823"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S6738656"
+    ],
+    "gl_ids": [
+      "7d3b45688c89"
+    ],
+    "timestamp": "2026-05-29T12:30:54.578341"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60343006"
+    ],
+    "gl_ids": [
+      "b97af0b6a37e"
+    ],
+    "timestamp": "2026-05-29T12:47:30.075377"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S62364401"
+    ],
+    "gl_ids": [
+      "500fc81a9705"
+    ],
+    "timestamp": "2026-05-29T12:49:02.348949"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S71219093"
+    ],
+    "gl_ids": [
+      "0487df9d6608"
+    ],
+    "timestamp": "2026-05-29T13:01:09.761307"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S9150374"
+    ],
+    "gl_ids": [
+      "a0ceaba82f20"
+    ],
+    "timestamp": "2026-05-29T13:02:29.606859"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S32151341"
+    ],
+    "gl_ids": [
+      "cf593aa8c203"
+    ],
+    "timestamp": "2026-05-29T13:31:35.947057"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "87425fbf98ee",
+      "a1a10788b9cc_2"
+    ],
+    "timestamp": "2026-05-29T13:31:50.015408"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S53411623"
+    ],
+    "gl_ids": [
+      "5275618a7683"
+    ],
+    "timestamp": "2026-05-29T14:16:59.123298"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S65626643"
+    ],
+    "gl_ids": [
+      "202744bb94ca"
+    ],
+    "timestamp": "2026-05-29T15:09:09.517041"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S48860112"
+    ],
+    "gl_ids": [
+      "7be6341d5872"
+    ],
+    "timestamp": "2026-05-29T16:13:43.074849"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S23460939"
+    ],
+    "gl_ids": [
+      "d174aeae52b6"
+    ],
+    "timestamp": "2026-05-29T16:13:58.524634"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "ada9275fb774",
+      "c9bb043cd463"
+    ],
+    "timestamp": "2026-05-29T16:14:41.037446"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S45560550"
+    ],
+    "gl_ids": [
+      "7e3f8b981b22"
+    ],
+    "timestamp": "2026-05-29T16:14:46.722121"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S82586123"
+    ],
+    "gl_ids": [
+      "c22f1fa95099"
+    ],
+    "timestamp": "2026-05-29T16:58:06.637792"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S34768195"
+    ],
+    "gl_ids": [
+      "daa82d2aa4ae"
+    ],
+    "timestamp": "2026-05-29T16:58:11.777271"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S45098206"
+    ],
+    "gl_ids": [
+      "ac18c0239829"
+    ],
+    "timestamp": "2026-05-29T16:58:16.133369"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60341364"
+    ],
+    "gl_ids": [
+      "e7797d514782"
+    ],
+    "timestamp": "2026-05-30T11:34:46.620575"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S97565018"
+    ],
+    "gl_ids": [
+      "1e48de8122d5"
+    ],
+    "timestamp": "2026-05-30T11:34:51.037002"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S79053834"
+    ],
+    "gl_ids": [
+      "5131ab65d769"
+    ],
+    "timestamp": "2026-05-30T11:34:56.209398"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S38858089"
+    ],
+    "gl_ids": [
+      "b0161cf2b9f4"
+    ],
+    "timestamp": "2026-05-30T11:35:03.069525"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S72372016"
+    ],
+    "gl_ids": [
+      "6d40455c3a18"
+    ],
+    "timestamp": "2026-05-30T11:35:07.857274"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S35287982"
+    ],
+    "gl_ids": [
+      "0dac820f928b"
+    ],
+    "timestamp": "2026-05-30T11:35:12.309795"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S49443104"
+    ],
+    "gl_ids": [
+      "5e77888ec24d"
+    ],
+    "timestamp": "2026-05-30T11:35:23.073433"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S31880643"
+    ],
+    "gl_ids": [
+      "2030e06552ab"
+    ],
+    "timestamp": "2026-05-30T11:35:31.160245"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S29499401"
+    ],
+    "gl_ids": [
+      "a6f6cd6cd7e6"
+    ],
+    "timestamp": "2026-05-30T11:51:40.829570"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "4d983356497e",
+      "d70e570fd5ab"
+    ],
+    "timestamp": "2026-06-01T11:13:29.977636"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [],
+    "gl_ids": [
+      "d66bfd278e4f",
+      "2d083ee9b46c"
+    ],
+    "timestamp": "2026-06-01T11:13:47.896962"
+  }
+]
