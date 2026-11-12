@@ -3,6 +3,97 @@
 <RTGS_INWARD_FAILED_REP>
   <LIST_G_CASH_ADJ>
     <G_CASH_ADJ>
+      <DEP_SLNO>17</DEP_SLNO>
+      <NFT_SLNO>28</NFT_SLNO>
+      <RTGS_TRAN_ID>631609660453</RTGS_TRAN_ID>
+      <DAY_DT>12-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>041970001230</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>50000</RTGS_AMOUNT>
+      <RTGS_DESC>SUDHEENDRAN N V; Txn=1211260017</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>12-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>1</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>2</DEP_SLNO>
+      <NFT_SLNO>1</NFT_SLNO>
+      <RTGS_TRAN_ID>631608568505</RTGS_TRAN_ID>
+      <DAY_DT>12-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>011970006157</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>1</RTGS_AMOUNT>
+      <RTGS_DESC>SAPTHA K K; Txn=1211260002</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>12-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>2</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>9</DEP_SLNO>
+      <NFT_SLNO>46</NFT_SLNO>
+      <RTGS_TRAN_ID>1111I30133421461</RTGS_TRAN_ID>
+      <DAY_DT>11-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>051970000453</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>300000</RTGS_AMOUNT>
+      <RTGS_DESC>KRISHNA; Txn=1111260009</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>11-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>3</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>1</DEP_SLNO>
+      <NFT_SLNO>1</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN326315921559</RTGS_TRAN_ID>
+      <DAY_DT>11-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>051970000476</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>5000</RTGS_AMOUNT>
+      <RTGS_DESC>Mr. SAJITH CHAMPADOTH CHATIYAKANDI; Txn=1111260001</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>11-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>4</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>1</DEP_SLNO>
+      <NFT_SLNO>1</NFT_SLNO>
+      <RTGS_TRAN_ID>631406182211</RTGS_TRAN_ID>
+      <DAY_DT>10-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>031970000962</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>10000</RTGS_AMOUNT>
+      <RTGS_DESC>SOMIA COUGNIPOUREIL; Txn=1011260001</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>10-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>5</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>112</DEP_SLNO>
+      <NFT_SLNO>462</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN226313945661</RTGS_TRAN_ID>
+      <DAY_DT>09-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>051970001673</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>16994.4</RTGS_AMOUNT>
+      <RTGS_DESC>TKVSS11TKVSS; Txn=0911260112</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>09-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>6</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>91</DEP_SLNO>
+      <NFT_SLNO>285</NFT_SLNO>
+      <RTGS_TRAN_ID>RBISH01004746061</RTGS_TRAN_ID>
+      <DAY_DT>06-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>031970005270</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>100</RTGS_AMOUNT>
+      <RTGS_DESC>DIRECTOR OF TREASURIES , VENDOR PAYMENT; Txn=0611260091</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>06-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>7</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
       <DEP_SLNO>294</DEP_SLNO>
       <NFT_SLNO>293</NFT_SLNO>
       <RTGS_TRAN_ID>630722568542</RTGS_TRAN_ID>
@@ -13,20 +104,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>1</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>209</DEP_SLNO>
-      <NFT_SLNO>289</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN426307839106</RTGS_TRAN_ID>
-      <DAY_DT>03-NOV-26</DAY_DT>
-      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>998</RTGS_AMOUNT>
-      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=0311260209</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>2</SL>
+      <SL>8</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>211</DEP_SLNO>
@@ -39,7 +117,20 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>3</SL>
+      <SL>9</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>209</DEP_SLNO>
+      <NFT_SLNO>289</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN426307839106</RTGS_TRAN_ID>
+      <DAY_DT>03-NOV-26</DAY_DT>
+      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>998</RTGS_AMOUNT>
+      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=0311260209</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>10</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>207</DEP_SLNO>
@@ -52,7 +143,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>4</SL>
+      <SL>11</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>39</DEP_SLNO>
@@ -65,7 +156,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>5</SL>
+      <SL>12</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>30</DEP_SLNO>
@@ -78,7 +169,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>6</SL>
+      <SL>13</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>217</DEP_SLNO>
@@ -91,7 +182,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>7</SL>
+      <SL>14</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -104,7 +195,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-NOV-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>8</SL>
+      <SL>15</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>38</DEP_SLNO>
@@ -117,7 +208,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>9</SL>
+      <SL>16</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>8</DEP_SLNO>
@@ -130,7 +221,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>26-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>10</SL>
+      <SL>17</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>129</DEP_SLNO>
@@ -143,7 +234,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>23-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>11</SL>
+      <SL>18</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -156,7 +247,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>23-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>12</SL>
+      <SL>19</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>292</DEP_SLNO>
@@ -169,7 +260,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>22-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>13</SL>
+      <SL>20</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>441</DEP_SLNO>
@@ -182,7 +273,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>14</SL>
+      <SL>21</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>10</DEP_SLNO>
@@ -195,7 +286,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>18-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>15</SL>
+      <SL>22</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>167</DEP_SLNO>
@@ -208,7 +299,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>16</SL>
+      <SL>23</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>116</DEP_SLNO>
@@ -221,7 +312,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>14-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>17</SL>
+      <SL>24</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>3</DEP_SLNO>
@@ -234,7 +325,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>18</SL>
+      <SL>25</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>146</DEP_SLNO>
@@ -247,7 +338,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>12-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>19</SL>
+      <SL>26</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>37</DEP_SLNO>
@@ -260,7 +351,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>20</SL>
+      <SL>27</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>85</DEP_SLNO>
@@ -273,7 +364,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>21</SL>
+      <SL>28</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>282</DEP_SLNO>
@@ -286,7 +377,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>22</SL>
+      <SL>29</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>27</DEP_SLNO>
@@ -299,7 +390,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>23</SL>
+      <SL>30</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>137</DEP_SLNO>
@@ -312,7 +403,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>24</SL>
+      <SL>31</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -325,7 +416,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>25</SL>
+      <SL>32</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>320</DEP_SLNO>
@@ -338,7 +429,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>06-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>26</SL>
+      <SL>33</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>33</DEP_SLNO>
@@ -351,7 +442,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>27</SL>
+      <SL>34</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>56</DEP_SLNO>
@@ -364,7 +455,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>28</SL>
+      <SL>35</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>25</DEP_SLNO>
@@ -377,7 +468,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>29</SL>
+      <SL>36</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>102</DEP_SLNO>
@@ -390,7 +481,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>30</SL>
+      <SL>37</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>521</DEP_SLNO>
@@ -403,7 +494,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>31</SL>
+      <SL>38</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>39</DEP_SLNO>
@@ -416,7 +507,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>32</SL>
+      <SL>39</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>120</DEP_SLNO>
@@ -429,7 +520,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>33</SL>
+      <SL>40</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>65</DEP_SLNO>
@@ -442,7 +533,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-OCT-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>34</SL>
+      <SL>41</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>382</DEP_SLNO>
@@ -455,7 +546,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>28-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>35</SL>
+      <SL>42</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>76</DEP_SLNO>
@@ -468,7 +559,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>28-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>36</SL>
+      <SL>43</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>17</DEP_SLNO>
@@ -481,7 +572,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>27-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>37</SL>
+      <SL>44</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>5</DEP_SLNO>
@@ -494,7 +585,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>38</SL>
+      <SL>45</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>133</DEP_SLNO>
@@ -507,7 +598,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>39</SL>
+      <SL>46</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>94</DEP_SLNO>
@@ -520,7 +611,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>40</SL>
+      <SL>47</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>92</DEP_SLNO>
@@ -533,7 +624,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>23-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>41</SL>
+      <SL>48</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -546,7 +637,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>42</SL>
+      <SL>49</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>11</DEP_SLNO>
@@ -559,7 +650,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>43</SL>
+      <SL>50</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>9</DEP_SLNO>
@@ -572,7 +663,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>44</SL>
+      <SL>51</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>96</DEP_SLNO>
@@ -585,7 +676,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>45</SL>
+      <SL>52</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>117</DEP_SLNO>
@@ -598,7 +689,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>46</SL>
+      <SL>53</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>83</DEP_SLNO>
@@ -611,7 +702,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>47</SL>
+      <SL>54</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>171</DEP_SLNO>
@@ -624,7 +715,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>15-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>48</SL>
+      <SL>55</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>171</DEP_SLNO>
@@ -637,7 +728,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>15-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>49</SL>
+      <SL>56</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>103</DEP_SLNO>
@@ -650,7 +741,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>50</SL>
+      <SL>57</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>255</DEP_SLNO>
@@ -663,7 +754,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>51</SL>
+      <SL>58</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>149</DEP_SLNO>
@@ -676,7 +767,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>52</SL>
+      <SL>59</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>19</DEP_SLNO>
@@ -689,7 +780,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>53</SL>
+      <SL>60</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>43</DEP_SLNO>
@@ -702,7 +793,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>54</SL>
+      <SL>61</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -715,7 +806,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>04-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>55</SL>
+      <SL>62</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>32</DEP_SLNO>
@@ -728,7 +819,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>56</SL>
+      <SL>63</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -741,7 +832,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>57</SL>
+      <SL>64</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>78</DEP_SLNO>
@@ -754,7 +845,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>58</SL>
+      <SL>65</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>32</DEP_SLNO>
@@ -767,7 +858,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-SEP-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>59</SL>
+      <SL>66</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>451</DEP_SLNO>
@@ -780,7 +871,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>60</SL>
+      <SL>67</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>289</DEP_SLNO>
@@ -793,7 +884,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>61</SL>
+      <SL>68</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>76</DEP_SLNO>
@@ -806,7 +897,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>62</SL>
+      <SL>69</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>55</DEP_SLNO>
@@ -819,7 +910,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>63</SL>
+      <SL>70</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>240</DEP_SLNO>
@@ -832,7 +923,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>64</SL>
+      <SL>71</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>5</DEP_SLNO>
@@ -845,7 +936,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>65</SL>
+      <SL>72</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>200</DEP_SLNO>
@@ -858,7 +949,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>66</SL>
+      <SL>73</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>148</DEP_SLNO>
@@ -871,7 +962,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>67</SL>
+      <SL>74</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>40</DEP_SLNO>
@@ -884,7 +975,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>68</SL>
+      <SL>75</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>165</DEP_SLNO>
@@ -897,7 +988,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>69</SL>
+      <SL>76</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>217</DEP_SLNO>
@@ -910,7 +1001,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>70</SL>
+      <SL>77</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>375</DEP_SLNO>
@@ -923,7 +1014,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>71</SL>
+      <SL>78</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>4</DEP_SLNO>
@@ -936,7 +1027,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>12-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>72</SL>
+      <SL>79</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -949,7 +1040,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>12-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>73</SL>
+      <SL>80</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>272</DEP_SLNO>
@@ -962,7 +1053,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>10-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>74</SL>
+      <SL>81</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>159</DEP_SLNO>
@@ -975,7 +1066,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>10-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>75</SL>
+      <SL>82</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -988,7 +1079,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>76</SL>
+      <SL>83</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>308</DEP_SLNO>
@@ -1001,7 +1092,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>77</SL>
+      <SL>84</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>47</DEP_SLNO>
@@ -1014,7 +1105,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>78</SL>
+      <SL>85</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>21</DEP_SLNO>
@@ -1027,7 +1118,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>79</SL>
+      <SL>86</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -1040,7 +1131,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>80</SL>
+      <SL>87</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>69</DEP_SLNO>
@@ -1053,7 +1144,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-AUG-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>81</SL>
+      <SL>88</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>366</DEP_SLNO>
@@ -1066,7 +1157,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>31-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>82</SL>
+      <SL>89</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>114</DEP_SLNO>
@@ -1079,7 +1170,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>83</SL>
+      <SL>90</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>112</DEP_SLNO>
@@ -1092,7 +1183,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>84</SL>
+      <SL>91</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>108</DEP_SLNO>
@@ -1105,7 +1196,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>85</SL>
+      <SL>92</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>30</DEP_SLNO>
@@ -1118,7 +1209,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>28-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>86</SL>
+      <SL>93</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>94</DEP_SLNO>
@@ -1131,7 +1222,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>27-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>87</SL>
+      <SL>94</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>3</DEP_SLNO>
@@ -1144,7 +1235,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>88</SL>
+      <SL>95</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1157,7 +1248,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>89</SL>
+      <SL>96</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>370</DEP_SLNO>
@@ -1170,7 +1261,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>90</SL>
+      <SL>97</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>198</DEP_SLNO>
@@ -1183,7 +1274,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>91</SL>
+      <SL>98</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>251</DEP_SLNO>
@@ -1196,7 +1287,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>15-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>92</SL>
+      <SL>99</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -1209,7 +1300,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>15-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>93</SL>
+      <SL>100</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>428</DEP_SLNO>
@@ -1222,7 +1313,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>14-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>94</SL>
+      <SL>101</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1235,7 +1326,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>95</SL>
+      <SL>102</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>130</DEP_SLNO>
@@ -1248,7 +1339,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>96</SL>
+      <SL>103</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>164</DEP_SLNO>
@@ -1261,7 +1352,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>97</SL>
+      <SL>104</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>105</DEP_SLNO>
@@ -1274,7 +1365,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>98</SL>
+      <SL>105</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>99</DEP_SLNO>
@@ -1287,7 +1378,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>99</SL>
+      <SL>106</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>41</DEP_SLNO>
@@ -1300,7 +1391,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>04-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>100</SL>
+      <SL>107</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>123</DEP_SLNO>
@@ -1313,7 +1404,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>101</SL>
+      <SL>108</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1326,7 +1417,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-JUL-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>102</SL>
+      <SL>109</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1087</DEP_SLNO>
@@ -1339,7 +1430,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>30-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>103</SL>
+      <SL>110</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>85</DEP_SLNO>
@@ -1352,7 +1443,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>104</SL>
+      <SL>111</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>250</DEP_SLNO>
@@ -1365,7 +1456,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>27-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>105</SL>
+      <SL>112</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>230</DEP_SLNO>
@@ -1378,7 +1469,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>106</SL>
+      <SL>113</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>176</DEP_SLNO>
@@ -1391,7 +1482,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>107</SL>
+      <SL>114</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>7</DEP_SLNO>
@@ -1404,7 +1495,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>108</SL>
+      <SL>115</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>9</DEP_SLNO>
@@ -1417,7 +1508,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>109</SL>
+      <SL>116</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>5</DEP_SLNO>
@@ -1430,7 +1521,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>110</SL>
+      <SL>117</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>234</DEP_SLNO>
@@ -1443,7 +1534,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>111</SL>
+      <SL>118</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>144</DEP_SLNO>
@@ -1456,7 +1547,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>22-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>112</SL>
+      <SL>119</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>199</DEP_SLNO>
@@ -1469,7 +1560,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>113</SL>
+      <SL>120</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>202</DEP_SLNO>
@@ -1482,7 +1573,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>18-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>114</SL>
+      <SL>121</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>94</DEP_SLNO>
@@ -1495,7 +1586,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>115</SL>
+      <SL>122</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>267</DEP_SLNO>
@@ -1508,7 +1599,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>116</SL>
+      <SL>123</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>139</DEP_SLNO>
@@ -1521,7 +1612,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>117</SL>
+      <SL>124</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>259</DEP_SLNO>
@@ -1534,7 +1625,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>10-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>118</SL>
+      <SL>125</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>227</DEP_SLNO>
@@ -1547,7 +1638,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>10-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>119</SL>
+      <SL>126</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>53</DEP_SLNO>
@@ -1560,7 +1651,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>10-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>120</SL>
+      <SL>127</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>19</DEP_SLNO>
@@ -1573,7 +1664,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>121</SL>
+      <SL>128</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>19</DEP_SLNO>
@@ -1586,7 +1677,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>122</SL>
+      <SL>129</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1599,7 +1690,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>09-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>123</SL>
+      <SL>130</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>48</DEP_SLNO>
@@ -1612,7 +1703,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>124</SL>
+      <SL>131</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>119</DEP_SLNO>
@@ -1625,7 +1716,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>125</SL>
+      <SL>132</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>47</DEP_SLNO>
@@ -1638,7 +1729,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>126</SL>
+      <SL>133</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>18</DEP_SLNO>
@@ -1651,7 +1742,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>127</SL>
+      <SL>134</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>188</DEP_SLNO>
@@ -1664,7 +1755,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>128</SL>
+      <SL>135</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>92</DEP_SLNO>
@@ -1677,7 +1768,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>01-JUN-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>129</SL>
+      <SL>136</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1690,7 +1781,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>31-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>130</SL>
+      <SL>137</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>593</DEP_SLNO>
@@ -1703,7 +1794,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>30-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>131</SL>
+      <SL>138</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>124</DEP_SLNO>
@@ -1716,7 +1807,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>132</SL>
+      <SL>139</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>184</DEP_SLNO>
@@ -1729,7 +1820,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>26-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>133</SL>
+      <SL>140</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>36</DEP_SLNO>
@@ -1742,7 +1833,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>26-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>134</SL>
+      <SL>141</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>87</DEP_SLNO>
@@ -1755,7 +1846,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>25-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>135</SL>
+      <SL>142</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -1768,7 +1859,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>24-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>136</SL>
+      <SL>143</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>124</DEP_SLNO>
@@ -1781,33 +1872,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>23-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>137</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>112</DEP_SLNO>
-      <NFT_SLNO>225</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN126142519321</RTGS_TRAN_ID>
-      <DAY_DT>22-MAY-26</DAY_DT>
-      <TO_CBS_ACCNO>051970000379</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>527</RTGS_AMOUNT>
-      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=2205260112</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>138</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>108</DEP_SLNO>
-      <NFT_SLNO>221</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN126142517082</RTGS_TRAN_ID>
-      <DAY_DT>22-MAY-26</DAY_DT>
-      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>1127</RTGS_AMOUNT>
-      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=2205260108</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>139</SL>
+      <SL>144</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>110</DEP_SLNO>
@@ -1820,7 +1885,33 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>140</SL>
+      <SL>145</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>112</DEP_SLNO>
+      <NFT_SLNO>225</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN126142519321</RTGS_TRAN_ID>
+      <DAY_DT>22-MAY-26</DAY_DT>
+      <TO_CBS_ACCNO>051970000379</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>527</RTGS_AMOUNT>
+      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=2205260112</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>146</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>108</DEP_SLNO>
+      <NFT_SLNO>221</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN126142517082</RTGS_TRAN_ID>
+      <DAY_DT>22-MAY-26</DAY_DT>
+      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>1127</RTGS_AMOUNT>
+      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=2205260108</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>147</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>195</DEP_SLNO>
@@ -1833,7 +1924,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>22-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>141</SL>
+      <SL>148</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>288</DEP_SLNO>
@@ -1846,7 +1937,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>142</SL>
+      <SL>149</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>226</DEP_SLNO>
@@ -1859,7 +1950,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>143</SL>
+      <SL>150</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>24</DEP_SLNO>
@@ -1872,7 +1963,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>144</SL>
+      <SL>151</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>150</DEP_SLNO>
@@ -1885,7 +1976,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>145</SL>
+      <SL>152</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>138</DEP_SLNO>
@@ -1898,7 +1989,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>146</SL>
+      <SL>153</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>133</DEP_SLNO>
@@ -1911,7 +2002,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>147</SL>
+      <SL>154</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>113</DEP_SLNO>
@@ -1924,7 +2015,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>19-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>148</SL>
+      <SL>155</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -1937,7 +2028,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>149</SL>
+      <SL>156</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>140</DEP_SLNO>
@@ -1950,7 +2041,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>15-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>150</SL>
+      <SL>157</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>2</DEP_SLNO>
@@ -1963,7 +2054,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>14-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>151</SL>
+      <SL>158</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>344</DEP_SLNO>
@@ -1976,7 +2067,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>152</SL>
+      <SL>159</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>298</DEP_SLNO>
@@ -1989,7 +2080,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>153</SL>
+      <SL>160</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>248</DEP_SLNO>
@@ -2002,7 +2093,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>154</SL>
+      <SL>161</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>331</DEP_SLNO>
@@ -2015,7 +2106,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>12-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>155</SL>
+      <SL>162</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>29</DEP_SLNO>
@@ -2028,7 +2119,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>12-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>156</SL>
+      <SL>163</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>68</DEP_SLNO>
@@ -2041,7 +2132,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>157</SL>
+      <SL>164</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>29</DEP_SLNO>
@@ -2054,7 +2145,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>158</SL>
+      <SL>165</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>310</DEP_SLNO>
@@ -2067,7 +2158,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>159</SL>
+      <SL>166</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>80</DEP_SLNO>
@@ -2080,7 +2171,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>160</SL>
+      <SL>167</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>6</DEP_SLNO>
@@ -2093,7 +2184,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>161</SL>
+      <SL>168</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>126</DEP_SLNO>
@@ -2106,7 +2197,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>162</SL>
+      <SL>169</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>254</DEP_SLNO>
@@ -2119,7 +2210,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>06-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>163</SL>
+      <SL>170</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>110</DEP_SLNO>
@@ -2132,7 +2223,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>164</SL>
+      <SL>171</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>112</DEP_SLNO>
@@ -2145,7 +2236,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>165</SL>
+      <SL>172</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>85</DEP_SLNO>
@@ -2158,7 +2249,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>05-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>166</SL>
+      <SL>173</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>57</DEP_SLNO>
@@ -2171,7 +2262,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>167</SL>
+      <SL>174</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>32</DEP_SLNO>
@@ -2184,7 +2275,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-MAY-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>168</SL>
+      <SL>175</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>79</DEP_SLNO>
@@ -2197,7 +2288,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>29-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>169</SL>
+      <SL>176</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>216</DEP_SLNO>
@@ -2210,7 +2301,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>27-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>170</SL>
+      <SL>177</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>9</DEP_SLNO>
@@ -2223,7 +2314,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>171</SL>
+      <SL>178</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>40</DEP_SLNO>
@@ -2236,7 +2327,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>22-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>172</SL>
+      <SL>179</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>148</DEP_SLNO>
@@ -2249,7 +2340,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>21-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>173</SL>
+      <SL>180</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>214</DEP_SLNO>
@@ -2262,33 +2353,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>174</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>475</DEP_SLNO>
-      <NFT_SLNO>474</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN426110335262</RTGS_TRAN_ID>
-      <DAY_DT>20-APR-26</DAY_DT>
-      <TO_CBS_ACCNO>011970009228</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>2000</RTGS_AMOUNT>
-      <RTGS_DESC>CDS; Txn=2004260475</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>20-APR-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>175</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>481</DEP_SLNO>
-      <NFT_SLNO>480</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN426110335261</RTGS_TRAN_ID>
-      <DAY_DT>20-APR-26</DAY_DT>
-      <TO_CBS_ACCNO>011970009449</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>2000</RTGS_AMOUNT>
-      <RTGS_DESC>CDS; Txn=2004260481</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>20-APR-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>176</SL>
+      <SL>181</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>159</DEP_SLNO>
@@ -2301,7 +2366,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>177</SL>
+      <SL>182</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>157</DEP_SLNO>
@@ -2314,7 +2379,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>178</SL>
+      <SL>183</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>479</DEP_SLNO>
@@ -2327,7 +2392,33 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>20-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>179</SL>
+      <SL>184</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>481</DEP_SLNO>
+      <NFT_SLNO>480</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN426110335261</RTGS_TRAN_ID>
+      <DAY_DT>20-APR-26</DAY_DT>
+      <TO_CBS_ACCNO>011970009449</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>2000</RTGS_AMOUNT>
+      <RTGS_DESC>CDS; Txn=2004260481</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>20-APR-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>185</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>475</DEP_SLNO>
+      <NFT_SLNO>474</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN426110335262</RTGS_TRAN_ID>
+      <DAY_DT>20-APR-26</DAY_DT>
+      <TO_CBS_ACCNO>011970009228</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>2000</RTGS_AMOUNT>
+      <RTGS_DESC>CDS; Txn=2004260475</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>20-APR-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>186</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>200</DEP_SLNO>
@@ -2340,7 +2431,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>18-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>180</SL>
+      <SL>187</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>107</DEP_SLNO>
@@ -2353,7 +2444,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>181</SL>
+      <SL>188</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>109</DEP_SLNO>
@@ -2366,20 +2457,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>182</SL>
-    </G_CASH_ADJ>
-    <G_CASH_ADJ>
-      <DEP_SLNO>64</DEP_SLNO>
-      <NFT_SLNO>281</NFT_SLNO>
-      <RTGS_TRAN_ID>SBIN126107287164</RTGS_TRAN_ID>
-      <DAY_DT>17-APR-26</DAY_DT>
-      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
-      <RTGS_AMOUNT>2500</RTGS_AMOUNT>
-      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=1704260064</RTGS_DESC>
-      <TRN_FLAG>0</TRN_FLAG>
-      <RTGS_DATE1>17-APR-26</RTGS_DATE1>
-      <STATUS>Completed</STATUS>
-      <SL>183</SL>
+      <SL>189</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>66</DEP_SLNO>
@@ -2392,7 +2470,20 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>184</SL>
+      <SL>190</SL>
+    </G_CASH_ADJ>
+    <G_CASH_ADJ>
+      <DEP_SLNO>64</DEP_SLNO>
+      <NFT_SLNO>281</NFT_SLNO>
+      <RTGS_TRAN_ID>SBIN126107287164</RTGS_TRAN_ID>
+      <DAY_DT>17-APR-26</DAY_DT>
+      <TO_CBS_ACCNO>051970004263</TO_CBS_ACCNO>
+      <RTGS_AMOUNT>2500</RTGS_AMOUNT>
+      <RTGS_DESC>KADIRUR SERVICE COOPERATIVE BANK; Txn=1704260064</RTGS_DESC>
+      <TRN_FLAG>0</TRN_FLAG>
+      <RTGS_DATE1>17-APR-26</RTGS_DATE1>
+      <STATUS>Completed</STATUS>
+      <SL>191</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>62</DEP_SLNO>
@@ -2405,7 +2496,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>17-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>185</SL>
+      <SL>192</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>301</DEP_SLNO>
@@ -2418,7 +2509,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>186</SL>
+      <SL>193</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>18</DEP_SLNO>
@@ -2431,7 +2522,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>187</SL>
+      <SL>194</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>29</DEP_SLNO>
@@ -2444,7 +2535,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>16-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>188</SL>
+      <SL>195</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>197</DEP_SLNO>
@@ -2457,7 +2548,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>189</SL>
+      <SL>196</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>135</DEP_SLNO>
@@ -2470,7 +2561,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>13-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>190</SL>
+      <SL>197</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>1</DEP_SLNO>
@@ -2483,7 +2574,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>11-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>191</SL>
+      <SL>198</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>279</DEP_SLNO>
@@ -2496,7 +2587,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>08-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>192</SL>
+      <SL>199</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>182</DEP_SLNO>
@@ -2509,7 +2600,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>07-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>193</SL>
+      <SL>200</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>445</DEP_SLNO>
@@ -2522,7 +2613,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>06-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>194</SL>
+      <SL>201</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>237</DEP_SLNO>
@@ -2535,7 +2626,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>06-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>195</SL>
+      <SL>202</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>178</DEP_SLNO>
@@ -2548,7 +2639,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>04-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>196</SL>
+      <SL>203</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>106</DEP_SLNO>
@@ -2561,7 +2652,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>04-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>197</SL>
+      <SL>204</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>428</DEP_SLNO>
@@ -2574,7 +2665,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>04-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>198</SL>
+      <SL>205</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>112</DEP_SLNO>
@@ -2587,7 +2678,7 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>02-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>199</SL>
+      <SL>206</SL>
     </G_CASH_ADJ>
     <G_CASH_ADJ>
       <DEP_SLNO>110</DEP_SLNO>
@@ -2600,12 +2691,12 @@
       <TRN_FLAG>0</TRN_FLAG>
       <RTGS_DATE1>03-APR-26</RTGS_DATE1>
       <STATUS>Completed</STATUS>
-      <SL>200</SL>
+      <SL>207</SL>
     </G_CASH_ADJ>
   </LIST_G_CASH_ADJ>
   <BNAME>Vadakkumbad Service Co-op Bank Ltd. No. F 1712</BNAME>
   <BRNAME>All Branches</BRNAME>
-  <DATESTR>NEFT/RTGS Date Between 01-04-2026 And 04-11-2026</DATESTR>
-  <TOTAL>32371332.66</TOTAL>
+  <DATESTR>NEFT/RTGS Date Between 01-04-2026 And 12-11-2026</DATESTR>
+  <TOTAL>32753428.06</TOTAL>
   <CRI>Report Showing All Transactions</CRI>
 </RTGS_INWARD_FAILED_REP>
