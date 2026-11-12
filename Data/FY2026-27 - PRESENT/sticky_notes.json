@@ -8,7 +8,8 @@
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S92505369": {
     "text": "Credited to TML Loan on 01.06.2026",
@@ -19,7 +20,8 @@
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S92535833": {
     "text": "Credited to TML Loan on 01.06.2026",
@@ -30,62 +32,68 @@
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S25804597": {
     "text": "Askar Ahammed - No idea",
-    "type": "NOTE",
+    "type": "QUERY",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": true
   },
   "S25881695": {
     "text": "Askar Ahammed - No idea",
-    "type": "NOTE",
+    "type": "QUERY",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": true
   },
   "S25924960": {
     "text": "Askar Ahammed - No idea",
-    "type": "NOTE",
+    "type": "QUERY",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568325",
     "updated_at": "2026-09-07T11:18:15.568325",
-    "tags": []
+    "tags": [],
+    "type_inferred": true
   },
   "e45356f44923": {
     "text": "SBI/ICICI error - Delete and re-do on SBI - 0610 -13-07-2026",
-    "type": "NOTE",
+    "type": "ACTION",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568931",
     "updated_at": "2026-09-07T11:18:15.568931",
-    "tags": []
+    "tags": [],
+    "type_inferred": true
   },
   "20920cce986c": {
     "text": "Wrong entry - move to SBI - rollback and change",
-    "type": "NOTE",
+    "type": "ACTION",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-09-07T11:18:15.568931",
     "updated_at": "2026-09-07T11:18:15.568931",
-    "tags": []
+    "tags": [],
+    "type_inferred": true
   },
   "S35523526": {
     "text": "",
@@ -98,7 +106,8 @@
     "updated_at": "2026-09-07T12:25:23.203233",
     "tags": [
       "Misc Credit"
-    ]
+    ],
+    "type_inferred": false
   },
   "S54681779": {
     "text": "",
@@ -111,7 +120,8 @@
     "updated_at": "2026-09-07T12:25:23.203233",
     "tags": [
       "Misc Credit"
-    ]
+    ],
+    "type_inferred": false
   },
   "S47971987": {
     "text": "",
@@ -124,7 +134,8 @@
     "updated_at": "2026-09-07T12:25:23.203233",
     "tags": [
       "Misc Credit"
-    ]
+    ],
+    "type_inferred": false
   },
   "S83743919": {
     "text": "",
@@ -137,7 +148,8 @@
     "updated_at": "2026-09-07T12:25:23.203233",
     "tags": [
       "Misc Credit"
-    ]
+    ],
+    "type_inferred": false
   },
   "S38603879": {
     "text": "",
@@ -150,7 +162,8 @@
     "updated_at": "2026-09-07T12:25:23.203233",
     "tags": [
       "Misc Credit"
-    ]
+    ],
+    "type_inferred": false
   },
   "S9788321": {
     "text": "Missing screenshot - Last time kth sa, informed Sunoj and credited.",
@@ -163,11 +176,12 @@
     "updated_at": "2026-09-07T12:59:47.301182",
     "tags": [
       "0711"
-    ]
+    ],
+    "type_inferred": false
   },
   "S81526494": {
     "text": "whatsapp message missed - credited to loan after rollback - same day",
-    "type": "NOTE",
+    "type": "ACTION",
     "category": "Remark",
     "severity": "info",
     "status": "resolved",
@@ -176,7 +190,8 @@
     "updated_at": "2026-09-07T13:41:16.061271",
     "tags": [
       "LOAN"
-    ]
+    ],
+    "type_inferred": true
   },
   "S92234644": {
     "text": "Cleared",
@@ -189,7 +204,8 @@
     "updated_at": "2026-09-09T17:06:00.885404",
     "tags": [
       "Bill"
-    ]
+    ],
+    "type_inferred": false
   },
   "S66615191": {
     "text": "DONE - 11-09-2026",
@@ -202,7 +218,8 @@
     "updated_at": "2026-09-11T16:38:24.901455",
     "tags": [
       "BIL"
-    ]
+    ],
+    "type_inferred": false
   },
   "S69079222": {
     "text": "Done - 11-09-2026",
@@ -215,7 +232,8 @@
     "updated_at": "2026-09-11T16:40:12.576419",
     "tags": [
       "BILL"
-    ]
+    ],
+    "type_inferred": false
   },
   "S17216984": {
     "text": "Done - 11-09-2026",
@@ -228,7 +246,8 @@
     "updated_at": "2026-09-11T17:12:52.347111",
     "tags": [
       "BILL"
-    ]
+    ],
+    "type_inferred": false
   },
   "S28875075": {
     "text": "Done - 11-09-2026",
@@ -239,7 +258,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:13:03.468610",
     "updated_at": "2026-09-11T17:13:03.468610",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S99468129": {
     "text": "Done - 11-09-2026",
@@ -250,7 +270,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:15:14.222947",
     "updated_at": "2026-09-11T17:15:14.222947",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S99696558": {
     "text": "Done - 11-09-2026",
@@ -261,7 +282,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:16:20.673592",
     "updated_at": "2026-09-11T17:16:20.673592",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S2048722": {
     "text": "done - 11-09-2026",
@@ -272,7 +294,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:26:24.723477",
     "updated_at": "2026-09-11T17:26:24.723477",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S2056718": {
     "text": "DONE - 11-09-2026",
@@ -285,7 +308,8 @@
     "updated_at": "2026-09-11T17:29:13.482763",
     "tags": [
       "BILL"
-    ]
+    ],
+    "type_inferred": false
   },
   "S99454220": {
     "text": "DONE - 11-09-2026",
@@ -296,7 +320,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:29:10.881742",
     "updated_at": "2026-09-11T17:29:10.881742",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S2052801": {
     "text": "DONE -11-09-2026",
@@ -307,7 +332,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:30:14.564420",
     "updated_at": "2026-09-11T17:30:19.465804",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S92227919": {
     "text": "DONE - 11-09-2026",
@@ -318,7 +344,8 @@
     "author": "User",
     "created_at": "2026-09-11T17:31:21.034041",
     "updated_at": "2026-09-11T17:31:21.034041",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S36552785": {
     "text": "SB-11611",
@@ -329,7 +356,8 @@
     "author": "User",
     "created_at": "2026-09-19T09:50:21.470640",
     "updated_at": "2026-09-19T09:50:21.470640",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S84016993": {
     "text": "Neethi Expenses - completed on 23-09-2026",
@@ -340,7 +368,8 @@
     "author": "User",
     "created_at": "2026-09-23T10:39:40.048531",
     "updated_at": "2026-09-23T10:39:40.048531",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S66905154": {
     "text": "SB-7619 Sajitha credited - contacted customer",
@@ -353,7 +382,8 @@
     "updated_at": "2026-09-23T12:30:28.605460",
     "tags": [
       "SB"
-    ]
+    ],
+    "type_inferred": false
   },
   "S36323331": {
     "text": "DONE",
@@ -364,7 +394,8 @@
     "author": "User",
     "created_at": "2026-10-16T13:36:45.531022",
     "updated_at": "2026-10-16T13:36:45.531022",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S36328447": {
     "text": "DONE...",
@@ -375,7 +406,8 @@
     "author": "User",
     "created_at": "2026-10-16T13:40:56.169479",
     "updated_at": "2026-10-16T13:40:56.169479",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S36517493": {
     "text": "DONE...",
@@ -386,7 +418,8 @@
     "author": "User",
     "created_at": "2026-10-16T13:41:29.500021",
     "updated_at": "2026-10-16T13:41:29.500021",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S36523752": {
     "text": "DONE...",
@@ -397,7 +430,8 @@
     "author": "User",
     "created_at": "2026-10-16T13:41:33.836594",
     "updated_at": "2026-10-16T13:41:33.836594",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "S36531805": {
     "text": "DONE...",
@@ -408,17 +442,31 @@
     "author": "User",
     "created_at": "2026-10-16T13:41:38.223557",
     "updated_at": "2026-10-16T13:41:38.223557",
-    "tags": []
+    "tags": [],
+    "type_inferred": false
   },
   "3a93bd30dcf5": {
     "text": "Wrong narration.",
-    "type": "NOTE",
+    "type": "WRONG_NARRATION",
     "category": "Remark",
     "severity": "info",
     "status": "open",
     "author": "User",
     "created_at": "2026-11-04T11:06:28.543304",
     "updated_at": "2026-11-04T11:06:28.543304",
+    "tags": [],
+    "type_inferred": true
+  },
+  "S1261738": {
+    "text": "Askar Ahammed - No idea",
+    "type": "QUERY",
+    "type_inferred": true,
+    "category": "Remark",
+    "severity": "info",
+    "status": "open",
+    "author": "User",
+    "created_at": "2026-11-12T12:17:37.038313",
+    "updated_at": "2026-11-12T12:17:37.038313",
     "tags": []
   }
 }

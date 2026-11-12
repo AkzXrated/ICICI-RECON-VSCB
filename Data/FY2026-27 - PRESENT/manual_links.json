@@ -777,5 +777,35 @@
       "3a93bd30dcf5"
     ],
     "timestamp": "2026-11-04T11:06:33.006449"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S10892347"
+    ],
+    "gl_ids": [
+      "813fc6b6555d"
+    ],
+    "timestamp": "2026-11-12T11:49:58.193830"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S20109584"
+    ],
+    "gl_ids": [
+      "a8f704e5fef0"
+    ],
+    "timestamp": "2026-11-12T11:53:38.891191"
+  },
+  {
+    "type": "GROUP_MATCH",
+    "bank_ids": [
+      "S60100470"
+    ],
+    "gl_ids": [
+      "d0297b6bc7f9"
+    ],
+    "timestamp": "2026-11-12T11:53:45.822384"
   }
 ]
