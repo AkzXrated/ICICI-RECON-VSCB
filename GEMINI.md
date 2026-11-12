@@ -11,11 +11,15 @@ The engine processes data through a prioritized sequence of filters (Tiers) to e
 *   **Tier 1 (Perfect Match)**: Exact Date, Exact Amount, and identical UTR/Reference.
 *   **Tier 1.1 (Transitive CMS Match)**: Bridges GL Serial Numbers to Bank UTRs using RTGS and CMS Reports. *Emitted as a distinct TIER1.1_TRANSITIVE_CMS status with ENRICHED tracking.*
 *   **Tier 2 (UTR Match)**: Same UTR/Reference and Amount, with an enhanced ±45-day safety window filter.
-*   **Tier 2.1 (Fuzzy UTR Match)**: Levenshtein distance 1 on 11–13 digit references within ±3 days for single-character OCR or clerical transcription slips.
+*   **Tier 2.1 (Fuzzy UTR Match)**: Levenshtein distance 1 on 11–13 digit references within ±3 days for single-character OCR or clerical transcription slips. Also sees UTRs glued to their channel prefix by a typo (`UPI8630755138261`).
+*   **Tier 2.2 (Late-Posted UTR)**: Exact 12-digit UTR + exact amount at **any** date gap, only when that UTR occurs exactly once on each side (forgotten entries posted months later). Shown with a `LATE MATCH · Nd` badge.
 *   **Tier 2.5 (Cheque Match)**: Matches by Cheque Number within a ±3-day window. *(Requires exact numeric match of extracted 6-10 digit cheque sequences)*.
 *   **Tier 2.8 (Year-End March 31 Adjustment Match)**: Matches GL entries posted on March 31 against earlier bank statement entries across the fiscal year when UTR or Cheque number strictly matches.
 *   **Tier 3 (Exact Date)**: Same Date and Amount match with narrative compatibility check. *Optimized with ±1-day grace period for overnight clearing and ±0.50 paisa tolerance.*
+*   **Tier 3 UTR-tail rule**: same date, exact amount, and the GL only carries the last 5–6 UTR digits (`UPI  29672`).
 *   **Tier 3.2 (Cleaned UPI VPA Match)**: Same Amount within ±5 days where both sides share identical customer UPI handles/VPAs.
+*   **Tier 3.3 (Inward RTGS by IFSC bank)**: Bank `RTGS-SBINR1…` credit vs GL `BY RTGS TRANSFER - SBI`; IFSC bank code mapped to GL bank names (`IFSC_BANK_NAMES`), ±1 day, exact amount, single unambiguous candidate only.
+*   **Tier 3.4 (Statutory payments)**: GST / PF(EPF/EPFO) / ESI / TDS paid through the bank's `GIB/` tax gateway vs GL month-end booking — same statutory class, exact amount, ≤31 days, nearest date. `PF↔EPFO` synonyms also apply in normal narration checks.
 *   **Tier 4 (Fuzzy Date)**: Same Amount with a ±5-day window and narrative compatibility. *Includes ±0.50 paisa tolerance.*
 *   **Tier 5 (Narrative Similarity)**: Matches by Amount within a 15-day window using `difflib.SequenceMatcher`. *Threshold set to 0.72 for high-precision fuzzy matching.*
 *   **Tier 6 (One-to-Many Grouping)**: Automatically identifies single Bank entries that match the sum of multiple GL entries (and vice-versa in Tier 6b).
@@ -34,13 +38,24 @@ A sophisticated bridging layer that resolves the "Reference Gap" between interna
 *   **Indic Phonetic Normalization**: Normalizes common Malayalam/Indian transliteration variations (`th/t`, `sh/s`, `ee/i`, `oo/u`) to prevent narrative false negatives.
 *   **Hard Conflict Guard with Transitive Exception**: Blocks matches between entries that possess mismatched 12-digit UTR/Serial references, ensuring accounting integrity. However, it automatically bypasses this block for validated transitive matches bridged via CMS/RTGS reports, where different 12-digit references (batch ref vs. payment serial) are mathematically expected but officially linked.
 
+### 4. Data-Integrity & Human-Error Safeguards
+*   **Statement integrity check** (`check_statement_integrity`): every `.psv` is validated through its running *Available Balance*. Gaps (rows missing from the export) or one-sided downloads (credits-only / debits-only) raise a red banner at the top of the workspace — unmatched GL entries are meaningless until the statement is re-downloaded.
+*   **Double-transfer fail-safe** (`detect_transfer_alerts` / `apply_transfer_alerts`): CMS rows paying the same beneficiary A/c the same amount within 7 days are grouped. Groups where every live leg has its own GL voucher (legitimate repeat payments) or every leg failed are dropped. Survivors are `RETRY_PENDING` (original stuck, re-sent — original may still go through), `DOUBLE_PAID`, `DOUBLE_DEBITED` (bank shows more debits than GL vouchers) or `RETRY_OK`. **Never auto-matched**; they get a red/orange card, a "Re-sent Payment" 88% suggestion, and linking one needs a second confirming click.
+*   **Copied / double-posted narration** (`flag_copied_narrations`): the GL is keyed by hand, and copy-paste can leave an old voucher's narration on a new one. A transaction reference (UPI UTR, IMPS RRN, RTGS `Ref No`, via `primary_txn_ref`) that reappears on a *later date* is flagged `DOUBLE POSTED?` (same amount) or `COPIED NARRATION` (different amount). Same-day repeats are legitimate splits. Flagged rows are ranked by amount/date in suggestions, not by their untrustworthy narration.
+*   **Same UTR, different amount**: surfaced as a red `UTR · Amt Δ` suggestion (GL amount keyed wrong); never auto-matched.
+*   **Note-driven corrections** (`apply_note_corrections`): sticky notes like `Wrong narration. Correct = UPI/955448034498/…` feed the corrected UTRs into matching (`corrected_narration`, `CORRECTED` badge). The displayed narration is never altered.
+
 ## Core Features (Continued)
 
-### 4. High-Performance Pro UI & Enterprise Annotation
+### 5. High-Performance Pro UI & Enterprise Annotation
+*   **Semantic Card Colours**: left accent = how a row is settled — green auto (hard evidence: ref/UTR/IFSC/statutory), amber auto (soft evidence: window/narration/grouping — spot-check), indigo manual, slate internal offset, teal pending-with-strong-lead. Outline/tint = risk — red money-at-risk (double transfer, UTR with different amount), dashed orange needs-a-look (re-sent payment, copied/double-posted narration). Legend shown in the alert banner.
+*   **Channel Tags**: word-boundary classifier (`TXN_TAG_RULES`): UPI, IMPS, RTGS, NEFT, CMS, BBPS, INFT, TAX, CHARGES, CHEQUE, CASH, SELF, INWARD — one coloured pill each, clickable to filter, with counts in the Categories menu. (The old substring scan produced bogus EBA/VAT/MAT/IPS/SMO tags from customer names and "A + B" combination filters.)
+*   **Review & Risk filters**: Categories menu → Transfer Alerts, Copied / Double-Posted Narration, Late Matches (>15 days).
 *   **Visual Confidence Levels**: Color-coded suggestion pills (CRITICAL/HIGH/MEDIUM/LOW) based on date proximity and narrative similarity.
 *   **Enriched Indicators**: Renders a light blue `ENRICHED` badge next to GL entries bridged via RTGS/CMS.
 *   **N-to-N Linking**: Supports manual linking of multiple Bank entries to multiple GL entries.
 *   **Quick-Save Logic**: Optimized manual reconciliation engine that updates results instantly while preserving previous auto-matches. Accelerated using O(1) key lookups, vectorized status updates, and targeted Nan-cleaning, delivering sub-second manual saves.
+*   **Note-type inference**: legacy plain `NOTE`s whose text says "wrong/incorrect/missing narration", "rollback / move to / wrong entry", "duplicate / already done", "no idea" are classified once as `WRONG_NARRATION` / `ACTION` / `WARNING` / `QUERY` (`type_inferred: true`, shown as "· auto"). Text, tags and timestamps are never changed, and an explicitly chosen type always wins. Alias learning is **skipped** when a WRONG_NARRATION note exists or the two narrations carry different UTRs (the GL text is a copy, and the UTR-bearing key could never recur).
 *   **Enterprise 7-Type Sticky Notes System**: Full accounting taxonomy featuring `NOTE` (Remark / Clarification), `WARNING` (Risk / Discrepancy), `ACTION` (Fix Required / Ledger Entry), `AUDIT` (Verified / Compliance Signoff), `TAX` (TDS / GST / Tax Deduction), `QUERY` (Pending Clarification), and `WRONG_NARRATION` (Narration Feedback for Alias Engine). Notes support severity levels (`critical`, `high`, `medium`, `low`, `info`), lifecycle status (`open`, `resolved` with line-through and badge), and hashtags (`#tag`).
 *   **Batch Annotation Workflow**: Multi-selection footer button (`🏷️ Annotate Selected`) triggers a bulk modal to apply notes, tags, severities, or mark resolved across all selected Bank and GL entries in a single atomic operation via `POST /api/sticky-notes/batch`.
 *   **Comprehensive Category & Note Filters**: Categories dropdown enables targeted filtering by note presence, note type (`Warnings & Discrepancies`, `Action Required`, `Audit Verified`, `Tax & TDS`), and status (`Open Notes Only`, `Resolved Notes`).
@@ -59,7 +74,7 @@ A sophisticated bridging layer that resolves the "Reference Gap" between interna
 ## Architecture
 
 ### Backend (Python / Flask)
-*   **`reconciler.py`**: Core reconciliation engine with 14 prioritized matching tiers, single-pass `bank_by_amt` lookup indexing, Indic phonetic normalization, and vectorized duplicate tracking.
+*   **`reconciler.py`**: Core reconciliation engine with 17 prioritized matching tiers, a single `load_all()` ingestion pipeline, single-pass `bank_by_amt` lookup indexing, Indic phonetic normalization, and vectorized duplicate tracking.
 *   **`app.py`**: Flask API layer managing persistence, manual matches, the "Narrative Learning" alias engine, structural double-entry validation on unlinks, and the rich sticky notes API with batch processing.
 *   **Sign Sensitivity**: Strictly enforces accounting rules—Bank Credits (CR) only match against GL Debits (DR), and vice versa.
 
@@ -125,45 +140,6 @@ A sophisticated bridging layer that resolves the "Reference Gap" between interna
 *4. Verification: 100% test pass rate across 49 automated unit, integration, benchmark, and regression tests in `test_backend_audit.py` and `test_suite_audit.py` (0 errors, 0 failures).*
 
 ---
-*Multi-Schema UPI Engine & 7-Part Remitter Schema Resolution (September 7, 2026):*
-*Diagnosed and resolved the issue where bank and GL UPI transactions with extended 7-segment schemas were misidentified:*
-*1. Root Cause Analysis:*
-*Standard ICICI UPI narrations use 6 slash-separated parts: `UPI / <12-digit UTR> / <Remark> / <UPI ID/VPA> / <Remitter Bank> / <Gateway Ref>`.*
-*However, 106 Bank transactions and 94 GL records in FY2026-27 follow an extended 7-segment format: `UPI / <Name/Remark> / <UPI ID/VPA> / <Marker> / <Remitter Bank> / <12-digit UTR> / <Gateway Ref>` (e.g. `UPI/SREESHMA P/sreeshmaprasha/UPI/Punjab Nat/658276117344/AXIfe11c20c4561490eb2aa454e61c2d015`).*
-*In the previous implementation, `extract_upi_id()` matched `/UPI/Punjab Nat/`, erroneously extracting `PUNJAB` as the `upi_id` and falsely grouping all Punjab National Bank remitters as repeated customers (`has_repeats = True`), while genuine customer VPA handles (e.g. `sreeshmaprasha`, `farminanajeebn`, `shakhasuraj075`) were lost.*
-*2. Structural Implementation:*
-*- Multi-Schema UPI Parser (`parse_upi_narration` in `reconciler.py`): Parses 7-part, 6-part, 5-part, 4-part, and 3-part schemas deterministically, extracting `schema`, `name`, `upi_id`, `bank_name`, `utr`, and `gateway_ref`.*
-*- Bank Noise Shield: Added comprehensive `BANK_NOISE` token set (`PUNJAB`, `SOUTH`, `IDFC`, `UNION`, `CANARA`, `FEDERAL`, `CATHOL`, `DHANLAXMI`, `BARODA`, etc.) preventing bank names from ever leaking into `upi_id` or narrative matching.*
-*- Accurate Regular Customer Tracking: `compute_duplicates` now populates `party_name`, `bank_name`, and cleans `upi_id`, enabling exact `has_repeats` calculation for real recurring customers.*
-*- Narration De-cluttering (`clean_narration`): Strips 20-35 character gateway switch tokens (`AXI...`, `ICI...`, `SBI...`, `PTM...`, `HDF...`) and pure hex sequences, ensuring high-fidelity narrative similarity matching against clean GL party descriptions.*
-*- UI Badges & Fast Search (`templates/index.html`): Added interactive `.badge-interactive-party` for remitter names and included `party_name` and `bank_name` in instant client-side search index (`precomputeSearchStr`).*
-*3. Verification: 100% test pass rate across 55 automated unit, integration, benchmark, and syntax tests (0 errors, 0 failures).*
-
----
-*Maintenance, Cleanup & Ingestion/Search Audit (October 16, 2026):*
-*1. Scratch & Temp Cleanup: Cleaned up 353 unwanted/temporary scratch scripts and testing files across all `.gemini/antigravity-cli/brain/*/scratch` directories, and cleared stale bytecode caches in `__pycache__`.*
-*2. 15-10-2026 Rs. 50,00,000 Diagnosis: Diagnosed the issue where the 15-10-2026 Rs. 50,00,000 GL entry was suspected missing in the app:*
-*- Source Verifications: Both sides exist in source data — GL XML has `SLIPNO 377` (Dr Rs. 50,00,000, `BY RTGS TRANSFER FROM KERALA BANK`), and Bank PSV has `S30715719` (Cr Rs. 50,00,000, `RTGS-KSBKR52026101500439320-VADAKKUMPAD SERVICE CO OP BANK LTD`).*
-*- Matching Behavior: Safely held in unmatched pending review because GL lacks an external UTR (only internal voucher slip 377), no bridging record exists in inward RTGS reports, and the remitter name differs ("Kerala Bank" vs "Vadakkumpad Service Co-op Bank Ltd"). A soft suggestion pill (Amt Match, 20%) is rendered.*
-*- UI Search Upgrade: In `templates/index.html`, upgraded `precomputeSearchStr` to include raw and formatted amounts (`fmtAmt`), ensuring searches by amount (e.g. `5000000` or `50,00,000`) instantly display both Bank and GL entries side-by-side.*
-*3. Verification: All frontend syntax and backend test suites passed (0 errors, 0 failures).*
-
----
-*InstaBIZ UPI Collection Report Ingestion & Mask-Aware Engine Upgrade (November 4, 2026):*
-*Addressed the September 2026 NPCI UPI VPA masking mandate (Circular No. NPCI/UPI/OC-234/2026-27 under the DPDP Act 2023) and solved sender tracking without transfer screenshots:*
-*1. InstaBIZ UPI Collection Report Ingestion Engine (`reconciler.py` & `app.py`):*
-*- Automated Ingestion: Created `_load_single_upi_collection_report` and `load_upi_collection_reports` to scan and parse all CSV, TSV, and Excel files in `Data/<FY>/UPI Collection Report/` (e.g. `Aug-to-Oct-2026.csv` downloaded from ICICI InstaBIZ / EazyPay).*
-*- Discrete Metadata Extraction: Detects dynamic headers and extracts 12-digit `Bank RRN`, unmasked `Customer VPA`, unmasked `Payer Name`, `Transaction Amount`, `Transaction Reference ID`, and filters for successful transactions (`Transaction Status == Success`).*
-*- Cross-Panel Enrichment: Built `enrich_bank_with_upi_reports` and `enrich_gl_with_upi_reports` to enrich both Bank and GL records with unmasked `Customer VPA` and official `Payer Name` via RRN and gateway switch references. Restored 100% of customer identities across September and October 2026 data.*
-*2. Mask-Aware VPA Matching Engine (Tier 3.2 in `reconciler.py`):*
-*- Asymmetric Suffix Matcher: Built `vpa_matches()` to support matching unmasked VPAs against masked `XX...` handles (e.g. `SABITHATLY2000@OKSBI` matches `XX2000@OKSBI` when domain matches and tail >= 3 characters).*
-*- Collision Guard in `compute_duplicates`: Shielded `check_regular` against treating unresolved short masked tokens (`XX...`) as regular customers, preventing false `.tag-has-repeats` groupings across unrelated depositors.*
-*3. UI & Sender Tracking Upgrades (`templates/index.html`):*
-*- Dedicated `UPI REPORT` Badge: Renders a pill badge `.badge-interactive-enriched` (`UPI REPORT`) indicating verified InstaBIZ collection data.*
-*- Click-to-Track Sender Workflow: Clicking any `Payer Name` or `UPI ID` badge instantly filters both panels to display the sender's entire historical transaction log across all financial years, allowing instant identification of the account/ledger to credit even when a customer forgets to send a screenshot.*
-*4. Verification: 100% test pass rate across all 55 automated unit, integration, benchmark, and regression tests (0 errors, 0 failures).*
-
----
 *Comprehensive Multi-Subagent System Audit (November 4, 2026):*
 *Executed a rigorous multi-agent audit using 3 specialized subagents verifying all matching tiers, manual links, and UPI ingestion:*
 *1. Auto-Match Auditor: Audited all 5,575 automated match groups across FY2026-27. Confirmed 0 sign violations (100% strict adherence to Bank CR <-> GL DR and Bank DR <-> GL CR), 100% exact 0.00 amount variance (0 outliers > 0.50), 0 temporal safety violations across all 14 matching tiers, 10/10 Tier 2.1 fuzzy matches verified at exact Levenshtein-1 within ±3 days, and 0 unverified reference collisions.*
@@ -225,6 +201,15 @@ A sophisticated bridging layer that resolves the "Reference Gap" between interna
 *- Quick-Save clocked at 24.60s (2.40x faster than full reconcile).*
 *- Live API verified: FY2025-26 has exactly 0 bank unmatched and 0 GL unmatched.*
 
-
-
+---
+*Full-App Audit: Missed NEFT Matches, Data Integrity, Human-Error Safeguards, Tags & UI (November 12, 2026):*
+*1. Reported issue - four 10-11-2026 outward NEFT GL entries (JASMILA 1,22,000 / SHERIN SHAHANA 20,000 / ADITH A 3,500 / SKY GUIDE 1,42,500) not auto-matched:*
+*- Root cause: `NOV-2026-TEMP.psv` had been exported credits-only (284 CR, 0 DR). Its running balance had 45 gaps totalling -Rs 83,27,190.52, so the bank debits simply did not exist. After the user re-downloaded the statement (90 DR, 0 gaps), JASMILA / SHERIN / ADITH match via Tier 1.1 transitive CMS. The new statement-integrity check now raises this automatically.*
+*- SKY GUIDE is a stuck IMPS ("Final Status Awaited") manually re-sent next day as AUTONEFT (Cust Ref SIRAS-RETRY-NOV10). Per user policy, re-sent payments are never auto-matched; it is now flagged `RETRY_PENDING` with an 88% "Re-sent Payment" suggestion and a double-debit watch.*
+*2. Engine (`reconciler.py`): new Tiers 2.2 (late unique UTR, any gap), 3.3 (inward RTGS by IFSC bank), 3.4 (statutory GST/PF/ESI/TDS via GIB, <=31 days); UTR-tail and glued-prefix UTR handling; PF/EPFO synonyms; same-UTR-different-amount suggestions; double-transfer fail-safe; copied/double-posted narration flags; sticky-note corrections as matching evidence. FY2026-27: +10 auto-matches, 0 existing matches lost (GL unmatched 20 -> 10).*
+*3. Bugs fixed: CMS loader turned status text in the UTR column ("Final Status Awaited", "Credit") into bogus refs `FINAL`/`CREDIT` (25 rows); `detect_type` substring scan produced bogus tags (EBA 194 rows from names like SHEEBA, VAT/MAT/INF/IPS/SMO/PAC) and no RTGS tag; tag filter matched only exact "A + B" combinations; `quick_save` read data.json with the Windows cp1252 codec; `get_regular_upis` returned a set so knowledge-base payer names were never back-filled (now a dict); unlink-all dropped the UPI registry; clicking a tier badge searched for a label that was never in the search index; every card click rendered both panels twice.*
+*4. Rewrites / resources: one `load_all()` pipeline replaces four copy-pasted loader sequences (reconcile, quick_save, app get_cached_data, app refresh) and stops re-enriching already-enriched frames; app frame cache is a bounded LRU (`ICICI_GL_CACHE_FYS`, default 2); `/api/data` streams the NaN-safe cache bytes instead of parse + recursive clean + re-serialize (0.19 s, 893 KB gzipped); SSE progress stream terminates instead of pinning a thread per tab; manual match now 1.3 s on cached frames; CMS loader resolves columns once per file.*
+*5. UI (`templates/index.html`): semantic card colours + legend, risk badges (DOUBLE DEBIT / RE-SENT / DOUBLE POSTED? / COPIED NARRATION / UTR MATCH - AMOUNT DIFFERS / CORRECTED / LATE MATCH), data-alert banner, Review & Risk filters, per-tag pills with counts, unified `postManualMatch` with in-flight guard, spinner, error toasts and two-click confirmation for risky links, `applyDb` / `applySmartDefaultFilter` replacing duplicated post-load code (and the hard-coded '2025-26' check).*
+*6. Notes: one-time lossless note-type inference (24 legacy notes reclassified on first load; .bak kept); alias learning blocked for copied/wrong narrations.*
+*7. Verification: 69/69 tests pass (2 syntax + 20 backend + 33 system + 14 new `test_engine_rules.py`); end-to-end Flask test-client run on a sandbox FY (load, 304, refresh, manual match, duplicate-post guard, unlink, notes, SSE); Node runtime harness rendered all 12,002 FY2026-27 cards without errors.*
 

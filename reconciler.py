@@ -168,14 +168,33 @@ def has_near_match_utr(grow_refs, brow_refs) -> bool:
                 return True
     return False
 
+# Channel / category classifier. Each rule is a word-boundary-anchored regex so
+# customer names can never leak into tags (the old substring scan tagged
+# 'SHEEBA' as EBA, 'PATTUVATHI' as VAT, 'RAHMATH' as MAT, 'JIPSA' as IPS ...).
+# Order = display order. A narration may carry several tags (e.g. INWARD + NEFT).
+TXN_TAG_RULES: List[Tuple[str, 're.Pattern']] = [
+    ('UPI',     re.compile(r'(?:^|[\s/;:])U?PI/|/UPI/|\bUPI\b', re.I)),
+    ('IMPS',    re.compile(r'\bMMT/IMPS\b|\bIMPS\b', re.I)),
+    ('RTGS',    re.compile(r'\bRTGS\b', re.I)),
+    ('NEFT',    re.compile(r'\bNEFT\b', re.I)),
+    ('CMS',     re.compile(r'(?:^|[\s;])CMS/|\bCMS\d{8,}', re.I)),
+    ('BBPS',    re.compile(r'\bBBPS\b|\bBIL/BPAY\b', re.I)),
+    ('INFT',    re.compile(r'\bBIL/INFT\b|\bINFT\b', re.I)),
+    ('TAX',     re.compile(r'(?:^|[\s;])GIB/|\b(?:GST|CGST|SGST|IGST|TDS|EPFO?|PF|ESIC?)\b', re.I)),
+    ('CHARGES', re.compile(r'\b(?:IPAY|ECOL)[\s_]?CHGS?\b|\bCHGS?\b|\bCHARGES?\b|^[CS]GST\d{10,}', re.I)),
+    ('CHEQUE',  re.compile(r'\b(?:CHQ|CHEQUE|CTS|CLG)\b|_CHQ_|-CHQ-', re.I)),
+    ('CASH',    re.compile(r'\bCASH\b|^CAM/', re.I)),
+    ('SELF',    re.compile(r'\bSELF\b', re.I)),
+    ('INWARD',  re.compile(r'VDKU[O0]?\d{11,12}', re.I)),
+]
+
 def detect_type(text: str) -> str:
-    n = str(text).upper()
-    found = []
-    if re.search(r'VDKU\d{12}', n): found.append('INWARD')
-    for code in ICICI_LEGENDS.keys():
-        if code in n: found.append(code)
-    if 'UPI/' in n or '/UPI/' in n: found.append('UPI')
+    n = str(text or '')
+    found = [tag for tag, rx in TXN_TAG_RULES if rx.search(n)]
     return " + ".join(found) if found else 'OTHER'
+
+def split_tags(txn_type: Any) -> List[str]:
+    return [t for t in str(txn_type or '').split(' + ') if t and t != 'OTHER']
 
 def extract_refs(text: str, stop_words: Optional[Set[str]] = None) -> List[str]:
     if not isinstance(text, str): return []
@@ -218,6 +237,11 @@ def extract_refs(text: str, stop_words: Optional[Set[str]] = None) -> List[str]:
             if len(w) == 10 and re.fullmatch(r'[6-9]\d{9}', w):
                 continue
             if w not in found: found.append(w)
+            # A UTR glued to its channel prefix by a typo (e.g. 'UPI8630755138261')
+            # also exposes the 11-13 digit tail so Tier 2.1 fuzzy-UTR can see it.
+            m_tail = re.fullmatch(r'(?:UPI|IMPS|NEFT|RTGS|MMT)(\d{11,13})', w)
+            if m_tail and m_tail.group(1) not in found:
+                found.append(m_tail.group(1))
             continue
         if len(w) >= 4 and any(c.isalpha() for c in w) and any(c.isdigit() for c in w):
             if w not in found: found.append(w)
@@ -248,6 +272,57 @@ def extract_cheque(text: str) -> Optional[str]:
     if m: return m.group(1)
     return None
 
+STATUTORY_SYNONYMS = {'EPFO': 'PF', 'EPF': 'PF', 'PROVIDENT': 'PF', 'ESIC': 'ESI'}
+
+# Statutory payment classes. Bank pays these through GIB/ (ICICI tax gateway)
+# mid-month; the GL often books them at month-end with free-form wording.
+STATUTORY_CLASSES = {
+    'PF':  re.compile(r'\b(?:E?PFO?|PROVIDENT\s+FUND)\b', re.I),
+    'GST': re.compile(r'\b(?:GST|CGST|SGST|IGST|CPIN|GSTN)\b', re.I),
+    'ESI': re.compile(r'\bESIC?\b', re.I),
+    'TDS': re.compile(r'\b(?:TDS|ITNS\d*|OLTAS|INCOME\s*TAX)\b', re.I),
+}
+
+def statutory_class(narration: str) -> Optional[str]:
+    n = str(narration or '')
+    for cls, rx in STATUTORY_CLASSES.items():
+        if rx.search(n):
+            return cls
+    return None
+
+# IFSC bank-code prefix -> regex of the names a GL clerk writes for that bank.
+# Used to pair inward 'RTGS-SBINR1...' bank credits with GL 'BY RTGS TRANSFER - SBI'.
+IFSC_BANK_NAMES = {
+    'SBIN': r'SBI|STATE\s+BANK', 'IBKL': r'IDBI', 'KSBK': r'KERALA\s+(?:STATE\s+CO[\s\-]?OP\w*\s+)?BANK|KSB|KERALA\s+BANK',
+    'FDRL': r'FEDERAL', 'CNRB': r'CANARA', 'KLGB': r'KERALA\s+GRAMIN|KGB', 'HDFC': r'HDFC',
+    'ICIC': r'ICICI', 'UTIB': r'AXIS', 'SIBL': r'SOUTH\s+INDIAN|SIB', 'CSBK': r'CSB|CATHOLIC\s+SYRIAN',
+    'BKID': r'BANK\s+OF\s+INDIA|BOI', 'BARB': r'BARODA|BOB', 'PUNB': r'PUNJAB\s+NATIONAL|PNB',
+    'UBIN': r'UNION\s+BANK', 'IOBA': r'INDIAN\s+OVERSEAS|IOB', 'IDIB': r'INDIAN\s+BANK',
+    'KKBK': r'KOTAK', 'YESB': r'YES\s+BANK', 'IDFB': r'IDFC', 'ESAF': r'ESAF', 'DLXB': r'DHAN\s*LA?XMI',
+    'CBIN': r'CENTRAL\s+BANK', 'MAHB': r'MAHARASHTRA', 'UCBA': r'UCO', 'INDB': r'INDUSIND',
+    'TMBL': r'TAMILNAD\s+MERCANTILE|TMB', 'KVBL': r'KARUR|KVB', 'RATN': r'RBL', 'BDBL': r'BANDHAN',
+}
+_RTGS_BANK_IFSC_RX = re.compile(r'^(?:RTGS|NEFT)-([A-Z]{4})[A-Z0-9]', re.I)
+
+def rtgs_ifsc_bank_matches(bank_narr: str, gl_narr: str) -> bool:
+    """Bank 'RTGS-<IFSC4>...' credit whose IFSC bank is the bank named in an RTGS/NEFT GL line."""
+    m = _RTGS_BANK_IFSC_RX.match(str(bank_narr or '').strip())
+    if not m:
+        return False
+    g = str(gl_narr or '')
+    if not re.search(r'\b(?:RTGS|NEFT)\b', g, re.I):
+        return False
+    names = IFSC_BANK_NAMES.get(m.group(1).upper())
+    return bool(names and re.search(rf'\b(?:{names})\b', g, re.I))
+
+def utr_suffix_match(gl_narr: str, bank_refs: List[str]) -> bool:
+    """GL clerk typed only the UTR tail (e.g. 'UPI  29672' for 628827029672)."""
+    tails = re.findall(r'(?<!\d)\d{5,6}(?!\d)', str(gl_narr or ''))
+    if not tails:
+        return False
+    utrs = [r for r in (bank_refs or []) if len(r) == 12 and r.isdigit()]
+    return any(u.endswith(t) for u in utrs for t in tails)
+
 def narrations_compatible(n1: str, n2: str, aliases: Optional[Dict[str, List[str]]] = None) -> bool:
     if aliases:
         s1, s2 = clean_narration(n1), clean_narration(n2)
@@ -272,6 +347,9 @@ def narrations_compatible(n1: str, n2: str, aliases: Optional[Dict[str, List[str
     
     w1 = {w.strip() for w in w1 if len(w.strip()) >= 4 or w.strip() in domain_acronyms}
     w2 = {w.strip() for w in w2 if len(w.strip()) >= 4 or w.strip() in domain_acronyms}
+    # Statutory synonyms: GL 'PF OF EMPLOYEES' must meet bank 'GIB/EPFO'
+    w1 |= {STATUTORY_SYNONYMS[w] for w in w1 if w in STATUTORY_SYNONYMS}
+    w2 |= {STATUTORY_SYNONYMS[w] for w in w2 if w in STATUTORY_SYNONYMS}
     
     # Expanded noise: common banking words and local institution keywords that don't indicate a real match
     noise = {'OKAXIS', 'OKICICI', 'OKHDFCBANK', 'OKSBI', 'THALASSERY', 'BANK', 'ICICI',
@@ -844,40 +922,265 @@ def _load_single_cms_report(f: str) -> List[Dict[str, Any]]:
         
         if df is not None:
             df.columns = [str(c).strip() for c in df.columns]
-            
-            def get_first(row, keys):
-                for k in keys:
-                    for col in row.index:
-                        if k.upper() in str(col).upper():
-                            val = row[col]
-                            if pd.notna(val) and str(val).strip().lower() != 'nan' and str(val).strip() != '':
-                                return str(val).strip()
-                return None
 
-            for _, r in df.iterrows():
+            # Resolve candidate columns once per file (was a per-row, per-key column scan)
+            def cols_for(keys):
+                out = []
+                for k in keys:
+                    out.extend(c for c in df.columns if k.upper() in c.upper() and c not in out)
+                return out
+            utr_cols = cols_for(['UTR NO', 'Instrument UTR No', 'UTR'])
+            serial_cols = cols_for(['Instrument_No', 'Instrument Ref No', 'Serial No'])
+            cmsref_cols = cols_for(['Payment Ref No', 'Instrument Ref No'])
+            custref_cols = cols_for(['Customer Ref No'])
+            benef_cols = cols_for(['Beneficiary Name'])
+            benacc_cols = cols_for(['Beneficiary A/c No', 'Beneficiary Account'])
+            amt_cols = [c for c in df.columns if c.strip().upper() in ('AMOUNT', 'PAYMENT AMOUNT', 'TRANSACTION AMOUNT')]
+            date_cols = [c for c in df.columns if c.strip().upper() in ('DATE', 'PAYMENT DATE', 'VALUE DATE')]
+            status_cols = [c for c in df.columns if c.strip().upper() == 'STATUS']
+            mode_cols = cols_for(['Payment Mode'])
+            ifsc_cols = cols_for(['IFSC'])
+
+            for r in df.to_dict('records'):
                 try:
-                    utr_raw = get_first(r, ['UTR NO', 'Instrument UTR No', 'UTR'])
+                    utr_raw = _cell(r, utr_cols)
                     if not utr_raw: continue
-                    
+                    # Only real references count. Status text that lands in the
+                    # UTR column ('Final Status Awaited', 'Credit') used to be
+                    # injected as a bogus 'FINAL'/'CREDIT' reference.
                     utr_match = re.search(r'([A-Z]{2,6}\d{10,20}|\d{12})', utr_raw)
-                    utr = utr_match.group(1) if utr_match else utr_raw.split()[0]
-                    
-                    serial_raw = get_first(r, ['Instrument_No', 'Instrument Ref No', 'Serial No'])
+                    utr = utr_match.group(1) if utr_match else None
+
+                    serial_raw = _cell(r, serial_cols)
                     serial = serial_raw.split('.')[0].strip().zfill(12) if serial_raw else None
-                    
-                    cms_ref_raw = get_first(r, ['Payment Ref No', 'Instrument Ref No'])
+
+                    cms_ref_raw = _cell(r, cmsref_cols)
                     cms_ref = cms_ref_raw.split('_')[0].strip().upper() if cms_ref_raw else None
-                    
+
+                    cust_ref = _cell(r, custref_cols)
+                    if cust_ref and re.fullmatch(r'\d+\.0', cust_ref):
+                        cust_ref = cust_ref[:-2]
+                    try:
+                        cdt = pd.to_datetime(_cell(r, date_cols), dayfirst=True)
+                        cdt = None if pd.isna(cdt) else cdt
+                    except (ValueError, TypeError):
+                        cdt = None
+
                     cms_data.append({
                         'cms_ref': cms_ref,
-                        'serial': serial, 
-                        'utr': utr, 
-                        'cust_ref': str(r.get('Customer Ref No', '')).strip(),
-                        'benef_name': str(r.get('Beneficiary Name', '')).strip().upper()
+                        'serial': serial,
+                        'utr': utr,
+                        'utr_raw': utr_raw,
+                        'cust_ref': cust_ref.upper() if cust_ref else None,
+                        'benef_name': (_cell(r, benef_cols) or '').upper(),
+                        'benef_acc': (_cell(r, benacc_cols) or '').lstrip("'").strip() or None,
+                        'amount': parse_amount(_cell(r, amt_cols)),
+                        'dt': cdt,
+                        'status': (_cell(r, status_cols) or '').upper(),
+                        'mode': (_cell(r, mode_cols) or '').upper(),
+                        'ifsc': (_cell(r, ifsc_cols) or '').upper() or None,
+                        'source': os.path.basename(f),
                     })
-                except: continue
+                except Exception as row_err:
+                    logger.debug(f"Skipping CMS row in {f}: {row_err}")
     except Exception as e: logger.error(f"Error loading CMS {f}: {e}")
     return cms_data
+
+def _cell(row: Dict[str, Any], cols: List[str]) -> Optional[str]:
+    """First non-empty value among `cols` in a record dict, as a stripped string."""
+    for c in cols:
+        v = row.get(c)
+        if v is None or (isinstance(v, float) and math.isnan(v)):
+            continue
+        s = str(v).strip()
+        if s and s.lower() not in ('nan', 'none', 'nat'):
+            return s
+    return None
+
+# --- DOUBLE-TRANSFER FAIL-SAFE ---
+_PAID_RX = re.compile(r'\bPAID\b|SUCCESS|CREDITED|EXECUTED', re.I)
+_PENDING_RX = re.compile(r'AWAIT|PENDING|PROCESS|INITIATED|SENT|QUEUE', re.I)
+_FAILED_RX = re.compile(r'FAIL|REJECT|RETURN|CANCEL|REVERS', re.I)
+
+def _payment_state(c: Dict[str, Any]) -> str:
+    text = f"{c.get('status', '')} {c.get('utr_raw', '')}"
+    if _FAILED_RX.search(text): return 'FAILED'
+    if _PAID_RX.search(text): return 'PAID'
+    if _PENDING_RX.search(text): return 'PENDING'
+    return 'UNKNOWN'
+
+def detect_transfer_alerts(cms: List[Dict[str, Any]], window_days: int = 7) -> List[Dict[str, Any]]:
+    """Find outward payments sent twice to the same beneficiary account for the
+    same amount within `window_days` — typically a transfer stuck at 'Final Status
+    Awaited' that was manually re-sent. These are NEVER auto-matched; they are
+    flagged so the original can be checked before it also goes through.
+    Levels: DOUBLE_PAID (>=2 legs paid: money left twice), RETRY_PENDING (one
+    leg paid, another still pending: may still double-pay), RETRY_OK (other legs
+    failed: safe, informational)."""
+    seen, rows = set(), []
+    for c in cms:
+        if not c.get('benef_acc') or not c.get('amount') or c.get('dt') is None:
+            continue
+        key = (c.get('cms_ref'), c.get('serial'), c.get('cust_ref'), c['amount'])
+        if key in seen:  # the same row repeated across overlapping monthly reports
+            continue
+        seen.add(key)
+        rows.append(c)
+
+    by_key: Dict[Tuple[str, float], List[Dict]] = {}
+    for c in rows:
+        by_key.setdefault((c['benef_acc'], round(c['amount'], 2)), []).append(c)
+
+    alerts = []
+    for (acc, amt), lst in by_key.items():
+        if len(lst) < 2:
+            continue
+        lst.sort(key=lambda x: x['dt'])
+        cluster = [lst[0]]
+        clusters = []
+        for c in lst[1:]:
+            if (c['dt'] - cluster[-1]['dt']).days <= window_days:
+                cluster.append(c)
+            else:
+                clusters.append(cluster); cluster = [c]
+        clusters.append(cluster)
+        for cl in clusters:
+            if len({x.get('cms_ref') or x.get('cust_ref') for x in cl}) < 2:
+                continue
+            states = [_payment_state(x) for x in cl]
+            n_paid, n_pending = states.count('PAID'), states.count('PENDING') + states.count('UNKNOWN')
+            if n_paid >= 2:
+                level = 'DOUBLE_PAID'   # demoted/kept by apply_transfer_alerts' GL-voucher check
+            elif n_pending >= 1:
+                level = 'RETRY_PENDING'
+            else:
+                level = 'RETRY_OK'
+            gid = hashlib.md5(f"{acc}|{amt}|{cl[0]['dt']:%Y%m%d}".encode()).hexdigest()[:10]
+            alerts.append({
+                'id': gid, 'level': level, 'benef_acc': acc, 'amount': amt,
+                'benef_name': cl[0].get('benef_name'),
+                'legs': [{'cms_ref': x.get('cms_ref'), 'serial': x.get('serial'), 'cust_ref': x.get('cust_ref'),
+                          'utr': x.get('utr'), 'ifsc': x.get('ifsc'), 'date': x['dt'].strftime('%d-%m-%Y'), 'mode': x.get('mode'),
+                          'status': x.get('status') or x.get('utr_raw'), 'state': s}
+                         for x, s in zip(cl, states)],
+            })
+    return alerts
+
+def apply_transfer_alerts(df_bank: pd.DataFrame, df_gl: pd.DataFrame, alerts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Keep only genuine re-send groups and tag their GL rows (via serial / CMS
+    ref) and bank rows (via UTR / customer ref / beneficiary IFSC) with a
+    `transfer_alert` dict.
+
+    A re-sent payment has MORE live payouts than GL vouchers: the member was
+    paid once in the books, but the bank was instructed twice. Legitimate repeat
+    payments to the same person each carry their own GL voucher (serial), and
+    failed legs move no money, so groups where every live leg is GL-backed are
+    dropped. Returns the surviving alerts."""
+    for df in (df_bank, df_gl):
+        if not df.empty:
+            df['transfer_alert'] = None
+    if not alerts:
+        return []
+    gl_refs: Set[str] = set()
+    if not df_gl.empty:
+        for refs in df_gl['all_refs']:
+            gl_refs.update(refs or [])
+    kept = []
+    for a in alerts:
+        for leg in a['legs']:
+            leg['gl_backed'] = bool((leg.get('serial') and leg['serial'] in gl_refs) or
+                                    (leg.get('cms_ref') and leg['cms_ref'] in gl_refs))
+        live = [l for l in a['legs'] if l['state'] != 'FAILED']
+        if len(live) >= 1 and sum(l['gl_backed'] for l in live) < len(live) and len(a['legs']) >= 2:
+            a['gl_vouchers'] = sum(l['gl_backed'] for l in a['legs'])
+            kept.append(a)
+    alerts[:] = kept
+    if not alerts:
+        return []
+    gl_key = {}
+    for a in alerts:
+        for leg in a['legs']:
+            for k in (leg.get('serial'), leg.get('cms_ref')):
+                if k: gl_key[k] = a
+
+    if not df_bank.empty:
+        debits = df_bank[df_bank['type_sign'] == 'DEBIT']
+        by_amt: Dict[float, List[Tuple[Any, str, list, Any]]] = {}
+        for idx, narr, refs, amt, dt in zip(debits.index, debits['narration'], debits['all_refs'], debits['amount'], debits['dt']):
+            by_amt.setdefault(round(amt, 2), []).append((idx, str(narr).upper(), refs or [], dt))
+        for a in alerts:
+            keys = {k for leg in a['legs'] for k in (leg.get('utr'), leg.get('cust_ref')) if k and len(k) >= 6}
+            ifscs = {leg.get('ifsc') for leg in a['legs'] if leg.get('ifsc')}
+            dts = [pd.to_datetime(l['date'], dayfirst=True) for l in a['legs']]
+            lo, hi = min(dts) - timedelta(days=1), max(dts) + timedelta(days=10)
+            confirmed, possible = [], []
+            for idx, nu, refs, dt in by_amt.get(round(a['amount'], 2), []):
+                if not (lo <= dt <= hi):
+                    continue
+                if any(k in refs or (not k.isdigit() and k in nu) for k in keys):
+                    confirmed.append(idx)      # the bank row carries a leg's own reference
+                elif any(i in nu for i in ifscs):
+                    possible.append(idx)       # IMPS/NEFT to the same IFSC, RRN not in CMS yet
+            if len(confirmed) >= 2 and len(confirmed) > a.get('gl_vouchers', 0):
+                a['level'] = 'DOUBLE_DEBITED'
+            # Same-IFSC debits are only surfaced while a leg is still in flight —
+            # that is exactly when the stuck original may have gone through.
+            if a['level'] not in ('RETRY_PENDING', 'DOUBLE_PAID'):
+                possible = []
+            a['possible_double_debit'] = len(confirmed) + len(possible) >= 2 and a['level'] != 'DOUBLE_DEBITED'
+            a['bank_debits_seen'] = len(confirmed) + len(possible)
+            summary = _alert_summary(a)
+            for idx in confirmed + possible:
+                df_bank.at[idx, 'transfer_alert'] = summary
+
+    if not df_gl.empty:
+        for idx, refs in zip(df_gl.index, df_gl['all_refs']):
+            for r in refs or []:
+                if r in gl_key:
+                    df_gl.at[idx, 'transfer_alert'] = _alert_summary(gl_key[r])
+                    break
+    return alerts
+
+def _alert_summary(a: Dict[str, Any]) -> Dict[str, Any]:
+    return {'id': a['id'], 'level': a['level'], 'benef_name': a.get('benef_name'),
+            'benef_acc': a['benef_acc'], 'amount': a['amount'],
+            'possible_double_debit': bool(a.get('possible_double_debit')),
+            'bank_debits_seen': a.get('bank_debits_seen', 0),
+            'legs': [f"{l['date']} {l['mode']} {l['cms_ref'] or ''} [{l['state']}]".strip() for l in a['legs']]}
+
+def check_statement_integrity(data_root: str) -> List[Dict[str, Any]]:
+    """Validate each bank statement export via its running 'Available Balance':
+    every row must equal previous balance +/- its amount. Gaps mean rows are
+    missing from the export (e.g. a credits-only download) and that unmatched
+    GL entries may simply have no bank row to match."""
+    out = []
+    for f in sorted(glob.glob(os.path.join(get_paths(data_root)['BANK_DIR'], "*.psv"))):
+        try:
+            df = pd.read_csv(f, sep='|', skiprows=7, dtype=str)
+            df.columns = [c.strip() for c in df.columns]
+            amt_col = next((c for c in df.columns if c.upper().startswith('TRANSACTION AMOUNT')), None)
+            bal_col = next((c for c in df.columns if c.upper().startswith('AVAILABLE BALANCE')), None)
+            if not amt_col or not bal_col or 'Cr/Dr' not in df.columns:
+                continue
+            sign = df['Cr/Dr'].str.strip().str.upper()
+            amt = df[amt_col].map(parse_amount)
+            bal = df[bal_col].map(parse_amount)
+            signed = np.where(sign == 'DR', -amt, amt)
+            diff = (bal - (bal.shift(1) + signed)).iloc[1:].round(2)
+            gap_mask = diff.abs() > 0.01
+            dates = df.get('Value Date', pd.Series([''] * len(df))).iloc[1:]
+            n_dr, n_cr = int((sign == 'DR').sum()), int((sign == 'CR').sum())
+            out.append({
+                'file': os.path.basename(f), 'rows': len(df), 'debits': n_dr, 'credits': n_cr,
+                'gaps': int(gap_mask.sum()),
+                'unexplained_amount': round(float(diff[gap_mask].sum()), 2),
+                'first_gap_date': str(dates[gap_mask].iloc[0]).strip() if gap_mask.any() else None,
+                'one_sided': len(df) >= 20 and (n_dr == 0 or n_cr == 0),
+                'ok': not gap_mask.any() and not (len(df) >= 20 and (n_dr == 0 or n_cr == 0)),
+            })
+        except Exception as e:
+            logger.warning(f"Integrity check skipped for {f}: {e}")
+    return out
 
 def load_cms_reports(data_root: str) -> List[Dict[str, Any]]:
     paths = get_paths(data_root)
@@ -1213,6 +1516,122 @@ def load_gl_xml(data_root: str, rtgs: List[Dict], cms: List[Dict]) -> pd.DataFra
     df_gl_raw = load_raw_gl_xml(data_root)
     return enrich_gl_with_reports(df_gl_raw, rtgs, cms)
 
+def load_all(data_root: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """The one ingestion pipeline: load every source in parallel, bridge GL refs
+    via RTGS/CMS, enrich both sides from InstaBIZ UPI reports, and tag
+    double-transfer groups. Returns (df_bank, df_gl) ready for reconcile/quick_save."""
+    with ThreadPoolExecutor(max_workers=5) as ex:
+        f_rtgs = ex.submit(load_rtgs_reports, data_root)
+        f_cms = ex.submit(load_cms_reports, data_root)
+        f_upi = ex.submit(load_upi_collection_reports, data_root)
+        f_bank = ex.submit(load_bank_psv, data_root)
+        f_gl = ex.submit(load_raw_gl_xml, data_root)
+        rtgs, cms, upi_reports = f_rtgs.result(), f_cms.result(), f_upi.result()
+        df_bank, df_gl_raw = f_bank.result(), f_gl.result()
+    df_gl = enrich_gl_with_reports(df_gl_raw, rtgs, cms)
+    df_bank = enrich_bank_with_upi_reports(df_bank, upi_reports)
+    df_gl = enrich_gl_with_upi_reports(df_gl, upi_reports)
+    alerts = apply_transfer_alerts(df_bank, df_gl, detect_transfer_alerts(cms))
+    # Also carried on the frame (attrs survive .copy()) so alerts whose legs hit
+    # no loaded row still reach the dashboard.
+    df_gl.attrs['transfer_alerts'] = [_alert_summary(a) for a in alerts]
+    flag_copied_narrations(df_gl)
+    if alerts:
+        logger.warning(f"{len(alerts)} possible double-transfer group(s) flagged: "
+                       + ", ".join(f"{a['benef_name']} {a['amount']} [{a['level']}]" for a in alerts[:5]))
+    return df_bank, df_gl
+
+_FAIL_WORDS_RX = re.compile(r'\b(?:FAILED|RETURN(?:ED)?|REVERS(?:AL|ED)|BOUNCE)\b', re.I)
+
+def flag_copied_narrations(df_gl: pd.DataFrame) -> None:
+    """The GL is keyed by hand, and copy-paste leaves an OLD entry's narration
+    (and its UTR) on a new voucher. A 12-digit UTR is unique to one payment, so
+    when two GL entries for different amounts/dates carry the same one, every
+    later entry is flagged `copied_narration` (pointing at the original). Its
+    narration cannot be trusted for matching - the amount/date/contra account
+    must decide. Failed/returned twins legitimately share the serial and are
+    ignored; same-amount same-date repeats are already DUPn duplicates."""
+    if df_gl.empty:
+        return
+    df_gl['copied_narration'] = None
+    first_by_utr: Dict[str, Tuple[Any, str, float, str]] = {}
+    for idx, narr, dt, amt, date in zip(df_gl.index, df_gl['narration'], df_gl['dt'], df_gl['amount'], df_gl['date']):
+        if _FAIL_WORDS_RX.search(str(narr)):
+            continue
+        u = primary_txn_ref(narr)
+        if u:
+            prev = first_by_utr.get(u)
+            if prev is None:
+                first_by_utr[u] = (idx, date, amt, narr)
+                continue
+            _, p_date, p_amt, _ = prev
+            if p_date == date:
+                continue  # same-day: an exact repeat (DUPn tracker) or a legitimate split posting
+            df_gl.at[idx, 'copied_narration'] = {'utr': u, 'original_date': p_date, 'original_amount': p_amt,
+                                                 'same_amount': abs(p_amt - amt) < 0.005}
+
+def primary_txn_ref(narr: str) -> Optional[str]:
+    """The narration's own transaction reference (not an account number, phone
+    or VPA digits): UPI UTR, IMPS RRN, or the 'Ref No:' serial of RTGS/NEFT lines."""
+    n = str(narr or '')
+    m = re.search(r'Ref\s*No\s*[:=]?\s*(\d{10,12})\b', n, re.I)
+    if m:
+        return m.group(1).zfill(12)
+    m = re.search(r'\bMMT/IMPS/(\d{12})\b', n, re.I)
+    if m:
+        return m.group(1)
+    if re.search(r'U?PI/', n, re.I):
+        u = parse_upi_narration(n).get('utr')
+        if u:
+            return u
+        m = re.search(r'U?PI/(\d{12})(?!\d)', n, re.I)
+        return m.group(1) if m else None
+    return None
+
+_CORRECTION_RX = re.compile(
+    r'(?:\bcorrect(?:ed)?(?:\s+narration)?|missing\s+narration|actual(?:\s+narration)?|should\s+be|original\s+narration)'
+    r'\s*(?:is|=|:|-)?\s*(.+)', re.I | re.S)
+
+def apply_note_corrections(df: pd.DataFrame, id_col: str, notes: Dict[str, Any]) -> int:
+    """Use the user's own sticky-note corrections as matching evidence. Notes such
+    as 'Wrong narration. Correct = UPI/955448034498/...' carry the true reference;
+    its UTR-like refs are appended to `all_refs` and the text kept as
+    `corrected_narration` (the displayed narration is never altered)."""
+    if df.empty or not notes:
+        return 0
+    if 'corrected_narration' not in df.columns:
+        df['corrected_narration'] = None
+    n = 0
+    id_to_idx = dict(zip(df[id_col], df.index))
+    for tx_id, note in notes.items():
+        idx = id_to_idx.get(tx_id)
+        if idx is None or not isinstance(note, dict):
+            continue
+        m = _CORRECTION_RX.search(str(note.get('text', '')))
+        if not m:
+            continue
+        corrected = m.group(1).strip()
+        new_refs = [r for r in extract_refs(corrected) if any(ch.isdigit() for ch in r) and len(r) >= 9]
+        if not corrected:
+            continue
+        df.at[idx, 'corrected_narration'] = corrected[:300]
+        if new_refs:
+            refs = list(df.at[idx, 'all_refs'] or [])
+            df.at[idx, 'all_refs'] = refs + [r for r in new_refs if r not in refs]
+            n += 1
+    return n
+
+def collect_transfer_alerts(df_bank: pd.DataFrame, df_gl: pd.DataFrame) -> List[Dict[str, Any]]:
+    """Unique alert summaries carried on either frame's `transfer_alert` column."""
+    out = {a['id']: a for a in df_gl.attrs.get('transfer_alerts', []) if isinstance(a, dict)}
+    for df in (df_gl, df_bank):
+        if not df.empty and 'transfer_alert' in df.columns:
+            for a in df['transfer_alert']:
+                if isinstance(a, dict):
+                    out[a['id']] = a
+    order = {'DOUBLE_DEBITED': 0, 'DOUBLE_PAID': 1, 'RETRY_PENDING': 2, 'RETRY_OK': 3}
+    return sorted(out.values(), key=lambda a: order.get(a['level'], 9))
+
 
 # --- ENGINE ---
 def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFrame] = None, data_root: str = DEFAULT_DATA_ROOT, progress_cb: Optional[Callable] = None, global_upi_registry: Optional[Set[str]] = None) -> Dict:
@@ -1221,29 +1640,17 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
     t_start = time.time()
     paths = get_paths(data_root)
     report(5, "Loading files in parallel...")
-    
-    # Run loaders concurrently
-    with ThreadPoolExecutor(max_workers=5) as executor:
-        future_rtgs = executor.submit(load_rtgs_reports, data_root)
-        future_cms = executor.submit(load_cms_reports, data_root)
-        future_upi = executor.submit(load_upi_collection_reports, data_root)
-        
-        future_bank = executor.submit(load_bank_psv, data_root) if df_bank is None else None
-        future_gl = executor.submit(load_raw_gl_xml, data_root) if df_gl is None else None
-        
-        rtgs = future_rtgs.result()
-        cms = future_cms.result()
-        upi_reports = future_upi.result()
-        
-        if df_bank is None:
-            df_bank = future_bank.result()
-        if df_gl is None:
-            df_gl_raw = future_gl.result()
-            df_gl = enrich_gl_with_reports(df_gl_raw, rtgs, cms)
-            
-    df_bank = enrich_bank_with_upi_reports(df_bank, upi_reports)
-    df_gl = enrich_gl_with_upi_reports(df_gl, upi_reports)
-            
+
+    # Frames handed in by the app cache are already fully enriched by load_all();
+    # re-running the UPI/bridge enrichment on them was pure duplicate work.
+    if df_bank is None or df_gl is None:
+        loaded_bank, loaded_gl = load_all(data_root)
+        df_bank = loaded_bank if df_bank is None else df_bank
+        df_gl = loaded_gl if df_gl is None else df_gl
+    for df in (df_bank, df_gl):
+        if 'transfer_alert' not in df.columns:
+            df['transfer_alert'] = None
+
     t_loaded = time.time()
     logger.info(f"Startup ingestion completed in {t_loaded - t_start:.3f} seconds.")
     if df_bank.empty and df_gl.empty: return {"error": "Empty data"}
@@ -1257,6 +1664,19 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
     df_gl['matched'] = False
     df_bank = compute_duplicates(df_bank, global_upi_registry)
     df_gl = compute_duplicates(df_gl, global_upi_registry)
+    if 'copied_narration' not in df_gl.columns:
+        flag_copied_narrations(df_gl)
+
+    # The user's sticky-note corrections ('Wrong narration. Correct = UPI/<utr>/...')
+    # become matching evidence for this run.
+    try:
+        notes = storage.load_json(os.path.join(data_root, 'sticky_notes.json'), {}) or {}
+    except storage.CorruptJSONError as e:
+        logger.error(f"Ignoring unreadable sticky notes for corrections: {e}")
+        notes = {}
+    n_corr = apply_note_corrections(df_gl, 'gl_id', notes) + apply_note_corrections(df_bank, 'bank_id', notes)
+    if n_corr:
+        logger.info(f"Applied {n_corr} narration corrections from sticky notes")
 
     matches = []
     try:
@@ -1529,10 +1949,52 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
                 gl_matched_status[idx] = True
                 break
 
+    def commit_pair(status, bidx, brow, idx, grow, audit):
+        matches.append({'status': status, 'bks': [brow.drop('dt').to_dict()],
+                        'gls': [grow.drop('dt').to_dict()], 'audit': audit})
+        df_bank.at[bidx, 'matched'] = True
+        df_gl.at[idx, 'matched'] = True
+        bank_matched_status[bidx] = True
+        gl_matched_status[idx] = True
+
+    def utrs_of(refs):
+        return {r for r in (refs or []) if len(r) == 12 and r.isdigit()}
+
+    # TIER 2.2: LATE-POSTED UTR (exact 12-digit UTR + exact amount, any date gap)
+    # Entries forgotten and posted months later still carry the same UTR. Only
+    # UTRs that occur exactly once on each side qualify, so a duplicated or
+    # re-used reference can never be auto-linked across a long gap.
+    report(49, "Tier 2.2: Late-Posted UTR...")
+    gl_utr_count, bank_utr_count = {}, {}
+    for refs in df_gl['all_refs']:
+        for u in utrs_of(refs): gl_utr_count[u] = gl_utr_count.get(u, 0) + 1
+    bank_by_utr = {}
+    for bidx, refs in zip(df_bank.index, df_bank['all_refs']):
+        for u in utrs_of(refs):
+            bank_utr_count[u] = bank_utr_count.get(u, 0) + 1
+            bank_by_utr[u] = bidx
+    for idx, grow in df_gl[~df_gl['matched']].iterrows():
+        if gl_matched_status[idx]:
+            continue
+        for u in utrs_of(grow['all_refs']):
+            if gl_utr_count.get(u) != 1 or bank_utr_count.get(u) != 1:
+                continue
+            bidx = bank_by_utr[u]
+            if bank_matched_status[bidx]:
+                continue
+            brow = df_bank.loc[bidx]
+            if brow['type_sign'] == grow['type_sign'] or abs(brow['amount'] - grow['amount']) > 0.005:
+                continue
+            days = abs((brow['dt'] - grow['dt']).days)
+            commit_pair('TIER2.2_LATE_UTR_MATCH', bidx, brow, idx, grow,
+                        {'confidence': 'HIGH', 'date_delay': days, 'utr': u,
+                         'reason': f'Same unique UTR {u}, posted {days} days apart'})
+            break
+
     # TIER 3: EXACT DATE (Optimized pure-Python Candidate Matching)
     report(50, "Tier 3: Exact Date...")
     gl_rem = df_gl[~df_gl['matched']]
-    
+
     for idx, grow in gl_rem.iterrows():
         if gl_matched_status[idx]:
             continue
@@ -1565,7 +2027,8 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
         for bidx, brow, days_apart, amt_diff in cands_filtered:
             if bank_matched_status[bidx]:
                 continue
-            if narrations_compatible(grow['narration'], brow['narration'], aliases):
+            if narrations_compatible(grow['narration'], brow['narration'], aliases) or \
+               (amt_diff < 0.005 and utr_suffix_match(grow['narration'], brow['all_refs'])):
                 matches.append({
                     'status': 'TIER3_EXACT_DATE',
                     'bks': [brow.drop('dt').to_dict()],
@@ -1609,6 +2072,49 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
                     bank_matched_status[bidx] = True
                     gl_matched_status[idx] = True
                     break
+
+    # TIER 3.3: INWARD RTGS/NEFT BY IFSC BANK (±1 day, exact amount)
+    # Bank 'RTGS-SBINR1...' credit vs GL 'BY RTGS TRANSFER - SBI'. Only an
+    # unambiguous single candidate is linked.
+    report(53, "Tier 3.3: RTGS IFSC Bank Match...")
+    for idx, grow in df_gl[~df_gl['matched']].iterrows():
+        if gl_matched_status[idx] or grow['amount'] not in bank_by_amt:
+            continue
+        if not re.search(r'\b(?:RTGS|NEFT)\b', grow['narration'], re.I):
+            continue
+        cands = [(bidx, brow) for bidx, brow in bank_by_amt[grow['amount']]
+                 if not bank_matched_status[bidx] and brow['type_sign'] != grow['type_sign']
+                 and abs((brow['dt'] - grow['dt']).days) <= 1
+                 and rtgs_ifsc_bank_matches(brow['narration'], grow['narration'])]
+        if len(cands) == 1:
+            bidx, brow = cands[0]
+            commit_pair('TIER3.3_RTGS_IFSC_MATCH', bidx, brow, idx, grow,
+                        {'confidence': 'HIGH', 'date_delay': abs((brow['dt'] - grow['dt']).days),
+                         'reason': f"IFSC {brow['narration'][5:9].upper()} = bank named in GL"})
+
+    # TIER 3.4: STATUTORY PAYMENTS (GST / PF / ESI / TDS via GIB, ≤31 days)
+    # Bank remits through the GIB tax gateway mid-month; the GL books the same
+    # liability at month-end. Same statutory class + exact amount, nearest date.
+    report(54, "Tier 3.4: Statutory Payments...")
+    for idx, grow in df_gl[~df_gl['matched']].iterrows():
+        if gl_matched_status[idx] or grow['amount'] not in bank_by_amt:
+            continue
+        g_cls = statutory_class(grow['narration'])
+        if not g_cls:
+            continue
+        cands = []
+        for bidx, brow in bank_by_amt[grow['amount']]:
+            if bank_matched_status[bidx] or brow['type_sign'] == grow['type_sign']:
+                continue
+            if not str(brow['narration']).upper().startswith('GIB/'):
+                continue
+            days = abs((brow['dt'] - grow['dt']).days)
+            if days <= 31 and statutory_class(brow['narration']) == g_cls:
+                cands.append((days, bidx, brow))
+        if cands:
+            days, bidx, brow = min(cands, key=lambda c: c[0])
+            commit_pair('TIER3.4_STATUTORY_MATCH', bidx, brow, idx, grow,
+                        {'confidence': 'HIGH', 'date_delay': days, 'class': g_cls})
 
     # TIER 3.5: ONACHANTHA SEASONAL STALL MATCHER
     report(55, "Tier 3.5: Onachantha Seasonal Stall Matcher...")
@@ -1955,6 +2461,12 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
     df_bank = refresh_duplicate_matched(df_bank)
     df_gl = refresh_duplicate_matched(df_gl)
     un_b, un_g = df_bank[~df_bank['matched']], df_gl[~df_gl['matched']]
+    # Unmatched bank rows by UTR, to surface "same UTR, different amount" (a GL
+    # posting error) which the exact-amount candidate scan below can never see.
+    un_b_by_utr = {}
+    for _, brow in un_b.iterrows():
+        for u in utrs_of(brow['all_refs']):
+            un_b_by_utr.setdefault(u, []).append(brow)
     missing_bank = []
     for _, grow in un_g.iterrows():
         rec = grow.drop('dt').to_dict()
@@ -1973,7 +2485,22 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
                 
                 # Call advanced confidence score calculator
                 score, guide, score_label = calculate_confidence_score(grow, brow)
-                
+                copied = grow.get('copied_narration')
+                if isinstance(copied, dict) and score < 70:
+                    # Narration was pasted from an older voucher: its words/UTR are noise,
+                    # so rank by amount + date proximity alone.
+                    cscore = max(20, 70 - days * 6)
+                    if cscore > score:
+                        score, score_label = cscore, "Copied Narr · Amt/Date"
+                        guide = (f"GL narration looks copied from the {copied.get('original_date')} entry "
+                                 f"(UTR {copied.get('utr')} already used) - judge by amount/date/contra account. {days} days apart")
+                g_alert, b_alert = grow.get('transfer_alert'), brow.get('transfer_alert')
+                if isinstance(g_alert, dict) and isinstance(b_alert, dict) and g_alert.get('id') == b_alert.get('id'):
+                    # Never auto-matched by design: the user must confirm the stuck original did not also pay out.
+                    score, score_label = max(score, 88), "Re-sent Payment"
+                    guide = (f"Re-sent payment to A/c {g_alert.get('benef_acc')} [{g_alert.get('level')}] - "
+                             "verify the stuck original did not ALSO go through before linking")
+
                 # Assign visual colors based on score
                 if score >= 95:
                     col = "success"  # Green
@@ -1996,10 +2523,22 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
                     'days_apart': days,
                     'similarity': narr_sim
                 })
-            # Sort suggestions by confidence score (descending), then days_apart (ascending)
-            rec['suggestions'] = sorted(results, key=lambda x: (-x['confidence_score'], x['days_apart']))[:5]
         else:
-            rec['suggestions'] = []
+            results = []
+        for u in utrs_of(grow['all_refs']):
+            for brow in un_b_by_utr.get(u, []):
+                if brow['type_sign'] == grow['type_sign'] or abs(brow['amount'] - grow['amount']) < 0.005:
+                    continue
+                delta = round(brow['amount'] - grow['amount'], 2)
+                results.append({
+                    'bank_id': brow['bank_id'], 'date': brow['date'], 'narration': brow['narration'],
+                    'amount': brow['amount'], 'color': 'danger', 'confidence_score': 90,
+                    'reason': f"Same UTR {u} but amount differs by Rs {delta:+,.2f} (bank {brow['amount']:,.2f} vs GL {grow['amount']:,.2f}) - check GL posting",
+                    'score_label': 'UTR · Amt Δ', 'days_apart': abs((brow['dt'] - grow['dt']).days),
+                    'similarity': 0, 'amount_delta': delta,
+                })
+        # Sort suggestions by confidence score (descending), then days_apart (ascending)
+        rec['suggestions'] = sorted(results, key=lambda x: (-x['confidence_score'], x['days_apart']))[:5]
         missing_bank.append(rec)
 
     # Build DQ Stats v2
@@ -2020,9 +2559,11 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
 
     output = {
         'summary': {'matched': len(matches), 'bank_unmatched': len(un_b), 'gl_unmatched': len(un_g),
-                    'active_tags': sorted(list(set(pd.concat([df_bank['txn_type'], df_gl['txn_type']])[lambda x: x != 'OTHER'])))},
+                    'active_tags': active_tag_list(df_bank, df_gl)},
         'dq_stats': {
-            'report_version': '2.0',
+            'report_version': '2.1',
+            'statement_integrity': check_statement_integrity(data_root),
+            'transfer_alerts': collect_transfer_alerts(df_bank, df_gl),
             'gl': {
                 'total_entries': len(df_gl),
                 'matched_entries': int(df_gl['matched'].sum()),
@@ -2053,26 +2594,31 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
     report(100, "Done."); return output
 
 
+def active_tag_list(df_bank: pd.DataFrame, df_gl: pd.DataFrame) -> List[str]:
+    """Individual channel tags present in the data (not 'A + B' combinations),
+    in classifier order so the filter menu reads UPI, IMPS, RTGS, NEFT ..."""
+    present = set()
+    for df in (df_bank, df_gl):
+        if not df.empty and 'txn_type' in df.columns:
+            for t in df['txn_type'].dropna().unique():
+                present.update(split_tags(t))
+    order = [t for t, _ in TXN_TAG_RULES]
+    return sorted(present, key=lambda t: order.index(t) if t in order else len(order))
+
 def quick_save(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFrame] = None, data_root: str = DEFAULT_DATA_ROOT, global_upi_registry: Optional[Set[str]] = None) -> Dict:
     paths = get_paths(data_root)
     if not os.path.exists(paths['OUTPUT_JSON']): return reconcile(df_bank, df_gl, data_root, global_upi_registry=global_upi_registry)
     try:
-        with open(paths['OUTPUT_JSON'], 'r') as f: data = json.load(f)
-        upi_reports = load_upi_collection_reports(data_root)
-        if df_bank is None:
-            df_bank = load_bank_psv(data_root)
-            df_bank = enrich_bank_with_upi_reports(df_bank, upi_reports)
-        else:
-            if 'enriched_by_upi_report' not in df_bank.columns:
-                df_bank = enrich_bank_with_upi_reports(df_bank, upi_reports)
-        if df_gl is None: 
-            rtgs, cms = load_rtgs_reports(data_root), load_cms_reports(data_root)
-            df_gl = load_gl_xml(data_root, rtgs, cms)
-            df_gl = enrich_gl_with_upi_reports(df_gl, upi_reports)
-        else:
-            if 'enriched_by_upi_report' not in df_gl.columns:
-                df_gl = enrich_gl_with_upi_reports(df_gl, upi_reports)
-        
+        # storage.load_json reads UTF-8 explicitly; the old bare open() used the
+        # Windows locale codec (cp1252) and would mangle any non-ASCII narration.
+        data = storage.load_json(paths['OUTPUT_JSON'])
+        if not isinstance(data, dict):
+            raise ValueError("data.json is not a reconciliation object")
+        if df_bank is None or df_gl is None:
+            loaded_bank, loaded_gl = load_all(data_root)
+            df_bank = loaded_bank if df_bank is None else df_bank
+            df_gl = loaded_gl if df_gl is None else df_gl
+
         df_bank, df_gl = df_bank.copy(), df_gl.copy()
         df_bank['matched'], df_gl['matched'] = False, False
         if 'duplicate_index' not in df_bank.columns:

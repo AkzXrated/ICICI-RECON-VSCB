@@ -89,13 +89,17 @@ def compress_response(response):
 DATA_ROOT_DIR = os.path.join(BASE_DIR, 'Data')
 
 def get_regular_upis():
+    """Regular (repeat / cross-FY) customers from the knowledge base, as
+    {upi_id: entry}. A dict (not a set) so reconciler.compute_duplicates can
+    also back-fill verified payer names; membership tests work the same."""
     registry_file = os.path.join(DATA_ROOT_DIR, 'upi_knowledge_base.json')
     try:
         registry = storage.load_json(registry_file, {}) or {}
-        return {k for k, v in registry.items() if v.get('count', 0) > 1 or len(v.get('fys', [])) > 1}
+        return {k: v for k, v in registry.items()
+                if isinstance(v, dict) and (v.get('count', 0) > 1 or len(v.get('fys', [])) > 1)}
     except storage.CorruptJSONError as e:
         logger.error("UPI registry unreadable: %s", e)
-    return set()
+    return {}
 
 def update_upi_registry(fy, df_bank, df_gl):
     registry_file = os.path.join(DATA_ROOT_DIR, 'upi_knowledge_base.json')
@@ -153,8 +157,11 @@ def update_upi_registry(fy, df_bank, df_gl):
 
         return set(registry.keys())
 
-# Cache for dataframes to speed up reconciliation, keyed by FY
-CACHE = {}
+# Cache for loaded/enriched dataframes, keyed by FY. Bounded LRU: each FY's
+# frames are tens of MB, and the __ALL__ view used to pin every FY forever.
+from collections import OrderedDict
+CACHE = OrderedDict()
+CACHE_MAX_FYS = int(os.environ.get('ICICI_GL_CACHE_FYS', '2'))
 # Global Progress Tracker
 PROGRESS = {
     "percent": 0,
@@ -217,20 +224,24 @@ def file_etag(path):
     except OSError:
         return None
 
+def load_fy_frames(fy):
+    """(Re)load an FY from disk through the single reconciler pipeline and cache it."""
+    df_bank, df_gl = reconciler.load_all(get_fy_path(fy))
+    CACHE[fy] = {'df_bank': df_bank, 'df_gl': df_gl}
+    CACHE.move_to_end(fy)
+    while len(CACHE) > CACHE_MAX_FYS:
+        evicted, _ = CACHE.popitem(last=False)
+        logger.info("Evicted FY %s from frame cache", evicted)
+    return df_bank, df_gl
+
 def get_cached_data(fy):
-    if fy not in CACHE:
-        CACHE[fy] = {'df_bank': None, 'df_gl': None}
-    
-    if CACHE[fy]['df_bank'] is None or CACHE[fy]['df_gl'] is None:
-        fy_path = get_fy_path(fy)
-        CACHE[fy]['df_bank'] = reconciler.load_bank_psv(fy_path)
-        rtgs = reconciler.load_rtgs_reports(fy_path)
-        cms = reconciler.load_cms_reports(fy_path)
-        upi_reports = reconciler.load_upi_collection_reports(fy_path)
-        CACHE[fy]['df_bank'] = reconciler.enrich_bank_with_upi_reports(CACHE[fy]['df_bank'], upi_reports)
-        CACHE[fy]['df_gl'] = reconciler.load_gl_xml(fy_path, rtgs, cms)
-        CACHE[fy]['df_gl'] = reconciler.enrich_gl_with_upi_reports(CACHE[fy]['df_gl'], upi_reports)
-    return CACHE[fy]['df_bank'].copy(), CACHE[fy]['df_gl'].copy()
+    entry = CACHE.get(fy)
+    if entry is None or entry.get('df_bank') is None or entry.get('df_gl') is None:
+        df_bank, df_gl = load_fy_frames(fy)
+    else:
+        CACHE.move_to_end(fy)
+        df_bank, df_gl = entry['df_bank'], entry['df_gl']
+    return df_bank.copy(), df_gl.copy()
 
 def update_progress(pct, msg):
     PROGRESS["percent"] = pct
@@ -264,8 +275,13 @@ def current_fy():
 @app.route('/api/progress-stream')
 def progress_stream():
     def generate():
-        while True:
+        # Bounded: the old `while True` pinned a server thread per tab forever.
+        # Ends once a run completes, or after ~15 min idle/total.
+        deadline = time.time() + 900
+        while time.time() < deadline:
             yield f"data: {json.dumps(PROGRESS)}\n\n"
+            if PROGRESS.get('percent', 0) >= 100 and not PROGRESS.get('active'):
+                return
             time.sleep(0.5)
     return Response(generate(), mimetype='text/event-stream')
 
@@ -401,16 +417,21 @@ def get_data():
             # Unchanged since last load — skip the JSON parse/serialize entirely.
             return Response(status=304)
         update_progress(0, "Loading saved reconciliation...")
+        # The cache is written NaN-safe by reconciler.safe_json_dumps, so serve
+        # its bytes as-is. The old path parsed ~8 MB, walked it recursively in
+        # clean_record() and re-serialized it on every page load.
         try:
-            result = storage.load_json(output_json)
-            if result is not None:
-                update_progress(100, "Complete")
-                resp = jsonify(result)
-                if etag:
-                    resp.headers['ETag'] = etag
-                    resp.headers['Cache-Control'] = 'no-cache'
-                return resp
-        except storage.CorruptJSONError as e:
+            with storage.path_lock(output_json):
+                with open(output_json, 'r', encoding='utf-8-sig') as f:
+                    text = f.read()
+            json.loads(text)  # integrity check only; corrupt cache -> full reconcile
+            update_progress(100, "Complete")
+            resp = Response(text, mimetype='application/json')
+            if etag:
+                resp.headers['ETag'] = etag
+                resp.headers['Cache-Control'] = 'no-cache'
+            return resp
+        except (OSError, ValueError) as e:
             logger.error("Cache for %s unreadable, running full reconcile: %s", fy, e)
 
 
@@ -433,21 +454,16 @@ def refresh():
     if not fy:
         return jsonify({"error": "No financial year selected"}), 400
     
+    if fy == '__ALL__':
+        return jsonify({"error": "Select a single financial year to refresh."}), 400
+
     update_progress(0, "Reloading Data...")
     fy_path = get_fy_path(fy)
-    if fy not in CACHE:
-        CACHE[fy] = {}
-    CACHE[fy]['df_bank'] = reconciler.load_bank_psv(fy_path)
-    rtgs = reconciler.load_rtgs_reports(fy_path)
-    cms = reconciler.load_cms_reports(fy_path)
-    upi_reports = reconciler.load_upi_collection_reports(fy_path)
-    CACHE[fy]['df_bank'] = reconciler.enrich_bank_with_upi_reports(CACHE[fy]['df_bank'], upi_reports)
-    CACHE[fy]['df_gl'] = reconciler.load_gl_xml(fy_path, rtgs, cms)
-    CACHE[fy]['df_gl'] = reconciler.enrich_gl_with_upi_reports(CACHE[fy]['df_gl'], upi_reports)
-    
+    df_bank, df_gl = load_fy_frames(fy)
+
     reg_upis = get_regular_upis()
-    result = reconciler.reconcile(df_bank=CACHE[fy]['df_bank'].copy(), df_gl=CACHE[fy]['df_gl'].copy(), data_root=fy_path, progress_cb=update_progress, global_upi_registry=reg_upis)
-    update_upi_registry(fy, CACHE[fy]['df_bank'], CACHE[fy]['df_gl'])
+    result = reconciler.reconcile(df_bank=df_bank.copy(), df_gl=df_gl.copy(), data_root=fy_path, progress_cb=update_progress, global_upi_registry=reg_upis)
+    update_upi_registry(fy, df_bank, df_gl)
     update_progress(100, "Complete")
     return jsonify(result)
 
@@ -536,7 +552,16 @@ def manual_match():
                 import difflib
                 similarity = difflib.SequenceMatcher(None, b_narr_clean, g_narr_clean).ratio()
                 
-                if (shared_blocks or similarity > 0.4 or has_wrong_narration_note) and b_narr_clean != g_narr_clean:
+                # Never learn from a pair whose narrations carry different UTRs: the GL
+                # side is then a copy-pasted / wrong narration (the user verified the
+                # match via the contra account), and the key embeds a one-off UTR that
+                # can never recur - such an alias is pure dead weight. A WRONG_NARRATION
+                # note says the same thing explicitly, so it now blocks learning too.
+                g_utrs = set(re.findall(r'(?<!\d)\d{12}(?!\d)', g_narr_orig))
+                b_utrs = set(re.findall(r'(?<!\d)\d{12}(?!\d)', b_narr_orig))
+                utr_conflict = bool(g_utrs and b_utrs and not (g_utrs & b_utrs))
+                if (shared_blocks or similarity > 0.4) and not utr_conflict and not has_wrong_narration_note \
+                        and b_narr_clean != g_narr_clean:
                     alias_file = os.path.join(DATA_ROOT_DIR, 'narrative_aliases.json')
                     with storage.path_lock(alias_file):
                         try:
@@ -583,8 +608,10 @@ def unlink_match():
     if all_manual:
         try:
             # backup=True keeps the wiped set recoverable in manual_links.json.bak
-            storage.save_json(matches_file, [])
-            return jsonify(reconciler.quick_save(df_bank=df_b, df_gl=df_g, data_root=fy_path))
+            with storage.path_lock(matches_file):
+                storage.save_json(matches_file, [])
+            return jsonify(reconciler.quick_save(df_bank=df_b, df_gl=df_g, data_root=fy_path,
+                                                 global_upi_registry=get_regular_upis()))
         except Exception as e:
             logger.exception("unlink all failed")
             return jsonify({"error": str(e)}), 500
@@ -685,6 +712,16 @@ def normalize_note_dict(v):
     if note_type not in VALID_NOTE_TYPES:
         note_type = 'NOTE'
 
+    # One-time, non-destructive type inference for legacy plain NOTEs, e.g.
+    # 'Wrong narration. Correct = UPI/...' typed as a NOTE. Text/tags are never
+    # touched; 'type_inferred' records that it happened and stops re-inference,
+    # so a type the user later picks explicitly always wins.
+    type_inferred = bool(v.get('type_inferred', False))
+    if 'type_inferred' not in v and note_type == 'NOTE':
+        guessed = infer_note_type(text)
+        if guessed != 'NOTE':
+            note_type, type_inferred = guessed, True
+
     severity = str(v.get('severity', 'info') or 'info').lower()
     if severity not in VALID_NOTE_SEVERITIES:
         severity = 'info'
@@ -707,8 +744,23 @@ def normalize_note_dict(v):
         "author": author,
         "created_at": created_at,
         "updated_at": updated_at,
-        "tags": tags
+        "tags": tags,
+        "type_inferred": type_inferred
     }
+
+_NOTE_TYPE_RULES = [
+    ('WRONG_NARRATION', re.compile(r'(?:wrong|incorrect|missing|mistake\w*)\s+narration|narration\s+(?:is\s+)?(?:wrong|incorrect)|\bcorrect(?:ed)?\s*(?:narration)?\s*[=:]', re.I)),
+    ('ACTION', re.compile(r'roll\s*back|delete\s+and\s+re|re-?do\b|move\s+to\b|wrong\s+entry|to\s+be\s+(?:reversed|corrected|posted)|reverse\s+(?:the\s+)?entry', re.I)),
+    ('WARNING', re.compile(r'duplicate|double\s+(?:post|entry|transfer|payment)|posted\s+twice|already\s+done|paid\s+twice', re.I)),
+    ('QUERY', re.compile(r'no\s+idea|not\s+(?:known|sure|clear)|unknown|clarif|\?\s*$', re.I)),
+    ('TAX', re.compile(r'\b(?:TDS|GST|CGST|SGST|income\s+tax)\b', re.I)),
+]
+
+def infer_note_type(text):
+    for note_type, rx in _NOTE_TYPE_RULES:
+        if rx.search(text or ''):
+            return note_type
+    return 'NOTE'
 
 @app.route('/api/sticky-notes')
 def get_sticky_notes():
@@ -796,9 +848,16 @@ def save_sticky_note():
             existing_dict = normalize_note_dict(existing) if existing else {}
             created_at = existing_dict.get('created_at') or datetime.now().isoformat()
             
+            final_type = note_type if note_type in VALID_NOTE_TYPES else (existing_dict.get('type') or 'NOTE')
+            inferred = False
+            if final_type == 'NOTE':
+                guessed = infer_note_type(note_text)
+                if guessed != 'NOTE':
+                    final_type, inferred = guessed, True
             note_obj = {
                 "text": note_text,
-                "type": note_type if note_type in VALID_NOTE_TYPES else (existing_dict.get('type') or 'NOTE'),
+                "type": final_type,
+                "type_inferred": inferred,
                 "category": category if category else (existing_dict.get('category') or "Remark"),
                 "severity": severity if severity in VALID_NOTE_SEVERITIES else (existing_dict.get('severity') or "info"),
                 "status": status if status in VALID_NOTE_STATUSES else (existing_dict.get('status') or "open"),
@@ -891,9 +950,15 @@ def batch_sticky_notes():
 
                 merged_tags = list(set(existing_dict.get('tags', []) + tags))
 
+                inferred = False
+                if final_type == 'NOTE':
+                    guessed = infer_note_type(final_text)
+                    if guessed != 'NOTE':
+                        final_type, inferred = guessed, True
                 notes[tx_id] = {
                     "text": final_text,
                     "type": final_type,
+                    "type_inferred": inferred,
                     "category": final_category,
                     "severity": final_severity,
                     "status": final_status,

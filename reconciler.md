@@ -30,7 +30,7 @@ flowchart TD
 
     %% Matching Engine
     subgraph Engine ["3. Vectorized Multi-Tier Matching Engine"]
-        GL_ENRICHED & BANK_ENRICHED --> TIERS["14 Prioritized Matching Tiers"]
+        GL_ENRICHED & BANK_ENRICHED --> TIERS["17 Prioritized Matching Tiers"]
         TIERS --> T1["Tier 1 / 1.1 (Exact & CMS Bridge)"]
         TIERS --> T2["Tier 2 / 2.1 / 2.5 / 2.8 (UTR, Fuzzy, Cheque, Year-End)"]
         TIERS --> T3["Tier 3 / 3.2 (Exact Date & Mask-Aware VPA)"]
@@ -122,24 +122,34 @@ def vpa_matches(v1: Optional[str], v2: Optional[str]) -> bool:
 
 ## 📊 5. Deep-Dive Prioritized Matching Tiers Catalog
 
-The engine processes data through a sequence of 14 prioritized filters. Once a transaction is reconciled in a tier, it is removed from the search pool.
+The engine processes data through a sequence of prioritized filters (order below = execution order). Once a transaction is reconciled in a tier, it is removed from the search pool.
 
-| Tier | Precedence Status | Window / Tolerances | Algorithmic Rules & Business Logic |
+| Tier | Status | Window / Tolerances | Rules |
 | :--- | :--- | :--- | :--- |
-| **Tier 0** | `MANUAL_MATCH` | Dynamic | User overrides from `manual_links.json`. Supports N-to-N manual matching. |
-| **Tier 1** | `TIER1_PERFECT` | Exact Date (+0 days)<br>Exact Amount | Same Date, Amount, and direct UTR/Reference. Sign-sensitive. |
-| **Tier 1.1**| `TIER1.1_TRANSITIVE_CMS` | Exact Date (+0 days)<br>Exact Amount | Bridged matches via RTGS + CMS reports. Bypasses the Hard Conflict Guard. |
-| **Tier 2** | `TIER2_UTR_MATCH` | ±45-Day Window<br>Exact Amount | UTR/Reference match with ±45-day safety window filter. |
-| **Tier 2.1**| `TIER2.1_FUZZY_UTR` | ±3-Day Window<br>Exact Amount | Levenshtein distance 1 on 11–13 digit references for single-character typos/OCR slips. |
-| **Tier 2.5**| `TIER2.5_CHEQUE_MATCH`| ±3-Day Window<br>Exact Amount | Matches exact 6-10 digit cheque numbers extracted from narration. |
-| **Tier 2.8**| `TIER2.8_MARCH31_ADJUST`| Fiscal Year Window<br>Exact Amount | Matches March 31 GL adjustment entries against earlier bank entries with identical UTR/Cheque. |
-| **Tier 3** | `TIER3_EXACT_DATE` | Exact Date (±1-day grace)<br>±₹0.50 Paisa Tolerance | Same Date and Amount with narrative compatibility check. Includes overnight clearing grace. |
-| **Tier 3.2**| `TIER3.2_UPI_VPA_MATCH`| ±5-Day Window<br>Exact Amount | Matches transactions sharing verified identical customer VPAs or mask-resolved handles. |
-| **Tier 4** | `TIER4_FUZZY_WINDOW` | ±5-Day Window<br>±₹0.50 Paisa Tolerance | Same amount with relaxed date boundaries. Requires narrative word intersection. |
-| **Tier 5** | `TIER5_DEEP_NARRATION`| ±15-Day Window<br>Exact Amount | Fuzzy narrative matching via `difflib.SequenceMatcher` with threshold set to **0.72**. |
-| **Tier 6** | `TIER6_GROUP_MATCH` | Same Date / Near Range<br>Exact Sum Balance | One-to-Many grouping: single Bank credit matching the sum of multiple GL debits. |
-| **Tier 6b**| `TIER6B_GROUP_MATCH_REV`| Same Date / Near Range<br>Exact Sum Balance | Many-to-One grouping: multiple Bank entries matching a single aggregated GL entry. |
-| **Offsets**| `INTERNAL_OFFSET` | O(1) Hash-Bucket Scan | Reversal and contra entries within the same ledger (`REVERSAL`, `BOUNCE`, `FAILED`, `RETURNED`). |
+| **Tier 0** | `MANUAL_MATCH` | — | User-verified links from `manual_links.json` (checked against the contra account). N-to-N. |
+| **GST bundle** | `BUNDLED_GST_MATCH` | ±15 days | Bank charge + SGST/CGST sub-rows (same base id) vs compatible GL rows. |
+| **Tier 1** | `TIER1_PERFECT` | Same date, exact amount | Shared reference/UTR (or edit-distance-1 UTR). Sign-sensitive. |
+| **Tier 1.1** | `TIER1.1_TRANSITIVE_CMS` | Same date, exact amount | Shared ref only reachable via the RTGS/CMS bridge. Bypasses the Hard Conflict Guard. |
+| **Tier 2** | `TIER2_UTR_MATCH` | ±45 days, exact amount | Shared reference/UTR. |
+| **Tier 2.5** | `TIER2.5_CHEQUE_MATCH` | ±3 days, exact amount | Identical cheque number. |
+| **Tier 2.1** | `TIER2.1_FUZZY_UTR` | ±3 days, exact amount | Levenshtein ≤1 between an 11–13 digit GL ref and a bank UTR (incl. prefix-glued `UPI8630755138261`). |
+| **Tier 2.6** | `TIER2.6_INTER_BRANCH_CLEARING` | ±3 days, exact amount | KOD/PKT/KTH branch code or compatible narration. |
+| **Tier 2.8** | `TIER2.8_YEAR_END_CLEANUP` | Any (GL dated 28–31 Mar) | Shared reference. |
+| **Tier 2.2** | `TIER2.2_LATE_UTR_MATCH` | **Any gap**, exact amount | Exact 12-digit UTR that occurs exactly once on each side. `LATE MATCH` badge. |
+| **Tier 3** | `TIER3_EXACT_DATE` | ±1 day, ±₹0.50 | Compatible narration, or (exact amount) GL carries the UTR's last 5–6 digits. |
+| **Tier 3.2** | `TIER3.2_UPI_VPA_MATCH` | ±5 days, exact amount | Same or mask-resolved VPA. |
+| **Tier 3.3** | `TIER3.3_RTGS_IFSC_MATCH` | ±1 day, exact amount | Bank `RTGS-/NEFT-<IFSC4>…` whose bank is named in an RTGS/NEFT GL line; unique candidate only. |
+| **Tier 3.4** | `TIER3.4_STATUTORY_MATCH` | ≤31 days, exact amount | Same statutory class (GST/PF/ESI/TDS); bank side must be a `GIB/` tax payment; nearest date wins. |
+| **Tier 3.5** | `TIER3.5_ONACHANTHA_SALES_MATCH` | ±7 days (Aug–Sep) | Festival-stall keywords. |
+| **Tier 4** | `TIER4_FUZZY_WINDOW` | ±5 days, ±₹0.50 | Compatible narration. |
+| **Tier 4.5** | `TIER4.5_MAR_MAY_SUSPENSE_BRIDGE` | Mar 31 ↔ late May | SL-758 suspense + reversal vs bank. |
+| **Tier 5** | `TIER5_DEEP_NARRATION` | ±15 days, exact amount | Compatible narration or SequenceMatcher > 0.72 (UTR conflict guarded). |
+| **Tier 5.5** | `TIER5.5_COOP_SEMANTIC_RECOVERY` | ±15 days | Malayalam re-pledge / missed-installment triggers. |
+| **Tier 6** | `TIER6_ONE_TO_MANY` | ±3 days | One bank row = sum of same-narration GL rows. |
+| **Tier 6b** | `TIER6B_MANY_TO_ONE` | ±3 days | Many bank rows = one GL row. |
+| **Offsets** | `INTERNAL_OFFSET_GL` / `_BANK` | ±45 days | Debit/credit pairs inside one ledger (FAILED/REVERSAL/RETURNED normalized). |
+
+**Never auto-matched (suggestion + flag only):** re-sent payments (double-transfer groups), same UTR with a different amount, and rows whose narration is a copied/double-posted voucher.
 
 ---
 
@@ -150,6 +160,15 @@ To prevent false auto-links, a **Hard Conflict Guard** checks all candidate matc
 - **Transitive Exception**: Validated CMS-bridged transactions mathematically expect different 12-digit references (GL payment serial vs. Bank batch ref). When auxiliary reports link the two, the Conflict Guard is safely bypassed.
 
 ---
+
+## 🧯 6b. Human-Error & Data-Integrity Safeguards
+
+The GL is keyed by hand and statements are downloaded by hand, so the engine checks its own inputs:
+
+- **Statement integrity** — each `.psv` is replayed through its *Available Balance* column; any row whose balance ≠ previous ± amount marks missing rows. A credits-only export (the Nov-2026 incident: 45 gaps, ₹83.27 lakh of debits missing) or a one-sided file raises a red banner.
+- **Double-transfer fail-safe** — CMS payments to the same beneficiary A/c for the same amount within 7 days form a group. Groups where every live leg has its own GL voucher are legitimate repeats and are dropped; failed legs move no money. Remaining groups: `RETRY_PENDING`, `DOUBLE_PAID`, `DOUBLE_DEBITED`, `RETRY_OK`. The bank side is checked by leg reference and, while a leg is still in flight, by beneficiary IFSC (an IMPS whose RRN the CMS report does not know yet).
+- **Copied / double-posted narrations** — the transaction's own reference (`primary_txn_ref`: UPI UTR, IMPS RRN, RTGS `Ref No`; never account numbers or phone digits) re-appearing on a later GL date ⇒ `DOUBLE POSTED?` (same amount) or `COPIED NARRATION`.
+- **Sticky-note corrections** — `Correct = …` / `Missing narration - …` text in a note contributes its UTRs to matching.
 
 ## 🏛️ 7. Core Accounting, Persistence & Double-Entry Guards
 
@@ -162,5 +181,5 @@ Reconciliation state changes are strictly governed by double-entry ledger constr
 
 ---
 
-*Last Audit Date: November 5, 2026*  
-*Audit Status: Full FY26-27 Ingestion (April–October) Validated. 100% Pass across all 55 tests. Production Ready.*
+*Last Audit Date: November 12, 2026*  
+*Audit Status: Full-app audit (data integrity, human-error safeguards, tags, UI). 69/69 tests pass.*
