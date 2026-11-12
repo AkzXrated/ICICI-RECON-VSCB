@@ -336,9 +336,31 @@ class TestAppIntegrityAndSecurity(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertIn("Read-only", res.get_json().get("error", ""))
 
+        # Notes stay writable in the All-FY view, but only with an FY-prefixed id.
         res = self.client.post('/api/sticky-notes', json={"id": "1", "note": "test"})
         self.assertEqual(res.status_code, 400)
-        self.assertIn("read-only", res.get_json().get("error", "").lower())
+        self.assertIn("financial-year prefix", res.get_json().get("error", ""))
+        res = self.client.post('/api/sticky-notes', json={"id": "../evil:1", "note": "test"})
+        self.assertEqual(res.status_code, 400)
+
+    def test_all_fys_notes_route_to_owning_fy(self):
+        """A note saved in the All-FY view lands in that FY's sticky_notes.json."""
+        with self.client.session_transaction() as sess:
+            sess['fy'] = '__ALL__'
+        notes_file = os.path.join(self.sandbox_path, 'sticky_notes.json')
+        tx = 'ZZ_ALLFY_TEST'
+        try:
+            res = self.client.post('/api/sticky-notes', json={"id": f"{self.sandbox_fy}:{tx}", "note": "from all-fy"})
+            self.assertEqual(res.status_code, 200, res.get_json())
+            self.assertEqual(res.get_json()["notes"][f"{self.sandbox_fy}:{tx}"]["text"], "from all-fy")
+            with open(notes_file, encoding='utf-8') as f:
+                self.assertEqual(json.load(f)[tx]["text"], "from all-fy")
+            res = self.client.post('/api/sticky-notes/batch', json={"ids": [f"{self.sandbox_fy}:{tx}"], "action": "resolve"})
+            self.assertEqual(res.status_code, 200, res.get_json())
+            with open(notes_file, encoding='utf-8') as f:
+                self.assertEqual(json.load(f)[tx]["status"], "resolved")
+        finally:
+            self.client.post('/api/sticky-notes', json={"id": f"{self.sandbox_fy}:{tx}", "note": ""})
 
     def test_corrupt_persistence_files_abort_with_500_without_wiping(self):
         """Verify corrupted JSON files cause 500 error instead of silently wiping data."""

@@ -152,6 +152,67 @@ class TestNewTiers(unittest.TestCase):
         self.assertTrue(sug and sug[0]['amount_delta'] == 160.0)
 
 
+class TestOutwardStatusAudit(unittest.TestCase):
+    """Software outward status vs bank CMS: the software leaves IMPS rows at
+    'Confirmed/Send to Process' after the bank has paid or rejected them."""
+
+    def _out(self, serial, state, status):
+        return {'serial': serial, 'crn': f'CMS{serial}/1', 'date': '01-JUL-26', 'amount': 5000.0,
+                'benef_name': 'X', 'benef_acc': '1', 'ifsc': 'SBIN0000001', 'method': 'IMPS',
+                'status': status, 'state': state}
+
+    def _cms(self, serial, status, utr_raw):
+        return {'serial': serial, 'cms_ref': f'CMS{serial}', 'status': status, 'utr_raw': utr_raw,
+                'utr': None, 'source': 'JULY.xls'}
+
+    def test_verdicts(self):
+        outward = [
+            self._out('000000000001', 'PENDING', 'Confirmed/Send to Process'),   # bank paid
+            self._out('000000000002', 'PENDING', 'Confirmed/Send to Process'),   # bank cancelled
+            self._out('000000000003', 'PENDING', 'Confirmed/Send to Process'),   # not in CMS
+            self._out('000000000004', 'FAILED', 'Failed/Reversed'),              # reversal in GL
+            self._out('000000000005', 'FAILED', 'Failed/Reversed'),              # no reversal
+            self._out('000000000006', 'FAILED', 'Failed/Reversed'),              # but bank paid
+            self._out('000000000007', 'PAID', 'Success'),                        # bank cancelled
+            self._out('000000000008', 'PAID', 'Success'),                        # agree
+        ]
+        cms = [self._cms('000000000001', 'PAID', '618214613777 - Transaction Success'),
+               self._cms('000000000002', 'CANCELLED', '621815509031 - Invalid account'),
+               self._cms('000000000006', 'PAID', 'x - Transaction Success'),
+               self._cms('000000000007', 'CANCELLED', 'Invalid account'),
+               self._cms('000000000008', 'PAID', 'ok - Transaction Success')]
+        gl = pd.DataFrame({'narration': ['RTGS/NEFT Failed To X(A/c=1), Ref No:000000000004',
+                                         'RTGS/NEFT To X(A/c=1), Ref No:000000000005']})
+        res = R.audit_outward_status(outward, cms, gl)
+        v = {i['serial'][-1]: i['verdict'] for i in res['issues']}
+        self.assertEqual(v, {'1': 'STALE_PAID', '2': 'STALE_FAILED', '3': 'IN_FLIGHT',
+                             '5': 'NO_REVERSAL', '6': 'CONFLICT', '7': 'PAID_BUT_CANCELLED'})
+        self.assertEqual(res['counts']['agree'], 2)
+        self.assertEqual(res['issues'][0]['verdict'], 'CONFLICT')   # most serious first
+
+
+class TestSettledTransferAlerts(unittest.TestCase):
+    def _frames(self, bank_matched, gl_matched, alert_id='a1'):
+        ta = {'id': alert_id}
+        b = pd.DataFrame({'transfer_alert': [ta], 'matched': [bank_matched]})
+        g = pd.DataFrame({'transfer_alert': [ta], 'matched': [gl_matched]})
+        return b, g
+
+    def test_settled_only_when_all_rows_matched_and_no_risk(self):
+        b, g = self._frames(True, True)
+        a = R.mark_settled_alerts([{'id': 'a1', 'level': 'RETRY_PENDING'}], b, g)[0]
+        self.assertTrue(a['settled'])
+        b, g = self._frames(True, False)
+        self.assertFalse(R.mark_settled_alerts([{'id': 'a1', 'level': 'RETRY_PENDING'}], b, g)[0]['settled'])
+        # A second debit of the stuck original re-opens the alert
+        b, g = self._frames(True, True)
+        a = R.mark_settled_alerts([{'id': 'a1', 'level': 'RETRY_PENDING', 'possible_double_debit': True}], b, g)[0]
+        self.assertFalse(a['settled'])
+        self.assertFalse(R.mark_settled_alerts([{'id': 'a1', 'level': 'DOUBLE_PAID'}], b, g)[0]['settled'])
+        # No tagged rows at all: nothing proves it was reconciled
+        self.assertFalse(R.mark_settled_alerts([{'id': 'zz', 'level': 'RETRY_PENDING'}], b, g)[0]['settled'])
+
+
 class TestNoteTypeInference(unittest.TestCase):
     def test_inference_is_lossless_and_one_time(self):
         import app

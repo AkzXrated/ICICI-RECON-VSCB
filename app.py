@@ -762,6 +762,36 @@ def infer_note_type(text):
             return note_type
     return 'NOTE'
 
+def _aggregate_all_notes():
+    """Every FY's notes keyed 'FY:tx_id' — the id format of the All-FY view."""
+    aggregated_notes = {}
+    for f in list_fy_dirs().keys():
+        notes_file = os.path.join(get_fy_path(f), 'sticky_notes.json')
+        try:
+            notes = storage.load_json(notes_file, {}) or {}
+        except storage.CorruptJSONError as e:
+            logger.error("Skipping unreadable sticky notes for %s: %s", f, e)
+            continue
+        for k, v in notes.items():
+            aggregated_notes[f"{f}:{k}"] = normalize_note_dict(v)
+    return aggregated_notes
+
+def _note_targets(fy, ids):
+    """Group note ids by the FY whose sticky_notes.json they live in. In the
+    All-FY view ids carry an 'FY:' prefix; notes are annotations (not
+    reconciliation state), so they stay writable there. Returns
+    ({fy: [local_ids]}, error)."""
+    groups = {}
+    for raw in ids:
+        if fy == '__ALL__':
+            f, sep, local = raw.partition(':')
+            if not sep or not local or not is_safe_fy(f):
+                return None, f"Note id {raw!r} has no valid financial-year prefix"
+        else:
+            f, local = fy, raw
+        groups.setdefault(f, []).append(local)
+    return groups, None
+
 @app.route('/api/sticky-notes')
 def get_sticky_notes():
     fy = get_current_fy()
@@ -769,17 +799,7 @@ def get_sticky_notes():
         return jsonify({"error": "No financial year selected"}), 400
 
     if fy == '__ALL__':
-        aggregated_notes = {}
-        for f in list_fy_dirs().keys():
-            notes_file = os.path.join(get_fy_path(f), 'sticky_notes.json')
-            try:
-                notes = storage.load_json(notes_file, {}) or {}
-            except storage.CorruptJSONError as e:
-                logger.error("Skipping unreadable sticky notes for %s: %s", f, e)
-                continue
-            for k, v in notes.items():
-                aggregated_notes[f"{f}:{k}"] = normalize_note_dict(v)
-        return jsonify(aggregated_notes)
+        return jsonify(_aggregate_all_notes())
 
     if not is_safe_fy(fy):
         return jsonify({"error": "Invalid financial year"}), 400
@@ -808,13 +828,9 @@ def save_sticky_note():
     fy = get_current_fy()
     if not fy:
         return jsonify({"error": "No financial year selected"}), 400
-    if fy == '__ALL__':
-        return jsonify({"error": "Cannot edit notes in read-only All Financial Years view."}), 400
-    if not is_safe_fy(fy):
+    if fy != '__ALL__' and not is_safe_fy(fy):
         return jsonify({"error": "Invalid financial year"}), 400
-    fy_path = get_fy_path(fy)
-    notes_file = os.path.join(fy_path, 'sticky_notes.json')
-    
+
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"error": "Invalid or missing JSON body"}), 400
@@ -823,6 +839,11 @@ def save_sticky_note():
         tx_id = str(tx_id).strip()
     if not tx_id:
         return jsonify({"error": "No transaction ID provided"}), 400
+    groups, err = _note_targets(fy, [tx_id])
+    if err:
+        return jsonify({"error": err}), 400
+    target_fy, (tx_id,) = next(iter(groups.items()))
+    notes_file = os.path.join(get_fy_path(target_fy), 'sticky_notes.json')
 
     note_text = str(data.get('note', '') or '').strip()
     category = str(data.get('category', '') or '').strip()
@@ -872,23 +893,19 @@ def save_sticky_note():
 
         try:
             storage.save_json(notes_file, notes)
-            return jsonify({"status": "success", "notes": notes})
         except Exception as e:
             logger.exception("save_sticky_note failed")
             return jsonify({"error": str(e)}), 500
+    return jsonify({"status": "success", "notes": _aggregate_all_notes() if fy == '__ALL__' else notes})
 
 @app.route('/api/sticky-notes/batch', methods=['POST'])
 def batch_sticky_notes():
     fy = get_current_fy()
     if not fy:
         return jsonify({"error": "No financial year selected"}), 400
-    if fy == '__ALL__':
-        return jsonify({"error": "Cannot batch edit notes in read-only All Financial Years view."}), 400
-    if not is_safe_fy(fy):
+    if fy != '__ALL__' and not is_safe_fy(fy):
         return jsonify({"error": "Invalid financial year"}), 400
-    fy_path = get_fy_path(fy)
-    notes_file = os.path.join(fy_path, 'sticky_notes.json')
-    
+
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"error": "Invalid or missing JSON body"}), 400
@@ -915,65 +932,72 @@ def batch_sticky_notes():
     if not clean_ids:
         return jsonify({"error": "No valid transaction IDs"}), 400
 
-    with storage.path_lock(notes_file):
-        try:
-            notes = storage.load_json(notes_file, {}) or {}
-        except storage.CorruptJSONError:
-            return jsonify({"error": "sticky_notes.json is unreadable. Restore from backup and retry."}), 500
+    groups, err = _note_targets(fy, clean_ids)
+    if err:
+        return jsonify({"error": err}), 400
+    notes = {}
+    for target_fy, local_ids in groups.items():
+        notes_file = os.path.join(get_fy_path(target_fy), 'sticky_notes.json')
+        with storage.path_lock(notes_file):
+            try:
+                notes = storage.load_json(notes_file, {}) or {}
+            except storage.CorruptJSONError:
+                return jsonify({"error": "sticky_notes.json is unreadable. Restore from backup and retry."}), 500
 
-        now_iso = datetime.now().isoformat()
+            now_iso = datetime.now().isoformat()
 
-        if action == 'delete':
-            for tx_id in clean_ids:
-                notes.pop(tx_id, None)
-        elif action == 'resolve':
-            for tx_id in clean_ids:
-                if tx_id in notes:
-                    obj = normalize_note_dict(notes[tx_id])
-                    obj['status'] = 'resolved'
-                    obj['updated_at'] = now_iso
-                    notes[tx_id] = obj
-        else: # 'set'
-            for tx_id in clean_ids:
-                existing = notes.get(tx_id)
-                existing_dict = normalize_note_dict(existing) if existing else {}
-                created_at = existing_dict.get('created_at') or now_iso
+            if action == 'delete':
+                for tx_id in local_ids:
+                    notes.pop(tx_id, None)
+            elif action == 'resolve':
+                for tx_id in local_ids:
+                    if tx_id in notes:
+                        obj = normalize_note_dict(notes[tx_id])
+                        obj['status'] = 'resolved'
+                        obj['updated_at'] = now_iso
+                        notes[tx_id] = obj
+            else: # 'set'
+                for tx_id in local_ids:
+                    existing = notes.get(tx_id)
+                    existing_dict = normalize_note_dict(existing) if existing else {}
+                    created_at = existing_dict.get('created_at') or now_iso
                 
-                final_text = note_text
-                if mode == 'append' and existing_dict.get('text'):
-                    final_text = f"{existing_dict['text']}\n{note_text}".strip() if note_text else existing_dict['text']
+                    final_text = note_text
+                    if mode == 'append' and existing_dict.get('text'):
+                        final_text = f"{existing_dict['text']}\n{note_text}".strip() if note_text else existing_dict['text']
 
-                final_category = category or existing_dict.get('category') or 'Remark'
-                final_type = note_type if note_type in VALID_NOTE_TYPES else (existing_dict.get('type') or 'NOTE')
-                final_severity = severity if severity in VALID_NOTE_SEVERITIES else (existing_dict.get('severity') or 'info')
-                final_status = status if status in VALID_NOTE_STATUSES else (existing_dict.get('status') or 'open')
+                    final_category = category or existing_dict.get('category') or 'Remark'
+                    final_type = note_type if note_type in VALID_NOTE_TYPES else (existing_dict.get('type') or 'NOTE')
+                    final_severity = severity if severity in VALID_NOTE_SEVERITIES else (existing_dict.get('severity') or 'info')
+                    final_status = status if status in VALID_NOTE_STATUSES else (existing_dict.get('status') or 'open')
 
-                merged_tags = list(set(existing_dict.get('tags', []) + tags))
+                    merged_tags = list(set(existing_dict.get('tags', []) + tags))
 
-                inferred = False
-                if final_type == 'NOTE':
-                    guessed = infer_note_type(final_text)
-                    if guessed != 'NOTE':
-                        final_type, inferred = guessed, True
-                notes[tx_id] = {
-                    "text": final_text,
-                    "type": final_type,
-                    "type_inferred": inferred,
-                    "category": final_category,
-                    "severity": final_severity,
-                    "status": final_status,
-                    "author": author or existing_dict.get('author') or 'User',
-                    "created_at": created_at,
-                    "updated_at": now_iso,
-                    "tags": merged_tags
-                }
+                    inferred = False
+                    if final_type == 'NOTE':
+                        guessed = infer_note_type(final_text)
+                        if guessed != 'NOTE':
+                            final_type, inferred = guessed, True
+                    notes[tx_id] = {
+                        "text": final_text,
+                        "type": final_type,
+                        "type_inferred": inferred,
+                        "category": final_category,
+                        "severity": final_severity,
+                        "status": final_status,
+                        "author": author or existing_dict.get('author') or 'User',
+                        "created_at": created_at,
+                        "updated_at": now_iso,
+                        "tags": merged_tags
+                    }
 
-        try:
-            storage.save_json(notes_file, notes)
-            return jsonify({"status": "success", "count": len(clean_ids), "notes": notes})
-        except Exception as e:
-            logger.exception("batch_sticky_notes failed")
-            return jsonify({"error": str(e)}), 500
+            try:
+                storage.save_json(notes_file, notes)
+            except Exception as e:
+                logger.exception("batch_sticky_notes failed")
+                return jsonify({"error": str(e)}), 500
+    return jsonify({"status": "success", "count": len(clean_ids),
+                    "notes": _aggregate_all_notes() if fy == '__ALL__' else notes})
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

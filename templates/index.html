@@ -11,8 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --icici-maroon: #5c0c10;
-            --icici-orange: #d97706; /* Rich warm amber for high light-mode contrast */
+            /* Brand chrome (header, footer, primary buttons, pills). Variable names
+               kept for compatibility; status colours on cards are separate. */
+            --icici-maroon: #0f2742;  /* deep navy: header, sidebar header, active tabs */
+            --icici-orange: #1d6fd8;  /* sapphire accent: buttons, pills, titles */
+            --brand-deep: #1557b0;
+            --brand-rgb: 29, 111, 216;
             --icici-dark-blue: #cbd5e1;
             --icici-light-blue: #0284c7; /* Solid sky blue for light mode high-contrast */
             --icici-sky: #cbd5e1;
@@ -60,7 +64,7 @@
 
         /* Navbar */
         .navbar {
-            background: linear-gradient(90deg, var(--icici-maroon) 0%, #7f1d1d 100%);
+            background: linear-gradient(90deg, var(--icici-maroon) 0%, #1e3a5f 100%);
             padding: 0.65rem 1.5rem;
             z-index: 1000;
             flex-shrink: 0;
@@ -305,6 +309,14 @@
         .status-legend { display: flex; flex-wrap: wrap; gap: 10px; font-size: .68rem; color: var(--text-muted); }
         .status-legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; background: var(--c); }
         #data-alert-banner .alert-chip { cursor: pointer; text-decoration: underline dotted; }
+        .legend-tip { position: relative; display: inline-block; margin-left: 6px; color: var(--text-muted); cursor: help; font-weight: 400; }
+        .legend-pop { display: none !important; position: fixed; z-index: 2000; width: 300px; padding: 8px 10px;
+            background: var(--bg-panel, #fff); border: 1px solid var(--border-color); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.12);
+            letter-spacing: 0; text-transform: none; }
+        .legend-tip:hover .legend-pop, .legend-tip:focus .legend-pop { display: flex !important; }
+        .outward-table td, .outward-table th { font-size: .72rem; vertical-align: top; white-space: nowrap; }
+        .outward-table td.wrap { white-space: normal; min-width: 180px; }
+        .verdict-pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: .62rem; font-weight: 700; color: #fff; }
 
         .narration-cell { position: relative; border-radius: 6px; }
         .narration-cell:hover { background: rgba(56, 189, 248, 0.08); }
@@ -738,7 +750,7 @@
         .note-sev-low { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
         .note-sev-info { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
         .note-trigger {
-            position: absolute; right: 42px; top: 4px; opacity: 0;
+            position: absolute; right: 42px; top: 4px; opacity: 0.35;
             transition: var(--transition); background: var(--bg-panel);
             color: var(--text-muted); border: 1px solid var(--border-color); border-radius: 6px; padding: 4px 8px;
             font-size: 0.7rem; font-weight: 700;
@@ -793,7 +805,7 @@
         .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; color: var(--text-main); }
 
         .btn-action-primary {
-            background: linear-gradient(135deg, var(--icici-orange) 0%, #d97706 100%);
+            background: linear-gradient(135deg, var(--icici-orange) 0%, var(--brand-deep) 100%);
             color: #ffffff;
             border: none;
             padding: 0.6rem 2.5rem;
@@ -801,11 +813,11 @@
             font-weight: 800;
             font-size: 0.85rem;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 4px 15px rgba(var(--brand-rgb), 0.25);
         }
         .btn-action-primary:hover:not(:disabled) { 
             transform: translateY(-1.5px); 
-            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.4);
+            box-shadow: 0 6px 20px rgba(var(--brand-rgb), 0.4);
             filter: brightness(1.05);
         }
         .btn-action-primary:active:not(:disabled) {
@@ -881,8 +893,8 @@
 
         #splash-screen {
             position: fixed; inset: 0; 
-            background: radial-gradient(circle at top right, rgba(92, 12, 16, 0.08), transparent),
-                        radial-gradient(circle at bottom left, rgba(217, 119, 6, 0.12), transparent),
+            background: radial-gradient(circle at top right, rgba(15, 39, 66, 0.08), transparent),
+                        radial-gradient(circle at bottom left, rgba(var(--brand-rgb), 0.12), transparent),
                         #faf9f6;
             z-index: 10000; display: flex; align-items: center; justify-content: center; color: var(--text-main);
             overflow: hidden;
@@ -904,7 +916,7 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(217, 119, 6, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); } }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(var(--brand-rgb), 0.4); } 70% { box-shadow: 0 0 0 20px rgba(var(--brand-rgb), 0); } 100% { box-shadow: 0 0 0 0 rgba(var(--brand-rgb), 0); } }
 
         .splash-card {
             background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(40px);
@@ -1005,10 +1017,10 @@
             transform: translateY(-1px);
         }
         .month-pill.active {
-            background: linear-gradient(135deg, var(--icici-orange) 0%, #d97706 100%);
+            background: linear-gradient(135deg, var(--icici-orange) 0%, var(--brand-deep) 100%);
             color: #ffffff;
             border-color: var(--icici-orange);
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 4px 10px rgba(var(--brand-rgb), 0.25);
         }
         .month-pill.disabled-preset {
             opacity: 0.4;
@@ -1176,7 +1188,7 @@
             background-color: var(--icici-orange) !important;
             color: #ffffff !important;
             border-color: var(--icici-orange) !important;
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
+            box-shadow: 0 4px 10px rgba(var(--brand-rgb), 0.25);
         }
 
         /* Flatpickr premium light mode override */
@@ -1431,13 +1443,16 @@
             <span class="fw-bold tracking-tight">ICICI <span class="fw-light opacity-80">RECON PRO</span></span>
         </span>
         <div class="d-flex align-items-center gap-3">
-            <button class="btn btn-sm btn-outline-warning rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" data-bs-toggle="modal" data-bs-target="#cheatsheetModal">
+            <button class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" data-bs-toggle="modal" data-bs-target="#cheatsheetModal">
                 <i class="bi bi-keyboard me-1"></i> Hotkeys
             </button>
-            <button class="btn btn-sm btn-outline-warning rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" data-bs-toggle="modal" data-bs-target="#dqModal">
+            <button class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" data-bs-toggle="modal" data-bs-target="#dqModal">
                 <i class="bi bi-bar-chart-line me-1"></i> Dashboard & Audit
             </button>
-            <button class="btn btn-sm btn-outline-warning rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" onclick="toggleSidebar(true)">
+            <button class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold border-0 d-none" style="background: rgba(255,255,255,0.1);" id="btn-outward-status" onclick="openOutwardModal()">
+                <i class="bi bi-arrow-left-right me-1"></i> Payment Status <span class="badge rounded-pill ms-1" id="outward-badge"></span>
+            </button>
+            <button class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" onclick="toggleSidebar(true)">
                 <i class="bi bi-journal-text me-1"></i> Notes Hub
             </button>
             <button class="btn btn-sm btn-outline-light rounded-pill px-3 fw-bold border-0" style="background: rgba(255,255,255,0.1);" data-bs-toggle="modal" data-bs-target="#fyModal">
@@ -1498,6 +1513,19 @@
             <div class="modal-footer border-0 pt-0">
                 <button type="button" class="btn btn-link text-muted text-decoration-none w-100 small" data-bs-dismiss="modal">Close</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Outward payment status: core-banking software vs bank CMS report -->
+<div class="modal fade" id="outwardModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-800 text-dark"><i class="bi bi-arrow-left-right me-2 text-primary"></i>Outward Payment Status &mdash; Software vs Bank (CMS)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" id="outward-container"></div>
         </div>
     </div>
 </div>
@@ -1674,7 +1702,10 @@
         <div class="d-flex gap-3 flex-grow-1 p-1" style="min-height:0;">
             <section class="panel">
                 <div class="panel-header">
-                    <span class="panel-title">BANK STATEMENT</span>
+                    <span class="panel-title">BANK STATEMENT <span class="legend-tip" tabindex="0" aria-label="Colour key" onmouseenter="placeLegend(this)" onfocus="placeLegend(this)"><i class="bi bi-palette2"></i><span class="legend-pop status-legend">
+                        <span style="--c:#16a34a">auto (hard evidence)</span><span style="--c:#d97706">auto (verify)</span>
+                        <span style="--c:#4f46e5">manual</span><span style="--c:#64748b">offset</span>
+                        <span style="--c:#0d9488">pending + strong lead</span><span style="--c:#dc2626">money at risk</span><span style="--c:#ea580c">needs a look</span></span></span></span>
                     <div class="d-flex align-items-center gap-2">
                         <span class="badge bg-light text-muted px-2" id="bank-count" style="font-size:0.65rem;">0</span>
                     </div>
@@ -3364,7 +3395,9 @@
         if (!el) return;
         const dq = db.dq_stats || {};
         const bad = (dq.statement_integrity || []).filter(f => !f.ok);
-        const alerts = dq.transfer_alerts || [];
+        // Settled = every row of the group already reconciled and no sign of a
+        // second payout; it re-surfaces automatically if the original debits.
+        const alerts = (dq.transfer_alerts || []).filter(a => !a.settled);
         const danger = alerts.filter(a => a.level === 'DOUBLE_DEBITED' || a.level === 'DOUBLE_PAID' || a.possible_double_debit);
         const parts = [];
         bad.forEach(f => {
@@ -3376,14 +3409,91 @@
         if (alerts.length) {
             parts.push(`<div><i class="bi bi-exclamation-octagon-fill me-1"></i><span class="alert-chip" onclick="toggleReviewFilter('transfer')"><strong>${alerts.length} re-sent payment group(s)</strong>${danger.length ? ` - ${danger.length} may have paid out twice` : ''}</span>: ${alerts.slice(0, 3).map(a => escapeHtml(`${a.benef_name || a.benef_acc} Rs ${fmtAmt(a.amount)} [${a.level}]`)).join(', ')}</div>`);
         }
+        const outRisk = outwardRiskRows();
+        if (outRisk.length) {
+            parts.push(`<div><i class="bi bi-arrow-left-right me-1"></i><span class="alert-chip" onclick="openOutwardModal()"><strong>${outRisk.length} outward payment(s)</strong> where the software and the bank disagree on whether money left</span>: ${outRisk.slice(0, 3).map(o => escapeHtml(`${o.benef_name} Rs ${fmtAmt(o.amount)} [${OUTWARD_VERDICTS[o.verdict].label}]`)).join(', ')}</div>`);
+        }
+        renderOutwardButton();
         if (!parts.length) { el.className = 'd-none'; el.innerHTML = ''; return; }
-        const isDanger = bad.length || danger.length;
+        const isDanger = bad.length || danger.length || outRisk.length;
         el.className = `mx-1 mb-2 px-3 py-2 rounded-3 ${isDanger ? 'bg-danger-subtle text-danger-emphasis border border-danger-subtle' : 'bg-warning-subtle text-warning-emphasis border border-warning-subtle'}`;
         el.style.fontSize = '0.74rem';
-        el.innerHTML = parts.join('') + `<div class="status-legend mt-1">
-            <span style="--c:#16a34a">auto (hard evidence)</span><span style="--c:#d97706">auto (verify)</span>
-            <span style="--c:#4f46e5">manual</span><span style="--c:#64748b">offset</span>
-            <span style="--c:#0d9488">pending + strong lead</span><span style="--c:#dc2626">money at risk</span><span style="--c:#ea580c">needs a look</span></div>`;
+        el.innerHTML = parts.join('');
+    }
+
+    // ---- Outward payment status: core-banking software vs the bank's CMS report ----
+    const OUTWARD_VERDICTS = {
+        CONFLICT:           { label: 'REVERSED BUT PAID', color: '#dc2626', risk: true,  todo: 'Software reversed it, but the bank PAID it. Money left; the reversal voucher is wrong.' },
+        PAID_BUT_CANCELLED: { label: 'PAID IN BOOKS, BANK CANCELLED', color: '#dc2626', risk: true, todo: 'Member was NOT paid. Re-send or post a reversal.' },
+        STALE_FAILED:       { label: 'PENDING, BANK CANCELLED', color: '#dc2626', risk: true,  todo: 'Bank rejected it but the books still show it as paid. Post the reversal.' },
+        NO_REVERSAL:        { label: 'FAILED, NO GL REVERSAL', color: '#ea580c', risk: true,  todo: 'Software says failed, but no "Failed To..." reversal voucher was found in the GL.' },
+        IN_FLIGHT:          { label: 'IN FLIGHT', color: '#0d9488', risk: false, todo: 'No final status from the bank yet. Check before re-sending.' },
+        STALE_PAID:         { label: 'STALE: BANK PAID', color: '#64748b', risk: false, todo: 'Bank paid it; the software never updated. Mark it Success in the software.' },
+    };
+
+    // The panel clips overflow, so the colour key pops up fixed under its icon.
+    function placeLegend(tip) {
+        const r = tip.getBoundingClientRect(), pop = tip.querySelector('.legend-pop');
+        pop.style.left = `${Math.max(8, Math.min(r.left, window.innerWidth - 320))}px`;
+        pop.style.top = `${r.bottom + 6}px`;
+    }
+
+    function outwardIssues() {
+        const os_ = (db && db.dq_stats && db.dq_stats.outward_status) || null;
+        return os_ ? (os_.issues || []) : [];
+    }
+    function outwardRiskRows() {
+        return outwardIssues().filter(o => (OUTWARD_VERDICTS[o.verdict] || {}).risk);
+    }
+
+    function renderOutwardButton() {
+        const btn = document.getElementById('btn-outward-status');
+        if (!btn) return;
+        const issues = outwardIssues();
+        btn.classList.toggle('d-none', !issues.length);
+        const risk = outwardRiskRows().length;
+        const badge = document.getElementById('outward-badge');
+        badge.textContent = risk || issues.length;
+        badge.className = `badge rounded-pill ms-1 ${risk ? 'bg-danger' : 'bg-secondary'}`;
+        btn.title = `${issues.length} outward payment(s) where the software status disagrees with the bank` + (risk ? ` (${risk} with money at risk)` : '');
+    }
+
+    function openOutwardModal() {
+        const box = document.getElementById('outward-container');
+        const os_ = (db && db.dq_stats && db.dq_stats.outward_status) || { counts: {}, issues: [] };
+        const c = os_.counts || {};
+        const issues = os_.issues || [];
+        const chips = Object.entries(OUTWARD_VERDICTS).filter(([k]) => c[k]).map(([k, v]) =>
+            `<span class="verdict-pill me-1" style="background:${v.color}">${c[k]} ${v.label}</span>`).join('');
+        // In-flight originals that were already re-sent (a transfer-alert leg).
+        const resent = {};
+        ((db.dq_stats || {}).transfer_alerts || []).forEach(a => (a.legs || []).forEach(l => {
+            const ref = (l.split(' ')[2] || '');
+            if (ref) resent[ref] = a;
+        }));
+        const rows = issues.map(o => {
+            const v = OUTWARD_VERDICTS[o.verdict] || { label: o.verdict, color: '#64748b', todo: '' };
+            const ra = o.verdict === 'IN_FLIGHT' && resent[(o.crn || '').split('/')[0]];
+            const todo = ra ? `Already re-sent${ra.settled ? ' and reconciled' : ''}. Make sure this original does NOT also pay out; cancel it with the bank if it is still pending.` : v.todo;
+            return `<tr>
+                <td><span class="verdict-pill" style="background:${v.color}">${v.label}</span></td>
+                <td>${escapeHtml(o.date)}</td>
+                <td class="text-end fw-bold">${fmtAmt(o.amount)}</td>
+                <td class="wrap">${escapeHtml(o.benef_name)}<div class="text-muted">${escapeHtml(o.method)} &middot; ${escapeHtml(o.ifsc || '')}</div></td>
+                <td class="font-monospace">${escapeHtml(o.serial || '')}<div class="text-muted">${escapeHtml(o.crn || 'no CRN')}</div></td>
+                <td>${escapeHtml(o.status)}</td>
+                <td class="wrap">${o.cms_status ? `<b>${escapeHtml(o.cms_status)}</b> ${escapeHtml(o.cms_detail || '')}<div class="text-muted">${escapeHtml(o.cms_file || '')}</div>` : '<span class="text-muted">not in CMS reports yet</span>'}</td>
+                <td class="wrap">${escapeHtml(todo)}</td>
+            </tr>`;
+        }).join('');
+        box.innerHTML = `
+            <p class="small text-muted mb-2">Every row of <code>rtgs_outward_status_rep.xml</code> is checked against the bank's CMS reports (by serial no / CMS ref) and, for failed rows, against the GL's "Failed To..." reversal voucher.
+            <b>${c.agree || 0}</b> of <b>${c.total || 0}</b> rows agree; the rest are listed below, most serious first.</p>
+            <div class="mb-3">${chips || '<span class="text-success fw-bold"><i class="bi bi-check-circle-fill"></i> Software and bank agree on every outward payment.</span>'}</div>
+            ${issues.length ? `<div style="overflow-x:auto"><table class="table table-sm table-hover outward-table mb-0">
+                <thead><tr><th>Verdict</th><th>Date</th><th class="text-end">Amount</th><th>Beneficiary</th><th>Serial / CRN</th><th>Software</th><th>Bank (CMS)</th><th>Action</th></tr></thead>
+                <tbody>${rows}</tbody></table></div>` : ''}`;
+        bootstrap.Modal.getOrCreateInstance(document.getElementById('outwardModal')).show();
     }
 
     // Combined bank/GL lists (unmatched + matched), built once in buildMatchLookup()
@@ -3829,20 +3939,20 @@
     let currentNoteSide = null;
 
     function editStickyNote(itemId, side) {
-        if (window.readOnlyMode) {
-            showToast('Read-only mode. Sticky notes are view-only in All Financial Years view.', 'warning');
-            return;
-        }
+        // Notes are annotations, not reconciliation state: writable in every
+        // view (the All-FY id prefix routes the save to the right year).
         currentNoteItemId = itemId;
         currentNoteSide = side;
 
         const item = side === 'bank' ? bankItemById[itemId] : glItemById[itemId];
 
-        if (!item) return;
+        // An orphan note (its transaction left the data, e.g. a re-exported GL)
+        // must still be editable/deletable from the Notes Hub.
+        if (!item && !stickyNotes[itemId]) return;
 
-        document.getElementById('note-modal-narration').innerText = item.narration;
-        document.getElementById('note-modal-date').innerText = item.date;
-        document.getElementById('note-modal-amount').innerText = `₹ ${fmtAmt(item.amount)} (${item.type_sign==='DEBIT'?'DR':'CR'})`;
+        document.getElementById('note-modal-narration').innerText = item ? item.narration : `Transaction ${itemId} is no longer in the loaded data.`;
+        document.getElementById('note-modal-date').innerText = item ? item.date : '-';
+        document.getElementById('note-modal-amount').innerText = item ? `₹ ${fmtAmt(item.amount)} (${item.type_sign==='DEBIT'?'DR':'CR'})` : '-';
         
         const rawNote = stickyNotes[itemId];
         let noteText = '';
@@ -3931,8 +4041,10 @@
 
                 // Re-render table cleanly
                 render(false);
+                renderNotesHub();
             } else {
-                alert("Failed to save transaction note.");
+                const err = await res.json().catch(() => ({}));
+                showToast(err.error || 'Failed to save transaction note.', 'danger');
             }
         } catch (e) {
             console.error("saveStickyNote failed:", e);
@@ -4207,7 +4319,10 @@
                         <span class="badge fw-bold" style="background: ${itemColor.border}; color: white; font-size: 0.55rem;"><i class="bi ${itemColor.icon} me-1"></i>${note.type}</span>
                         ${statusBadge}
                     </div>
-                    <span style="font-size: 0.6rem; color: #64748b; font-family: monospace;">${note.id}</span>
+                    <div class="d-flex align-items-center gap-1">
+                        <span style="font-size: 0.6rem; color: #64748b; font-family: monospace;">${escapeHtml(note.id)}</span>
+                        <button type="button" class="btn btn-sm btn-light border py-0 px-1 hub-locate" title="Show this transaction" style="font-size:0.65rem;"><i class="bi bi-crosshair"></i></button>
+                    </div>
                 </div>
                 <p class="mb-1 text-dark fw-bold" style="font-size: 0.75rem; color: ${itemColor.text} !important; ${isResolved ? 'text-decoration: line-through; opacity: 0.8;' : ''}">${escapeHtml(note.text)}</p>
                 ${tagsHtml}
@@ -4219,7 +4334,12 @@
                     <div class="text-truncate mt-1" title="${escapeHtml(note.narration)}"><b>Narr:</b> ${escapeHtml(note.narration)}</div>
                 </div>
             `;
-            card.onclick = () => {
+            // Click = edit the note in place; the crosshair jumps to the transaction.
+            card.title = 'Click to edit this note';
+            card.style.cursor = 'pointer';
+            card.onclick = () => editStickyNote(note.id, bankItemById[note.id] ? 'bank' : 'gl');
+            card.querySelector('.hub-locate').onclick = (ev) => {
+                ev.stopPropagation();
                 toggleSidebar(false);
                 scrollAndHighlightCard(note.id);
             };

@@ -97,7 +97,17 @@ def parse_amount(amt: Any) -> float:
     try:
         s = str(amt).replace(',', '').strip()
         if not s or s == '-': return 0.0
-        return float(s)
+        try:
+            v = float(s)
+            return 0.0 if math.isnan(v) else v
+        except ValueError:
+            pass
+        # Formatted exports ('Rs. 2,000.50', '12,000.00 CR', '(500.00)') used to
+        # parse silently as 0 - a row that can never match. Direction comes
+        # from the Cr/Dr column, so a CR/DR suffix is just stripped.
+        neg = s.startswith('(') and s.endswith(')')
+        s = re.sub(r'(?i)^(?:rs\.?|inr|₹)\s*|\s*(?:cr|dr)\.?$|[()\s]', '', s)
+        return -float(s) if neg else float(s)
     except (ValueError, TypeError): return 0.0
 
 def normalize_narration(text: str) -> str:
@@ -1182,6 +1192,110 @@ def check_statement_integrity(data_root: str) -> List[Dict[str, Any]]:
             logger.warning(f"Integrity check skipped for {f}: {e}")
     return out
 
+def mark_settled_alerts(alerts: List[Dict[str, Any]], df_bank: pd.DataFrame, df_gl: pd.DataFrame) -> List[Dict[str, Any]]:
+    """Flag re-send groups the user has already reconciled: every bank and GL
+    row carrying the alert is matched, and nothing points to a second payout.
+    Settled alerts stay in dq_stats (so they re-surface the moment the stuck
+    original also debits — that turns on possible_double_debit) but the UI
+    drops them from the alert banner."""
+    rows: Dict[str, List[bool]] = {}
+    for df in (df_bank, df_gl):
+        if df.empty or 'transfer_alert' not in df.columns or 'matched' not in df.columns:
+            continue
+        for ta, m in zip(df['transfer_alert'], df['matched']):
+            if isinstance(ta, dict) and ta.get('id'):
+                rows.setdefault(ta['id'], []).append(bool(m))
+    for a in alerts:
+        flags = rows.get(a.get('id'), [])
+        risky = a.get('level') in ('DOUBLE_DEBITED', 'DOUBLE_PAID') or a.get('possible_double_debit')
+        a['settled'] = bool(flags) and all(flags) and not risky
+    return alerts
+
+_OUT_STATE = {'SUCCESS': 'PAID', 'CONFIRMED/SEND TO PROCESS': 'PENDING', 'FAILED/REVERSED': 'FAILED'}
+
+def load_outward_status(data_root: str) -> List[Dict[str, Any]]:
+    """Every row of the core-banking outward RTGS/NEFT/IMPS status report(s),
+    including the ones without a CRN (rejected before reaching the bank)."""
+    out = []
+    for f in glob.glob(os.path.join(get_paths(data_root)['REPORTS_DIR'], "*.xml")):
+        try:
+            root = etree.parse(f).getroot()
+            if 'OUTWARD' not in root.tag.upper():
+                continue
+            for n in root.xpath('.//G_CASH_ADJ'):
+                st = (n.findtext('STATUS') or '').strip()
+                serial = (n.findtext('SERIAL_NO') or '').strip()
+                out.append({
+                    'serial': serial.zfill(12) if serial else None,
+                    'crn': (n.findtext('CRN_NUM') or '').strip() or None,
+                    'date': (n.findtext('PAYMENT_DATE') or '').strip(),
+                    'amount': parse_amount(n.findtext('PAY_AMOUNT')),
+                    'benef_name': (n.findtext('BENEF_NAME') or '').strip().upper(),
+                    'benef_acc': (n.findtext('BENEF_ACCNO') or '').strip(),
+                    'ifsc': (n.findtext('BENEF_IFSC') or '').strip().upper(),
+                    'method': (n.findtext('PAYMENT_METHOD') or '').strip().upper(),
+                    'status': st,
+                    'state': _OUT_STATE.get(st.upper(), 'UNKNOWN'),
+                })
+        except Exception as e:
+            logger.warning(f"Outward status report skipped {f}: {e}")
+    return out
+
+def audit_outward_status(outward: List[Dict[str, Any]], cms: List[Dict[str, Any]], df_gl: pd.DataFrame) -> Dict[str, Any]:
+    """Cross-check the core-banking software's outward status against the bank's
+    CMS report (the source of truth for whether money actually moved).
+
+    The software leaves IMPS rows at 'Confirmed/Send to Process' long after
+    the bank has paid or rejected them. Verdicts:
+      STALE_PAID     software pending, bank PAID       -> update status in software
+      STALE_FAILED   software pending, bank CANCELLED  -> books show paid, money never left: post reversal
+      IN_FLIGHT      software pending, bank no final status yet -> wait / check
+      CONFLICT       software failed/reversed, bank PAID -> reversal posted on a payment that went out
+      PAID_BUT_CANCELLED software success, bank CANCELLED -> member not paid
+      NO_REVERSAL    software failed, no 'Failed' reversal voucher in the GL
+    Rows that agree (both paid; failed with a GL reversal) are only counted."""
+    by_serial: Dict[str, List[Dict]] = {}
+    by_ref: Dict[str, List[Dict]] = {}
+    for c in cms:
+        if c.get('serial'): by_serial.setdefault(c['serial'], []).append(c)
+        if c.get('cms_ref'): by_ref.setdefault(c['cms_ref'], []).append(c)
+    reversed_serials: Set[str] = set()
+    if not df_gl.empty:
+        for narr in df_gl['narration']:
+            s = str(narr).upper()
+            if 'FAILED' in s:
+                m = re.search(r'REF\s*NO\s*:?\s*(\d{12})', s)
+                if m: reversed_serials.add(m.group(1))
+
+    issues, counts = [], {'total': len(outward), 'agree': 0}
+    for o in outward:
+        hits = by_serial.get(o['serial'] or '') or by_ref.get((o['crn'] or '').split('/')[0]) or []
+        states = {_payment_state(c) for c in hits}
+        bank = 'PAID' if 'PAID' in states else 'FAILED' if states == {'FAILED'} else 'PENDING' if hits else 'NONE'
+        sw = o['state']
+        verdict = None
+        if sw == 'PENDING':
+            verdict = {'PAID': 'STALE_PAID', 'FAILED': 'STALE_FAILED'}.get(bank, 'IN_FLIGHT')
+        elif sw == 'FAILED':
+            if bank == 'PAID':
+                verdict = 'CONFLICT'
+            elif o['serial'] not in reversed_serials:
+                verdict = 'NO_REVERSAL'
+        elif sw == 'PAID' and bank == 'FAILED':
+            verdict = 'PAID_BUT_CANCELLED'
+        if not verdict:
+            counts['agree'] += 1
+            continue
+        counts[verdict] = counts.get(verdict, 0) + 1
+        c0 = next((c for c in hits if _payment_state(c) == bank), hits[0]) if hits else {}
+        issues.append({**o, 'verdict': verdict, 'bank_state': bank,
+                       'cms_status': c0.get('status') or None, 'cms_detail': c0.get('utr_raw'),
+                       'utr': c0.get('utr'), 'cms_file': c0.get('source'),
+                       'gl_reversed': o['serial'] in reversed_serials})
+    order = {'CONFLICT': 0, 'PAID_BUT_CANCELLED': 1, 'STALE_FAILED': 2, 'NO_REVERSAL': 3, 'IN_FLIGHT': 4, 'STALE_PAID': 5}
+    issues.sort(key=lambda x: (order.get(x['verdict'], 9), x['serial'] or ''))
+    return {'counts': counts, 'issues': issues}
+
 def load_cms_reports(data_root: str) -> List[Dict[str, Any]]:
     paths = get_paths(data_root)
     files = glob.glob(os.path.join(paths['CMS_DIR'], "*.xls*"))
@@ -1516,25 +1630,40 @@ def load_gl_xml(data_root: str, rtgs: List[Dict], cms: List[Dict]) -> pd.DataFra
     df_gl_raw = load_raw_gl_xml(data_root)
     return enrich_gl_with_reports(df_gl_raw, rtgs, cms)
 
+# Per-data-root results of load_all that are not row data (see load_all).
+_SIDECAR: Dict[str, Dict[str, Any]] = {}
+
+def _side_key(data_root: str) -> str:
+    return os.path.normcase(os.path.abspath(data_root))
+
+def _sidecar(data_root: str) -> Dict[str, Any]:
+    return _SIDECAR.get(_side_key(data_root), {})
+
 def load_all(data_root: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """The one ingestion pipeline: load every source in parallel, bridge GL refs
     via RTGS/CMS, enrich both sides from InstaBIZ UPI reports, and tag
     double-transfer groups. Returns (df_bank, df_gl) ready for reconcile/quick_save."""
-    with ThreadPoolExecutor(max_workers=5) as ex:
+    with ThreadPoolExecutor(max_workers=6) as ex:
         f_rtgs = ex.submit(load_rtgs_reports, data_root)
         f_cms = ex.submit(load_cms_reports, data_root)
         f_upi = ex.submit(load_upi_collection_reports, data_root)
         f_bank = ex.submit(load_bank_psv, data_root)
         f_gl = ex.submit(load_raw_gl_xml, data_root)
+        f_out = ex.submit(load_outward_status, data_root)
         rtgs, cms, upi_reports = f_rtgs.result(), f_cms.result(), f_upi.result()
         df_bank, df_gl_raw = f_bank.result(), f_gl.result()
+        outward = f_out.result()
     df_gl = enrich_gl_with_reports(df_gl_raw, rtgs, cms)
     df_bank = enrich_bank_with_upi_reports(df_bank, upi_reports)
     df_gl = enrich_gl_with_upi_reports(df_gl, upi_reports)
     alerts = apply_transfer_alerts(df_bank, df_gl, detect_transfer_alerts(cms))
-    # Also carried on the frame (attrs survive .copy()) so alerts whose legs hit
-    # no loaded row still reach the dashboard.
-    df_gl.attrs['transfer_alerts'] = [_alert_summary(a) for a in alerts]
+    # Kept in a side store, NOT df.attrs: pandas deep-copies attrs into every
+    # derived object (each iterrows row, every drop), which made reconcile ~6x
+    # slower. Alerts whose legs hit no loaded row still reach the dashboard.
+    _SIDECAR[_side_key(data_root)] = {
+        'transfer_alerts': [_alert_summary(a) for a in alerts],
+        'outward_status': audit_outward_status(outward, cms, df_gl) if outward else None,
+    }
     flag_copied_narrations(df_gl)
     if alerts:
         logger.warning(f"{len(alerts)} possible double-transfer group(s) flagged: "
@@ -1621,14 +1750,16 @@ def apply_note_corrections(df: pd.DataFrame, id_col: str, notes: Dict[str, Any])
             n += 1
     return n
 
-def collect_transfer_alerts(df_bank: pd.DataFrame, df_gl: pd.DataFrame) -> List[Dict[str, Any]]:
-    """Unique alert summaries carried on either frame's `transfer_alert` column."""
-    out = {a['id']: a for a in df_gl.attrs.get('transfer_alerts', []) if isinstance(a, dict)}
+def collect_transfer_alerts(df_bank: pd.DataFrame, df_gl: pd.DataFrame, data_root: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Unique alert summaries from load_all's side store plus either frame's
+    `transfer_alert` column."""
+    side = _sidecar(data_root).get('transfer_alerts', []) if data_root else []
+    out = {a['id']: dict(a) for a in side if isinstance(a, dict)}
     for df in (df_gl, df_bank):
         if not df.empty and 'transfer_alert' in df.columns:
             for a in df['transfer_alert']:
                 if isinstance(a, dict):
-                    out[a['id']] = a
+                    out[a["id"]] = dict(a)  # copy: mark_settled_alerts writes to it
     order = {'DOUBLE_DEBITED': 0, 'DOUBLE_PAID': 1, 'RETRY_PENDING': 2, 'RETRY_OK': 3}
     return sorted(out.values(), key=lambda a: order.get(a['level'], 9))
 
@@ -2563,7 +2694,8 @@ def reconcile(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFra
         'dq_stats': {
             'report_version': '2.1',
             'statement_integrity': check_statement_integrity(data_root),
-            'transfer_alerts': collect_transfer_alerts(df_bank, df_gl),
+            'transfer_alerts': mark_settled_alerts(collect_transfer_alerts(df_bank, df_gl, data_root), df_bank, df_gl),
+            'outward_status': _sidecar(data_root).get('outward_status'),
             'gl': {
                 'total_entries': len(df_gl),
                 'matched_entries': int(df_gl['matched'].sum()),
@@ -2758,7 +2890,11 @@ def quick_save(df_bank: Optional[pd.DataFrame] = None, df_gl: Optional[pd.DataFr
             if 'bank' not in data['dq_stats'] or not isinstance(data['dq_stats']['bank'], dict): data['dq_stats']['bank'] = {}
             data['dq_stats']['gl'].update({'matched_entries': int(df_gl['matched'].sum()), 'unmatched_entries': len(un_g)})
             data['dq_stats']['bank'].update({'matched_entries': int(df_bank['matched'].sum()), 'unmatched_entries': len(un_b)})
-        
+            # A manual link can settle (or un-settle) a re-send group.
+            data['dq_stats']['transfer_alerts'] = mark_settled_alerts(collect_transfer_alerts(df_bank, df_gl, data_root), df_bank, df_gl)
+            if _sidecar(data_root).get('outward_status') is not None:
+                data['dq_stats']['outward_status'] = _sidecar(data_root)['outward_status']
+
         # Atomic swap; skips recursive clean_record on massive dict
         storage.save_text(paths['OUTPUT_JSON'], safe_json_dumps(data))
         return data
